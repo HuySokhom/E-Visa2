@@ -124,6 +124,10 @@ app.controller('app_ctrl',[
             location.reload();
         });
     };
+    $scope.isActive = '1';
+    $scope.setActive = function (text) {
+        $scope.isActive = text;
+    };
 
 }]);
 // filter with range of year in the future
