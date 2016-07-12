@@ -1,0 +1,100 @@
+﻿@model IEnumerable<eVisa.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<h6></h6>
+<div class="row border">
+    <div class="panel-success">
+        <div class="panel-heading">
+            <h4>User List</h4>
+        </div>
+        <div class="panel-body">
+            <p class="label">
+                @*@Html.ActionLink("Create New", "Create")*@
+                @* @Html.ActionLink("Register", "Register", "Account")*@
+            </p>
+            <div class="table-responsive">
+                @Html.ActionLink("Add New", "Register", "Account", null, new { @class = "color-3 btn btn-primary " })
+                <table class="table table-bordered  margin-top-20 ">
+                    <tr class="success">
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            UserName
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            LastName
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Created Date
+                        </th>
+                        <th>
+                            Created By
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        i = i + 1;
+
+                        <tr class=@(i%2 == 0 ? " " : "tr-1")>
+                            <td class="color-list">
+                                @*  @Html.ActionLink(item.Id, "Details", new { id = item.Id })*@
+                                <a title="Edit" class="color-3" href='~/Account/Manage/@item.Id'>
+                                    <span class='glyphicon glyphicon-edit'></span>
+                                </a>
+                                <a title="View" class="color-3" href='~/Account/Users/@item.Id'>
+                                    <span class='glyphicon glyphicon-eye-open'></span>
+                                </a>
+                                <a title="Delete" class="color-3" href='~/Account/Manage/@item.Id'>
+                                    <span class='glyphicon glyphicon-remove-circle'></span>
+                                </a>
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

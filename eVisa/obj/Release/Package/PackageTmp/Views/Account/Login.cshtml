@@ -1,0 +1,61 @@
+﻿@model eVisa.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<style>
+    ul {
+        color: #FFFFFF;
+        list-style: none;
+        padding: 0px;
+    }
+</style>
+<div class="login-container">
+    <section id="loginForm">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", name="login_form"}))
+        {
+            <div class="login-box animated fadeInDown">
+                <div class="login-logo"></div>
+                <div class="login-body">
+                    <div class="login-title"><strong>Welcome</strong>, Please login</div>
+                    <form action="index.html" class="form-horizontal" method="post">
+                        @if(!ViewData.ModelState.IsValid) {
+                            <div class="col-md-12 alert alert-danger">
+                                @Html.ValidationSummary()
+                            </div>
+                        }         
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.AntiForgeryToken()
+                                @Html.TextBoxFor(
+                                    m => m.UserName, 
+                                    new { @class = "form-control", @autocompleted = "false", required = "required", placeholder = "User Name" }
+                                )
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @autocompleted = "false", required = "required", placeholder = "Password" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <button class="btn btn-info btn-block">Log In</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="login-footer">
+                    <div class="align-center">
+                        &copy; @DateTime.Now.Year
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+</div>
+<section id="socialLoginForm">                    
+@*  @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })*@               
+</section>   
+

@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Apply Information";
+}
+<div class="content" data-ng-init="getCountry();" data-ng-controller="apply_ctrl">
+    <div class="container">
+        <div class="row bs-wizard" style="border-bottom:0;">
+            <div class="col-xs-3 bs-wizard-step complete">
+                <div class="text-center bs-wizard-stepnum">Apply</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Application</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Review</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step">
+                <!-- active -->
+                <div class="text-center bs-wizard-stepnum">Payment</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+        </div>
+        <h1>
+            APPLY INFORMATION
+        </h1>
+        <div>
+            Please provide the correct contact information below: (Only English character is required.)
+        </div>
+
+        <form name="applyForm" data-ng-submit="save();">
+
+            <label>Surname <span class="require">*</span></label>
+            <input ng-model="Surname" class="form-control" required name="Surname">
+            <div>
+            </div>
+
+            <label>Given Name <span class="require">*</span></label>
+            <input ng-model="GivenName" required name="GivenName" class="form-control">
+            <div>
+            </div>
+
+            <label>Country <span class="require">*</span></label>
+            <select class="form-control"
+                    name="Country"
+                    ng-model="Country"
+                    required
+                    data-ng-options="country.name as country.name for country in countries">
+                <option value=""></option>
+            </select>
+
+            <label>Phone Number <span class="require">*</span></label>
+            <input ng-model="PhoneNumber" required class="form-control" name="PhoneNumber">
+            <div>
+            </div>
+
+            <label>Primary Email <span class="require">*</span></label>
+            <input ng-model="PrimaryEmail" class="form-control" name="PrimaryEmail" required type="email">
+            <div>
+            </div>
+
+            <label>Retype Primary Email <span class="require">*</span></label>
+            <input ng-model="RetypePrimaryEmail" class="form-control" name="RetypePrimaryEmail" required type="email">
+            <div>
+            </div>
+
+            <label>Secondary Email <span class="require">*</span></label>
+            <input ng-model="SecondaryEmail" name="SecondaryEmail" class="form-control" required type="email">
+            <div>
+            </div>
+
+            <label>Heard About Us From? <span class="require">*</span></label>
+            <select class="form-control" required data-ng-model="heardFrom" ng-options="item.name as item.name for item in apply_items">
+                <option value="">--Select--</option>
+            </select>
+            <br />
+            <input type="checkbox" id="myCheckbox" ng-model="check" class="filled-in" />
+            <label for="myCheckbox"></label>
+            You must read and agreed to the Terms & Conditions and you must understand that you may be asked to provide additional
+            information and documentation, prior receipt of which is needed before the e-Visa application can be accepted for processing.
+
+            <button class="btn" type="submit" data-ng-disabled="!check || disabled">
+                <i class="fa fa-check-circle-o" data-ng-show="!disabled"></i>
+                <i class="fa fa-circle-o-notch fa-spin fa-2x" data-ng-show="disabled"></i>
+                I Agree
+            </button>
+            <br /><br />
+        </form>
+    </div>
+</div>
+@section scripts{
+
+    <script type="text/javascript" src="/App/core/restful/restful.js"></script>
+    <script type="text/javascript" src="/App/apply/apply_ctrl.js"></script>
+
+}

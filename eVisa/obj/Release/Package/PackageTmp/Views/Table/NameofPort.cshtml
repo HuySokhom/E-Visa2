@@ -1,0 +1,196 @@
+﻿@model eVisa.ViewModel.NameofPortView
+@{
+    ViewBag.Title = "NameofPort";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h6></h6>
+<div class="row">
+    <div class="panel-default  margin-bottom-1">
+        <div class="panel-heading">
+            <h4>Name of Port</h4>
+        </div>
+
+        <div class="panel-body">
+            <br />
+            <div class="">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Add New" />
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(e => e.Language_Code, new { @class = "control-label" })
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("cboLanguage", Model.LanguageList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    
+                
+                </div>
+            </div>
+            <br />
+            <div id="loading"></div>
+            <br />
+            <div class="">
+                <div class="col-md-12">
+                    <div id="table" class="table-responsive">
+                        <table id="pTable" class="table table-bordered margin-top-20  ">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Action
+                                    </th>
+                                    <th>
+                                        Language Code
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Border
+                                    </th>
+                                    <th>
+                                        Entry
+                                    </th>
+                                    <th>
+                                        Exit
+                                    </th>
+                                 
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="new" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_CreateNameofPort")
+
+    </div>
+</div>
+<div id="edit" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_EditNameofPort")
+
+    </div>
+</div>
+@section Scripts{
+@Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+               
+                download();
+                $('#pTable').DataTable();
+
+                $("#cboLanguage").change(function (e) {
+                    download("");
+                });
+
+                $("#btnew").click(function (e) {
+                    e.preventDefault();
+                    $("#new").modal("show");
+
+                    $("#frmCreate #Language_Code").val($("#cboLanguage").val());
+                    $("#Language_Code").val($("#cboLanguage").val());
+                });
+
+                
+            });
+
+            function download() {
+
+                $("#table tbody tr").remove();
+               
+                var data = callAjaxOnly("@Url.Action("getNameofPort")", "code=" + $("#cboLanguage").val());
+
+                $.each(data, function (i, v) {
+
+                    $("#table tbody").append(
+                        "<tr>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+                            "<a title='Edit' id='" + v.Id + "' class='edit-row color-3' href='#'>" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> &nbsp; " +
+                             "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='#'>" +
+                                            "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                            " </a> " +
+                        " </td>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Name + "</td>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Border + "</td>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Entry + "</td>" +
+                        "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Exit + "</td>" +
+                        
+                        "</tr>"
+                        );
+                });
+               
+                eventAction();
+            }
+
+        function eventAction() {
+
+            $(".edit-row").click(function (e) {
+
+                e.preventDefault();
+                $("#edit").modal("show");
+                var res = callgetAjaxOnly("@(Url.Action("EditNameofPort"))", "id=" + $(this).attr('id'));
+                    
+                if (res != "") {
+                   
+                    $("#frmEdit #Name").val(res.Name);
+                    $("#frmEdit #Border").val(res.Border);
+                    $("#frmEdit #Id").val(res.Id);
+                    $("#frmEdit #Entry").val(res.Entry); 
+                    $("#frmEdit #Language_Code").val(res.Language_Code);
+                    $("#frmEdit #Exit").val(res.Exit);
+                }
+
+            });
+            
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDeleteNameofPort"))", "id=" + id);
+                    download();
+                    // window.location = "/ImageSlider/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+
+        }
+
+    </script>
+
+
+}
+
+
+
+

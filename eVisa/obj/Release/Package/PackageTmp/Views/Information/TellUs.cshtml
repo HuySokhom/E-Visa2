@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "TellUs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model eVisa.ViewModel.FeedbackView
+
+@using (Html.BeginForm("TellUs", "Information", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", @Id = "frmCreate", name = "formEmail" }))
+{
+    <div class="content">
+        <br />
+        <div class="container">
+            <h1 class="modal-title"> Feedback </h1>
+            <div class="modal-body ">
+                <p>
+                    Thanks for letting us know what you think. Your feedback will help us to improve e-Visa system.
+                </p>
+                <p>
+                    @Html.ValidationMessage("result")
+                </p>
+                <br />
+                <div>
+                    <label>Name <span class="require">*</span></label>
+                    <input required name="name" ng-model="name" class="form-control">
+                    <div>
+                    </div>
+                    <label>Email <span class="require">*</span></label>
+                    <input required type="email" name="email" class="form-control" ng-model="email">
+                    <div>
+                    </div>
+                    <label>FeedBack <span class="require">*</span></label>
+                    <textarea ng-model="Content" class="form-control" rows="5"></textarea>
+                </div>
+                <br />
+                <div class="">
+                    <button type="submit" class="btn waves-effect waves-light" name="save" value="save">
+                        <span class="fa fa-send-o"></span>
+                        Save
+                    </button>
+                </div>
+            </div>
+            <br /><br />
+
+        </div>
+    </div>
+}
+

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<eVisa.ViewModel.MinistryView>
+@{
+    ViewBag.Title = "Ministry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <br />
+    <div class="container">
+        <h1>Government Ministries In Cambodia</h1>
+        <hr />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col s12 m6 l6">
+                    <h2>
+                        @item.Name
+                    </h2>
+                    <div class="panel-body">
+                        <p>@item.Address</p>
+                        <p>Phone: @item.Tel</p>
+                        <p>Fax: @item.Fax</p>
+                        <p>E-Mail: <a class="color-3" href="@item.Email">@item.Email</a></p>
+                        <p>Website: <a class="color-3" href="@item.Website"> @item.Website </a></p>
+                    </div>
+                    <br />
+                </div>
+            }
+        </div>
+    </div>
+</div>

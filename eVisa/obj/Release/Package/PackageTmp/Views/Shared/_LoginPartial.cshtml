@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav">
+        
+        <li class=" top-img">
+            
+            <a class="color-3" href="~/Account/Manage">
+                <img width="15px" src="~/Images/Images/UserMale.png" />
+                @User.Identity.GetUserName()
+            </a>
+           @* @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+        </li>
+        <li class=" top-img"><a class="color-3" href="javascript:document.getElementById('logoutForm').submit()"> out</a></li>
+    </ul>
+    
+    }
+}
+else
+{
+   
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+      <div class="col-md-2 bg-color-2 menu-front-slide">
+            <a class="color-3" href="~/Account/Login">
+                <img width="64px" src="~/Images/Images/login.png" />
+                <div class="text-front-slide">
+                    Log In
+                </div>
+                
+            </a>
+         </div>       
+                @*@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })*@
+
+}

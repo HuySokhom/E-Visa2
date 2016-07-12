@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "CheckStatus";
+}
+<div class="content">
+    <div class="container">
+        <br />
+        <h1>
+            Check Status
+        </h1>
+        <ul>
+            <li>
+                <strong>For your convenience, now you can check your application status and make changes online</strong>
+                <ol>
+                    <li>Check application status</li>
+                    <li>Download e-Visa certificate</li>
+                    <li>Change travel information</li>
+                    <li>Resubmit payment if payment failed</li>
+                    <li>Print receipt</li>
+                </ol>
+            </li>
+            <li style="list-style:none">&nbsp;</li>
+            <li style="font-weight:bold"> Please enter your reference number and primary email address only</li>
+        </ul>
+
+        @using (Html.BeginForm("CheckStatus_Login", "Home", null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
+        {
+            <label>Reference No:</label>
+            @Html.TextBox("txtReferenceNo", "", new { @class = "form-control"})
+
+            <label>Primary Email Address:</label>
+            @Html.TextBox("txtPrimaryEmail", "", new { @class = "form-control" })
+    
+            <p class="message">
+                (Please use primary email addresss only)
+            </p>
+            <button class="btn">
+                <i class="fa fa-backward"></i>
+                Back
+            </button>
+            <button type="submit" class="btn">
+                <i class="fa fa-check-square-o"></i>
+                Submit
+            </button>
+        }
+        <br /><br />
+    </div>
+</div>

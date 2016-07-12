@@ -1,0 +1,90 @@
+﻿
+@model eVisa.ViewModel.ForeignMissionView
+
+@using (Html.BeginForm("Create", "ForeignMission", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", @Id = "frmCreate" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Create new </h4>
+                </div>
+                <div class="row modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                @Html.HiddenFor(m => m.Language_Code)
+                                <fieldset disabled>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Language_Code, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.DropDownListFor(m => m.Language_Code, Model.LanguageList, new { @class = "form-control", placeholder = "Paper Name" })
+                                            @Html.ValidationMessageFor(m => m.Language_Code)
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Name)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Tel, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(m => m.Tel, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Tel)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Fax, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(m => m.Fax, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Fax)
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Email)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Website, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(m => m.Website, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Website)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Address, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-9">
+                                        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = "Description" })
+                                        @Html.ValidationMessageFor(m => m.Address)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" name="save" value="save">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Save
+                    </button>
+
+                </div>
+        </div>
+    </div>
+</div>
+}

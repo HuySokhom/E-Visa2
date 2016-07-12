@@ -1,0 +1,607 @@
+﻿@model eVisa.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using PagedList.Mvc;
+
+<h6></h6>
+<fieldset disabled></fieldset>
+
+<div class="">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>User List </h4>
+        </div>
+        <div class="panel-body">
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmRegister" }))
+{
+           <div id="Register" class="modal fade" role="dialog">               
+                <div class="modal-dialog">                    
+                    <div class="modal-content">
+                        <div class="panel-heading modal-header">
+                            <h4 class="modal-title"> Create a new account </h4>
+                        </div>
+                        <div class="row modal-body  ">
+                            <div class="col-md-12 ">
+                                <div class="col-md-6">
+                                    @Html.AntiForgeryToken()
+
+                                    @* @Html.ValidationSummary()*@
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.UserName, new { @class = " form-control" })
+                                            @Html.ValidationMessageFor(m => m.UserName)
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.FirstName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.LastName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email)
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Password)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Address, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Address)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-1">
+                                    <input type="submit" class="btn btn-primary" value="Register" />
+                                </div>
+                            </div>*@
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input id="btAddNew" type="submit" class="btn btn-primary" value="Register" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+}     
+            <div class="panel panel-default tabs">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab">Personal Data</a></li>
+                    <li><a href="#tab-second" role="tab" data-toggle="tab">Payment Settings</a></li>
+                </ul>
+                <div class="panel-body tab-content">
+                    <div class="tab-pane active" id="tab-first">
+                        <input type="button" data-toggle="modal" data-target="#Register" class="btn btn-success" value="Register" />
+                        @Html.ValidationMessage("result")
+                        <div id="loading"></div>
+                        <div class="table-responsive" id="table">
+                            <table id="pTable" class="table table-bordered  margin-top-20 ">
+                                <thead>
+                                    <tr class="success">
+                                        <th>
+                                            Action
+                                        </th>
+                                        <th>
+                                            UserName
+                                        </th>
+                                        <th>
+                                            First Name
+                                        </th>
+                                        <th>
+                                            LastName
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Created Date
+                                        </th>
+                                        <th>
+                                            Created By
+                                        </th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th>
+                                            Role
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-second">
+                        <input type="button" id="bt_role_new" data-toggle="modal" data-target="#New_Role" class="btn btn-success" value="Add New" />
+                        <div class="table-responsive" id="tablerole">
+                            <table class="table table-bordered  margin-top-20 ">
+                                <thead>
+                                    <tr class="success">
+                                        @*<th>
+                            Action
+                        </th>*@
+                                        <th>
+                                            Name
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+    </div>
+</div>
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmEdit" }))
+{
+    <div id="Edit" class="modal fade" role="dialog">
+               
+                <div class="modal-dialog">
+                    
+                    <div class="modal-content">
+                        <div class="panel-heading modal-header">
+                            <h4 class="modal-title"> Edit account </h4>
+                        </div>
+                        <div class="row modal-body  ">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    @Html.AntiForgeryToken()
+
+                                    @* @Html.ValidationSummary()*@
+                                    @Html.HiddenFor(m => m.Id)
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.UserName, new { @class = " form-control" })
+                                            @Html.ValidationMessageFor(m => m.UserName)
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.FirstName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.LastName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email)
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Address, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-9">
+                                            @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Address)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-1">
+                                    <input type="submit" class="btn btn-primary" value="Register" />
+                                </div>
+                            </div>*@
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <input id="btEdit" type="submit" class="btn btn-primary" value="Register" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+}
+
+
+@using (Html.BeginForm("ConfigureRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmConfigRole" }))
+{
+    
+    <div id="ConfigRole" class="modal" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Configuration Role </h4>
+                </div>
+                <div class="row modal-body  ">
+                    <fieldset disabled>
+                        <div class="form-group">
+                            @Html.Label("UserName","UserName", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBox("UserName",null, new { @class = "form-control", placeholder = "Username" })
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <div class="form-group">
+                        @Html.Label("Role","Role", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.Hidden("userId")
+                            @Html.DropDownList("Role", (IEnumerable<SelectListItem>)ViewBag.RoleList, "select", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                         <input id="bt_role_confg" type="button" class="btn btn-primary" value="Add" />
+                    </div>
+          
+             </div>
+    
+        </div>
+    
+    </div>
+
+
+}
+
+@using (Html.BeginForm("Resetpassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmResetPwd" }))
+{
+
+    <div id="ResetPwd" class="modal" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Reset Password </h4>
+                </div>
+                <div class="row modal-body  ">
+                    <fieldset disabled>
+                        <div class="form-group">
+                            @Html.Label("UserName","UserName", new { @class = "col-md-3 control-label" })
+                            <div class="col-md-9">
+                                @Html.TextBox("UserName",null, new { @class = "form-control", placeholder = "Username" })
+                            </div>
+                            
+                        </div>
+                    </fieldset>
+                    @Html.Hidden("resetuserId")
+                    <div class="form-group">
+                        @Html.Label("Password","Password", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-9">
+                            @Html.Password("Password",null, new { @class = "form-control", placeholder = "Password" })
+                            @Html.ValidationMessage("Password")
+                        </div>
+                       
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("ConfirmPassword","ConfirmPassword", new { @class = "col-md-3 control-label" })
+                        <div class="col-md-9">
+                            @Html.Password("ConfirmPassword",null, new { @class = "form-control", placeholder = "Confirm Password" })
+                            @Html.ValidationMessage("ConfirmPassword")
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input id="bt_user_reset" type="submit" class="btn btn-success" value="Add" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+@using (Html.BeginForm("Role", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmrole" }))
+{
+    <div id="New_Role" class="modal" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Add New Role</h4>
+                </div>
+                <div class="row modal-body ">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.Label("Name", "Name", new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBox("role_name", null, new { @class = " form-control", placeholder = "Role" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="role_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input id="bt_role_add" type="button" class="btn btn-primary" value="Add" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+ 
+}
+
+
+<div id="view" class="modal" role="dialog">
+    <div class="modal-dialog">
+      @*  @Html.Partial("_View")*@
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+            downloadList("");
+            downloadRole();
+            $('#pTable').DataTable();
+            
+            clearFormValue();
+            clearFormRole();
+
+            //$("#role_close").click(function (e) {
+            //    alert("a");
+            //    $("#Dialog_role").modal("hide");
+            //});
+
+            $("#txtserch_user").keypress(function (e) {
+                downloadList($("#txtserch_user").val());
+            });
+
+            $(".reset-row").click(function (e) {
+                e.preventDefault();
+               
+                $("#ResetPwd").modal("show");
+             
+                var res = callgetAjaxOnly("@(Url.Action("Resetpassword"))", "id=" + $(this).attr('id'));
+               
+                $("#frmResetPwd #UserName").val(res.UserName);
+                $("#frmResetPwd #resetuserId").val(res.Id);
+                
+                $("#bt_user_reset").click(function (e) {
+
+                   // downloadRole();
+                });
+            });
+
+            $(".role-row").click(function (e) {
+                e.preventDefault();
+               
+                $("#ConfigRole").modal("show");
+             
+                var res = callgetAjaxOnly("@(Url.Action("ConfigureRole"))", "id=" + $(this).attr('id'));
+               
+                $("#frmConfigRole #UserName").val(res.UserName);
+               
+                $("#frmConfigRole #userId").val(res.Id);
+               
+                $("#bt_role_confg").click(function (e) {
+                    var res = callAjaxOnly("@(Url.Action("ConfigureRole"))", "id=" + $("#userId").val() + "&role=" + $("#Role").val());
+                    $("#ConfigRole").modal("hide");
+                    downloadRole();
+                });
+            });
+
+            /*
+                Edit User Row
+            */
+
+            $(".edit-row").click(function (e) {
+                e.preventDefault();
+               
+                $("#Edit").modal("show");
+
+                var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                $("#frmEdit #Id").val($(this).attr('id'));
+                getFormValue(res);
+               
+                $("#btEdit").click(function (e) {
+                    @*var res = callAjaxOnly("@(Url.Action("Edit"))", "model=" + $("#frmEdit").serialize());
+                    $("#Edit").modal("hide");
+                    downloadList("");*@
+                });
+            });
+
+            /* Delete User Row */
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                   
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/Account/Register";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+            /* View User Row */
+
+            $(".view-row").click(function (e) {
+                e.preventDefault();
+               
+                $("#view").modal("show");
+                alert("a");
+                @*var res = callgetAjaxOnly("@(Url.Action("View"))", "id=" + $(this).attr('id'));
+                $("#frmView #Id").val($(this).attr('id'));
+                getFormValue(res);*@
+               
+                $("#btEdit").click(function (e) {
+                    @*var res = callAjaxOnly("@(Url.Action("Edit"))", "model=" + $("#frmEdit").serialize());
+                    $("#Edit").modal("hide");
+                    downloadList("");*@
+                    });
+            });
+
+            /* Role  */
+            $("#bt_role_new").click(function (e) {
+               
+                e.preventDefault();
+                $("#New_Role").modal("show");
+              
+                $("#bt_role_add").click(function (e) {
+                    if ($("#role_name").val().length <= 0) {
+                        alert("Role Empty!");
+                        return false;
+                    }
+                    var res = callAjaxOnly("@(Url.Action("Role"))", "name=" + $("#role_name").val());
+                        downloadRole();
+                        clearFormRole();
+                });
+            });
+            
+        });
+
+        function getFormValue(val) {
+            $("#frmEdit #UserName").val(val.UserName);
+            $("#frmEdit #FirstName").val(val.LastName);
+            $("#frmEdit #LastName").val(val.FirstName);
+            $("#frmEdit #Email").val(val.Email);
+            $("#frmEdit #Address").val(val.Address);
+            
+        }
+
+        function clearFormValue() {
+            $("#frmRegister #UserName").val("");
+            $("#frmRegister #FirstName").val("");
+            $("#frmRegister #LastName").val("");
+            $("#frmRegister #Email").val("");
+            $("#frmRegister #Address").val("");
+        }
+
+        function clearFormRole() {
+            $("#frmrole #role_name").val("");
+        }
+
+        function downloadList(search) {
+           
+               $("#table tbody tr").remove();
+
+                var data = callAjaxOnly("@Url.Action("getUserList")","search="+search);
+                
+                $.each(data, function (i, v) {
+               
+                    $("#table tbody").append(
+                         "<tr>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+                        "<a title='Update Password' id='" + v.Id + "' class='edit-row color-3' href='#'>" +
+                                "  <span class='glyphicon glyphicon-edit'></span> " +
+                                " </a> &nbsp;  &nbsp; " +
+                        "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='#'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a> &nbsp;  &nbsp;" +
+                        "<a title='Role Configuration' id='" + v.Id + "' class='role-row color-3' href='#'>" +
+                                "  <span class='glyphicon glyphicon-cog'></span> " +
+                                " </a> &nbsp;  &nbsp;" +
+                        "<a title='Reset Password' id='" + v.Id + "' class='reset-row color-3' href='#'>" +
+                                "  <span class='glyphicon glyphicon-wrench'></span> " +
+                                " </a> " +
+                    " </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "><a class='view-row' href='#'>" + v.UserName + "</a> </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.FirstName + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.LastName + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Email + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + ToJavaScriptDate(v.CreatedDate) + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.CreatedBy + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Address + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Role + "</td>" +
+
+                    "</tr>"
+                        );
+                });
+            }
+
+        function downloadRole() {
+            $("#tablerole tbody tr").remove();
+
+            var data = callAjaxOnly("@Url.Action("getRoleList")");
+            $.each(data, function (i, v) {
+               
+                $("#tablerole tbody").append(
+                   "<tr>" +
+                        //"<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                        //    "<a title='Update Password' id='" + v.Id + "' class='edit-row color-3' href='/Account/Edit/" + v.Id + "'>" +
+                        //            "  <span class='glyphicon glyphicon-edit'></span> " +
+                        //            " </a> " +
+                        //    "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/Account/Manage/" + v.Id + "'>" +
+                        //            "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                        //            " </a> " +
+                        //" </td>" +
+                        "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                        
+                        "</tr>"
+                    );
+            });
+        }
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿@model eVisa.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+<h6></h6>
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="row border">
+        <div class="panel-success">
+            <div class="panel-heading">
+                <h4>Create a new account.</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            @Html.AntiForgeryToken()
+
+                            @* @Html.ValidationSummary()*@
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = " form-control" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FirstName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FirstName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LastName, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.LastName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email)
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                           
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Address, new { @class = "col-md-3 control-label" })
+                                <div class="col-md-9">
+                                    @Html.TextAreaFor(m => m.Address, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Address)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-1">
+                        <input type="submit" class="btn btn-primary" value="Register" />
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function (e) {
+           
+          
+        });
+
+       
+    </script>
+}
+
+
+
+

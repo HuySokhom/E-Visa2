@@ -1,0 +1,189 @@
+﻿@model eVisa.ViewModel.MenuView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h6></h6>
+<div class="row">
+    <div class="panel-success border  margin-bottom-1">
+        <div class="panel-heading">
+            <h4>Menu​ Language</h4>
+        </div>
+
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Add New" />
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(e => e.Menu_Id, new { @class = "control-label" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DropDownList("cboMenu", Model.MenuList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-3">
+                        @Html.TextBox("txtserch", null, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.Label("Search", null, new { @class = "col-md-3 control-label" })
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tablemenu">
+                        <table class="table table-bordered margin-top-20">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Action
+                                    </th>
+                                    <th>
+                                        Menu Name
+                                    </th>
+                                    <th>
+                                        Language Code
+                                    </th>
+
+                                    <th>
+                                        Index
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+<div id="new" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Create")
+
+    </div>
+</div>
+<div id="edit" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Edit")
+
+    </div>
+</div>
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            downloadMenuList("");
+
+            $("#cboMenu").change(function (e) {
+                downloadMenuList("");
+            });
+
+            $("#btnew").click(function (e) {
+                e.preventDefault();
+                $("#frmCreate #Link_Code").val($("#cboMenu").val());
+                $("#new").modal("show");
+            });
+
+            $("#txtserch").keypress(function (e) {
+                downloadMenuList($("#txtserch").val());
+            });
+        });
+
+
+        function downloadMenuList() {
+
+            $("#tablemenu tbody tr").remove();
+           
+            var data = callAjaxOnly("@Url.Action("getListMenu")", "id=" + $("#cboMenu").val() + "&code=" + $("#Language_Code").val() + "&search=" + $("#txtserch").val());
+            $.each(data, function (i, v) {
+                  
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" + 
+                        "<a title='Edit' id='" + v.Id + "' class='edit-row color-3' href='#' >" +
+                            "<span class='glyphicon glyphicon-edit'></span>" +
+                         "</a>" +
+                    (v.Language_Code == "en" ? " " :
+                         "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='#'>" +
+                                            "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                            " </a> "
+                                            ) +
+                    "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Link_Code + "</td>" +
+                    
+                    "</tr>"
+                    );
+            });
+
+            eventAction();
+        }
+
+        function eventAction() {
+
+            $(".edit-row").click(function (e) {
+                
+                e.preventDefault();
+              
+                $("#edit").modal("show"); $(this).attr('id')
+              
+                var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                    
+                if (res != "") {
+                  
+                    $("#frmEdit #Link_Code").val(res.Link_Code);
+                    $("#frmEdit #Name").val(res.Name);
+                    $("#frmEdit #Description").val(res.Description);
+                    $("#frmEdit #Id").val(res.Id);
+                    $("#frmEdit #Language_Code").val(res.Language_Code);
+
+                    if (res.Language_Code == "en") {
+                        $("#content").addClass('disabled');
+                    } else {
+                        $("#content").removeClass('disabled');
+                    }
+
+                        
+                }
+
+            });
+
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+                    downloadMenuList("");
+                    // window.location = "/ImageSlider/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+
+        }
+    </script>
+}
+

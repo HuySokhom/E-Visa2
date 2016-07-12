@@ -1,0 +1,36 @@
+﻿@model IEnumerable<eVisa.ViewModel.TouchingStoryView>
+@{
+    ViewBag.Title = "TouchingStory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    eVisa.Function.BaseFunction fun = new eVisa.Function.BaseFunction();
+}
+<div class="content">
+    <br />
+    <div class="container">
+        <h1>Touching Stories by e-Visa Travelers</h1>
+
+        @foreach (var item in Model)
+        {
+            <div class="padding-bottom-2">
+                <div class="col-md-2">
+                    <img src="@fun.ResolveServerUrl(item.Url, false)" class="img-rounded" />
+                    <br />
+                    <br />
+                    <div class="font-size-10">
+                        <p>@item.Title : @item.Name</p>
+                        <p>@item.Country</p>
+                        <p>@item.Dates</p>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <b>@item.Subject</b>
+                    <br />
+                    @Html.Raw(item.Content)
+                </div>
+            </div>
+            <hr />
+        }
+        <br /><br />
+    </div>
+
+</div>

@@ -1,0 +1,146 @@
+﻿@model eVisa.ViewModel.MenuView
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6></h6>
+<div class="row">
+    <div class="panel-success border  margin-bottom-1">
+        <div class="panel-heading">
+            <h4>Menu​ Language</h4>
+        </div>
+
+        <div class="panel-body">
+
+            @using (Html.BeginForm("Create", "Menu", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            @*<div class="alert alert-info">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                </div>*@
+
+                            @*  @Html.ValidationMessage("result", new {@class="alert alert-info",aria_hidden="true"})*@
+
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(e => e.Menu_Id, new { @class = "control-label" })
+                                </div>
+
+                                <div class="col-md-6">
+                                    @* @Html.TextBoxFor(e => e.Name,Model.Name,new { @class = "form-control" })*@
+                                    @Html.DropDownListFor(m => m.Link_Code, Model.MenuList, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Menu_Id)
+
+                                </div>
+
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(m => m.Language_Code, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(m => m.Language_Code, Model.LanguageList, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Language_Code)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(e => e.Name, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-6">
+                                    @* @Html.TextBoxFor(e => e.Name,Model.Name,new { @class = "form-control" })*@
+                                    @Html.TextBoxFor(m => m.Name,Model.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(e => e.SubMenu, new { @class = "control-label" })
+                                </div>
+                                <div class="col-md-6">
+                                    @* @Html.TextBoxFor(e => e.Name,Model.Name,new { @class = "form-control" })*@
+                                    @Html.CheckBoxFor(m => m.SubMenu, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.SubMenu)
+                                </div>
+                            </div>
+                            <button id="btSave" type="submit" class="btn btn-primary" name="save" value="save">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                Save
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tablemenu">
+                        <table class="table table-bordered margin-top-20">
+                            <tr class="success">
+                                <th>
+                                    Action
+                                </th>
+                                <th>
+                                    Menu Name
+                                </th>
+                                <th>
+                                    Language Code
+                                </th>
+                                <th>
+                                    Index
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            downloadMenuList();
+
+            $("#Link_Code").change(function (e) {
+                downloadMenuList();
+            });
+        })
+        function downloadMenuList() {
+            $("#tablemenu tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getListMenu")", "id=" + $("#Link_Code").val() + "&code=" + $("#Language_Code").val());
+            alert(data);
+            $.each(data, function (i, v) {
+
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                        "<a title='Edit' class='color-3' href=/Menu/Edit/"+ v.Id + ">" +
+                            "<span class='glyphicon glyphicon-edit'></span>" +
+                         "</a> </td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Link_Code + "</td>" +
+                    "</tr>"
+                    );
+            });
+        }
+    </script>
+}
+
+
+
+

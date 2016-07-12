@@ -1,0 +1,29 @@
+﻿@model IEnumerable<eVisa.ViewModel.TestimonialView>
+@{
+    ViewBag.Title = "Testimonial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    eVisa.Function.BaseFunction fun = new eVisa.Function.BaseFunction();
+}
+<div class="content">
+    <br />
+    <div class="container">
+        <h1>Hear What Our Volunteers Say</h1>
+        @foreach (var item in Model)
+        {
+            <div class="row padding-bottom-2">
+                <div class="col-md-2">
+                    <img src="@fun.ResolveServerUrl(item.Url,false)" class="img-rounded" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <b>@item.Name, @item.Country, @item.Dates</b>
+                    <br />
+                    @Html.Raw(item.Content)
+                </div>
+            </div>
+        }
+        <br /><br />
+    </div>
+
+</div>

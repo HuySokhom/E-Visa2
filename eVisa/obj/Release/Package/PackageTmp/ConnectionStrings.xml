@@ -1,0 +1,5 @@
+﻿<connectionStrings>
+  <!--<add name="LmDbContext" connectionString="Data Source=.;Initial Catalog=LoanManagementSystem;uid=sa;pwd=123456;" providerName="System.Data.SqlClient" />-->
+  <!--<add name="eVisaDBContext" connectionString="Data Source=192.168.169.51;Initial Catalog=eVisaSystem;uid=sa;pwd=123;" providerName="System.Data.SqlClient" />-->
+  <add name="eVisaDBContext" connectionString="Data Source=(local);Initial Catalog=eVisaSystem;uid=sa;pwd=123;" providerName="System.Data.SqlClient" />
+</connectionStrings>

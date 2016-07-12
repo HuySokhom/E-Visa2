@@ -1,0 +1,90 @@
+﻿@model eVisa.ViewModel.MenuCombo
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6></h6>
+<div class="row">
+    <div class="panel-default  margin-bottom-1">
+        <div class="panel-heading">
+            <h4>Content Page List</h4>
+        </div>
+
+        <h4></h4>
+        <div class="panel-body">
+            <div class="row">
+               
+
+                <div class="col-md-12">
+
+                    <div class="col-md-2">
+                        @Html.ActionLink("Add New", "Create", "Table", null, new { @class = "color-3 btn btn-primary "})
+                    </div>
+                    <div class="col-md-2">
+                        @Html.Label("Menu Name")
+                    </div>
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(m => m.Link_Code, ViewBag.menu as IList<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="tablepage" class="table-responsive">
+                        <table class="table table-bordered margin-top-20  ">
+                            <tr class="success" >
+                                <th>
+                                    Action
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                
+                               
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                downloadTable();
+                $("#Link_Code").change(function (e) {
+
+                   // downloadTable();
+                });
+
+            });
+
+            function downloadTable() {
+
+                $("#tablepage tbody tr:gt(0)").remove();
+
+                var data = callAjaxOnly("@Url.Action("getListTable")", "Id=" + $("#Link_Code").val());
+
+                $.each(data, function (i, v) {
+
+                    $("#tablepage tbody").append(
+                        "<tr>" +
+                        "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                            "<a title='Edit' class='color-3' href=/Menu/Edit/"+ v.Id + ">" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> </td>" +
+                        "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                        "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Text + "</td>" +
+                       
+                        "</tr>"
+                        );
+                });
+            }
+    </script>
+
+
+}

@@ -1,0 +1,338 @@
+﻿
+@{
+    Dictionary<int,string> Menus = (Dictionary<int,string>) ViewBag.MenuList;
+}
+<nav>
+    <div class="nav-wrapper">
+        <div class="container">
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="fa fa-server"></i></a>
+            <ul class="left hide-on-med-and-down menu-bar">
+                <span>
+                    <li>
+                        <a href="~/Home/Index">
+                            <span class="fa fa-home fa-lg fa-fw ">
+                            </span>
+                        </a>
+                        @*@Html.ActionLink(" " + Menus[1], "Index", "HOME")*@
+                    </li>
+                </span>
+                <span>
+                    <li>
+                        <a href="javascript:void(0)" class="dropdown-toggle">
+                            <i class="fa fa-tasks"></i>
+                            @Menus[2]     
+                            <span class="caret"></span>                        
+                        </a>
+                        <ul class="dropdown_menu" style="display:none;">
+                            <li class="">
+                                <a href="/Services/Links" style="width: 100%;">
+                                    <span class="fa fa-plane fa-fw"></span>
+                                    <span class=" drop-menu capitalize">
+                                        @Menus[3]
+                                    </span>
+
+                                </a>
+                            </li>
+                            <li class="lower ">
+                                <a href="/Services/Ministry" style="width: 100%;">
+                                    <span class="fa fa-university fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[4]</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </span>
+                <span>
+                    <li>
+                        <a href="javascript:void(0)" class="dropdown-toggle">
+                            <i class="fa fa-bookmark"></i>
+                            @Menus[5]    
+                            <span class="caret"></span>                         
+                        </a>
+                        <ul class="dropdown_menu" style="display:none;">
+                            <li class="lower ">
+                                <a href="/Services/Mission" style="width: 100%;">
+                                    <span class="fa fa-building fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[6]</span>
+                                </a>
+                            </li>
+                            <li class="lower">
+                                <a href="/Services/ForeignMission" style="width: 100%;">
+                                    <span class="fa fa-globe fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[7]</span>
+                                </a>
+
+                            </li>
+                            <li class="lower">
+                                <a href="/Information/Map" style="width: 100%;">
+                                    <span class="fa fa-map-marker fa-fw "></span>
+                                    <span class="drop-menu capitalize"> @Menus[26] </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </span>
+                <span>
+                    <li>
+                        <a href="javascript:void(0)" class="dropdown-toggle">
+                            <i class="fa fa-info-circle"></i>
+                            @Menus[8]
+                            <span class="caret"></span> 
+                        </a>
+                        <ul class="dropdown_menu" style="display:none;">
+                            <li class="lower">
+                                <a href="/Information/TouchingStory" style="width: 100%;">
+                                    <span class="fa fa-tasks fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[9]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/NeedYourHelp" style="width: 100%;">
+                                    <span class="fa fa-users fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[10]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/Credits" style="width: 100%;">
+                                    <span class="fa fa-file-text-o fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[11]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/Testimonial" style="width: 100%;">
+                                    <span class="fa fa-list-alt fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[12]</span>
+                                </a>
+                            </li>
+                            <li class="lower">
+                                <a href="/Information/Exemption" style="width: 100%;">
+                                    <span class="fa fa-cc-visa fa-fw"></span>
+                                    <span class="drop-menu capitalize"> @Menus[23]</span>
+                                </a>
+                            </li>
+                            <li class="lower">
+                                <a href="/Information/Guidelines" style="width: 100%;">
+                                    <span class="fa fa-dedent fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[19]</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </span>
+                <span>
+                    <li>
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-question-circle"></i>
+                            @Menus[13]                            
+                            <span class="caret"></span>                            
+                        </a>
+                        <ul class="dropdown_menu" style="display:none;">
+                            <li class="lower">
+                                <a href="/Information/TellUs" style="width: 100%;">
+                                    <span class="fa fa-lightbulb-o fa-fw"></span>
+                                    <span class="drop-menu capitalize"> @Menus[14]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/FAQ" style="width: 100%;">
+                                    <span class="fa fa-question-circle fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[15]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/Public" style="width: 100%;">
+                                    <span class="fa fa-calendar fa-fw"></span>
+                                    <span class="drop-menu capitalize">@Menus[16]</span>
+                                </a>
+
+                            <li class="lower">
+                                <a href="/Information/HowToApply" style="width: 100%;">
+                                    <span class="fa fa-info fa-fw "></span>
+                                    <span class="drop-menu capitalize"> @Menus[25] </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </span>
+                <li class="lower tree">
+                    <a href="/Home/About" style="width: 100%;">
+                        <i class="fa fa-life-ring"></i>
+                        @Menus[17]
+                    </a>
+                </li>
+                <li class="lower tree">
+                    <a href="/Home/Contact" style="width: 100%;">
+                        <i class="fa fa-envelope"></i>
+                        @Menus[18]
+                    </a>
+                </li>
+            </ul>
+
+            <!-- responsive side when resize window -->
+
+            <ul class="side-nav menu-bar" id="nav-mobile" style="transform: translateX(0px); left: -240px; width: 240px; ">
+                <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold">
+                            <a href="/" class="collapsible-header  waves-effect waves-teal">
+                                <span class="fa fa-home fa-lg fa-fw "></span>
+                                @Menus[1]
+                            </a>
+                        </li>
+                        <li class="bold">
+                            <a href="javascript:void(0)" class="collapsible-header  waves-effect waves-teal">
+                                <i class="fa fa-tasks"></i>
+                                @Menus[2]
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapsible-body" style="display: none;">
+                                <ul>
+                                    <li class="">
+                                        <a href="/Services/Links" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class=" drop-menu capitalize">
+                                                @Menus[3]
+                                            </span>
+
+                                        </a>
+                                    </li>
+                                    <li class="lower ">
+                                        <a href="/Services/Ministry" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[4]</span>
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-teal">
+                                <i class="fa fa-bookmark"></i>
+                                @Menus[5]
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapsible-body" style="display: none;">
+                                <ul>
+                                    <li class="lower ">
+                                        <a href="/Services/Mission" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[6]</span>
+                                        </a>
+                                    </li>
+                                    <li class="lower">
+                                        <a href="/Services/ForeignMission" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[7]</span>
+                                        </a>
+
+                                    </li>
+                                    <li class="lower">
+                                        <a href="/Information/Map" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize"> @Menus[26] </span>
+                                        </a>
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-teal">
+                                <i class="fa fa-info-circle"></i>
+                                @Menus[8]
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapsible-body" style="display: none;">
+                                <ul>
+                                    <li class="lower">
+                                        <a href="/Information/TouchingStory" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[9]</span>
+                                        </a>
+                                    <li class="lower">
+                                        <a href="/Information/NeedYourHelp" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[10]</span>
+                                        </a>
+                                    <li class="lower">
+                                        <a href="/Information/Credits" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[11]</span>
+                                        </a>
+                                    <li class="lower">
+                                        <a href="/Information/Testimonial" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[12]</span>
+                                        </a>
+                                    </li>
+                                    <li class="lower">
+                                        <a href="/Information/Exemption" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize"> @Menus[23]</span>
+                                        </a>
+                                    </li>
+                                    <li class="lower">
+                                        <a href="/Information/Guidelines" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[19]</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-teal">
+                                <i class="fa fa-question-circle"></i>
+                                @Menus[13]
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapsible-body" style="display: none;">
+                                <ul class="menu-bar">
+                                    <li class="lower">
+                                        <a href="/Information/TellUs" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize"> @Menus[14]</span>
+                                        </a>
+                                    <li class="lower">
+                                        <a href="/Information/FAQ" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[15]</span>
+                                        </a>
+                                    <li class="lower">
+                                        <a href="/Information/Public" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize">@Menus[16]</span>
+                                        </a>
+                                    </li>
+                                    <li class="lower">
+                                        <a href="/Information/HowToApply" style="width: 100%;">
+                                            <span class="fa fa-angle-double-right"></span>
+                                            <span class="drop-menu capitalize"> @Menus[25] </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-teal" href="/Home/About">
+                                <i class="fa fa-life-ring"></i>
+                                @Menus[17]
+                            </a>
+                        </li>
+                        <li class="bold">
+                            <a class="collapsible-header  waves-effect waves-teal" href="/Home/Contact">
+                                <i class="fa fa-envelope"></i>
+                                @Menus[18]
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

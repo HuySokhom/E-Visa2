@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+
+@using Microsoft.AspNet.Identity
+@{
+    IEnumerable<eVisa.ViewModel.LanguageView> LanugeItem = (IEnumerable<eVisa.ViewModel.LanguageView>)ViewBag.LanguageList;
+     Dictionary<int, string> Menus = (Dictionary<int, string>)ViewBag.MenuList;
+     eVisa.Function.BaseFunction fun = new eVisa.Function.BaseFunction();
+}
+
+<html xmlns:ng="http://angularjs.org/">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - eVisa</title>
+    <link rel="shortcut icon" href="/Images/favicon.ico" type="image/x-icon">
+    <link href="/Content/materialize.css" rel="stylesheet">
+    <link href="/Content/bootstrap_style_lib/theme-default.css" rel="stylesheet">
+
+    <link href="/Content/style.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Hanuman" rel="stylesheet" type="text/css">
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css">
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body data-ng-app="main" data-ng-controller="app_ctrl" data-ng-init="getCountry();">
+    <div class="row">
+        <div class="col-md-12" style="border-bottom: 1px solid #ddd; background-color: #F8F8F8;">
+            <div class="container">
+                <div class="login-side-menu">
+                    <img src="/Images/evisalogo.gif" style="margin-bottom: -17px;" />
+                    <a href="/Home/CheckStatus" style="padding: 10px;">
+                        <i class="fa fa-download"></i>
+                        @Menus[20]
+                    </a>
+                    <a href="/Home/Apply" style="padding: 10px;">
+                        <i class="fa fa-check-square-o"></i>
+                        @Menus[21]
+                    </a>
+                    @if (Session["userId"] == null)
+                    {
+                        <a href="/User/FQLogin" style="padding: 10px;">
+                            <i class="fa fa-user"></i>
+                            @Menus[22]
+                        </a>
+                    }
+                    else
+                    {
+                        <a style="padding: 10px;" href="/User/">
+                            <i class="fa fa-user"></i>
+                            My Account
+                        </a>
+                        <a data-ng-click="logoff();" style="padding: 10px;">
+                            <i class="fa fa-sign-out"></i>
+                            Logoff
+                        </a>
+                    }
+                    <button class='dropdown-button btn dropdown-button '
+                            data-beloworigin="true"
+                            data-activates='language'>
+                        @if (Session["image"] != null)
+                        {
+                            <img src="@Session["image"]" />
+                            @Session["langname"]
+                        }
+                        else
+                        {
+                            <img src="/Images/Language/EN.png" />
+                            <span>EN</span>
+                        }
+                        <span class="caret"></span>
+                    </button>
+
+                    <!-- Dropdown Structure -->
+
+                    <ul id="language" class='dropdown-content'>
+                        @if (LanugeItem != null)
+                        {
+                            foreach (var item in LanugeItem)
+                            {
+                                <li data-ng-click="changeLanguage('@item.Name','@item.Url', '@item.Code');" style="text-align: center;">
+                                    <label for="@item.Name" id="change_language" style="font-size: 14px; cursor: pointer;">
+                                        <img src="@item.Url" />
+                                        @item.Name
+                                    </label>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="col-md-2">
+                <a href="/Home/Index">
+                    <img src="/Images/Logo_main.png" class="img-responsive align-center" style=" margin: 0 auto;" />
+                </a>
+            </div>
+            <div class="col-md-10 main-text">
+                Kingdom Of Cambodia Ministry Of Foreign Affairs & International Cooperation
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Shared/Partial/_Menu.cshtml")
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <br />
+        <div class="container">
+            <div class="text-center">
+                <span style="font-weight: 600; color: #2D343E; margin-right: 50px; ">
+                    <i class="fa fa-download"></i>
+                    Download E-Visa Apps
+                </span>
+            </div>
+            <table>
+                <tr>
+                    <td align="right">
+                        <a href="https://itunes.apple.com/us/app/cambodia-e-visa/id859901546?mt=8" target="_blank">
+                            <img src="~/Images/apple-link.png" align="right" style="padding: 10px;">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="https://play.google.com/store/apps/details?id=com.e_visa" target="_blank">
+                            <img src="~/Images/google-link.png" style="padding: 10px 10px 4px 0px;">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        @if (Menus != null)
+        {
+            if (Menus.Count > 0)
+            {
+                <div class="row ">
+
+                    <div class="container">
+
+                        <div class="col l3 offset-l0 s6">
+                            <ul class="list-unstyled">
+                                <li class="footer-title" style="text-transform:uppercase;">@Menus[2]</li>
+                                <li class="title-item ">
+                                    <span class="fa fa-plane fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[3], "Links", "Services", null, new { @class = " tolower" })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-university fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[4], "Ministry", "Services", null, new { @class = " tolower " })
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col l3 offset-l0 s6">
+                            <ul class="list-unstyled">
+                                <li class="footer-title">@Menus[5] </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-building fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[6], "Mission", "Services", null, new { @class = "tolower " })
+                                </li>
+                                <li class="title-item">
+                                    <span class=" fa fa-globe fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[7], "ForeignMission", "Services", null, new { @class = "tolower " })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l3 offset-l0 s6">
+                            <ul class="list-unstyled">
+                                <li class="footer-title">@Menus[8] </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-tasks fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[9], "TouchingStory", "Information", null, new { @class = "tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-users fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[10], "NeedYourHelp", "Information", null, new { @class = " tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-file-text-o fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[11], "Credits", "Information", null, new { @class = "  tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-list-alt fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[12], "Testimonial", "Information", null, new { @class = "  tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-cc-visa fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[23], "Exemption", "Information", null, new { @class = "tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-dedent fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[19], "Guidelines", "Information", null, new { @class = "  tolower " })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l3 offset-l0 s6">
+                            <ul class="list-unstyled">
+                                <li class="footer-title">@Menus[13] </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-lightbulb-o fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[14], "TellUs", "Information", null, new { @class = " tolower" })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-question-circle fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[15], "FAQ", "Information", null, new { @class = " tolower " })
+                                </li>
+                                <li class="title-item ">
+                                    <span class="fa fa-calendar fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[16], "Public", "Information", null, new { @class = " tolower" })
+                                </li>
+                                <li class="title-item  ">
+                                    <span class="fa fa-info fa-lg fa-fw"></span>
+                                    @Html.ActionLink(" " + Menus[25], "HowToApply", "Information", null, new { @class = "tolower" })
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col l3 s6">
+                                @*<img src="/Images/Images/Home/download24.png" />*@
+                                <a href="/Home/Apply" class=" title-item-3">
+                                    <span class="fa fa-download fa-2x"></span>
+                                    @Menus[21]
+                                </a>
+                                @*@Html.ActionLink(" " + Menus[21], " ", " ", null, new { @class = " tolower title-item-3" })*@
+                            </div>
+                            <div class="col l3 s6">
+                                @* <img src="/Images/Images/Home/contacts.png" />*@
+                                <a href="/User/FQLogin" class=" title-item-3">
+                                    <span class="fa fa-user fa-2x"></span>
+                                    @Menus[22]
+                                </a>
+                                @*@Html.ActionLink(" " + Menus[22], " ", " ", null, new { @class = " tolower title-item-3" })*@
+                            </div>
+                            <div class="col l3 s6">
+                                @*<img src="/Images/Images/Home/checkbook.png" />*@
+                                <a href="/Home/CheckStatus" class=" title-item-3">
+                                    <span class="fa fa-check-square-o fa-2x"></span>
+                                    @Menus[20]
+                                </a>
+                                @*@Html.ActionLink(" " + Menus[20], " ", " ", null, new { @class = " tolower title-item-3" })*@
+                            </div>
+                            <div class="col l3 s6">
+                                @* <img src="/Images/Images/Home/search24.png" />*@
+                                <a href="/Home/SearchReferenceNumber" class=" title-item-3">
+                                    <span class="fa fa-search fa-2x"></span>
+                                    @Menus[24]
+                                </a>
+                                @*@Html.ActionLink(" " + Menus[24], " ", " ", null, new { @class = " tolower title-item-3" })*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </footer>
+
+    <footer>
+        <div class="container padding-top-20 padding-bottom-2">
+            <div class="col-md-6">
+                <div class="responsive-img">
+                    <img src="/Images/Logo/header.png" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row padding-left-30">
+                    <a href="">
+                        <div class="responsive-img">
+                            <img class="padding-left-1" width="150px" src="/Images/Logo/e-visa-home-iphone.png" />
+                        </div>
+                    </a>
+                    <ul class="list-inline" style="display:none;">
+                        <li class="responsive-img"><img src="~/Images/Images/tele_icon_jcb.gif" /></li>
+                        <li class="responsive-img"><img src="~/Images/Images/tele_icon_visa.gif" /></li>
+                        <li class="responsive-img"><img src="~/Images/Images/tele_icon_mastercard.gif" /></li>
+                        <li class="responsive-img"><img src="~/Images/Images/tele_icon_amex.gif" /></li>
+                        <li class="responsive-img"><img src="~/Images/Images/tele_icon_eNETS.gif" /></li>
+                        <li class="responsive-img"><img class="item" src="~/Images/Images/tele_icon_modus.gif" /></li>
+                        <li>
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/bootstrap-js")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+
+        jQuery(document).ready(function ($) {
+
+            /* Event hover sub-menu */
+            $("ul.menu-bar li a").mouseover(function () { //When trigger is clicked...
+                //Drop down the subnav on click
+                $(this).parent().find("ul.dropdown_menu").slideDown('medium');
+                $(this).parent().parent("span").hover(function () {
+                    //do nothing since we are already hovering over this span and menu should be dropped
+                }, function () {
+                    //if we leave the span, slideUp the menu
+                    $(this).parent().find("ul.dropdown_menu").slideUp('medium');
+                });
+            });
+
+            // functionality for change class cllap at rigth side
+            $('.collapsible-header').click(function (e) {
+                var classCss = $(this).find('i').hasClass("fa-minus");
+                if (classCss) {
+                    //$(this).find('i').css("border", "3px double red");
+                    $(this).find('i').removeClass("fa-minus");
+                    $(this).find('i').addClass("fa-plus");
+                } else {
+                    $(this).find('i').addClass("fa-minus");
+                    $(this).find('i').removeClass("fa-plus");
+                }
+            });
+        });
+        function EventLanuguage() {
+            $('ul.dropdown-content li input').click(function (e) {
+                var $div = $(this).parent().parent().parent();
+                var $btn = $div.find('button');
+
+                $btn.html($(this).html() + ' <span class="caret"></span>');
+
+                $div.removeClass('open');
+                e.preventDefault();
+
+                return false;
+            });
+        }
+        // functionality for open side of menu responsive
+        $('.button-collapse').sideNav({
+            menuWidth: 300, // Default is 240
+            edge: 'left', // Choose the horizontal origin
+            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        });
+        // function select menu add active class
+        var selector = ".menu-bar a";
+        $(selector).filter(function () {
+            return this.href == location.href.replace(/#.*/, "");
+        }).addClass("active");
+
+    </script>
+
+
+</body>
+
+</html>

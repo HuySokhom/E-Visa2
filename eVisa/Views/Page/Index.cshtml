@@ -1,0 +1,198 @@
+﻿@model eVisa.ViewModel.PageView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-default ">
+        <div class="panel-heading">
+            <h4>Create Content Page</h4>
+        </div>
+        <div class="panel-body">
+            <br />
+            <div class="">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <a href="/Page/Create" id="New" class="btn btn-success" >Add New</a>   
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                   
+                    <div class="col-md-1">
+                        @Html.Label("Language", "Language", new { @class = "control-label" })
+
+                    </div>
+                    <div class="col-md-3">
+                        @Html.DropDownList("Language", Model.LanguageList, new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                   
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div id="loading"></div>
+            <br />
+            <div class="col-md-12">
+                <div id="tablepage" class="table-responsive">
+                    <table id="pTable" class="table table-bordered margin-top-20  ">
+                        <thead>
+                            <tr class="success">
+                                <th>
+                                    Action
+                                </th>
+
+                                <th>
+                                    Title
+                                </th>
+
+                                <th>Language</th>
+                                @*<th>
+                                    Content
+                                </th>*@
+                            </tr>
+                        </thead>
+                        <tbody id="body"></tbody>
+                        &nbsp;
+                    </table>
+                </div>
+            </div>
+            
+          </div>
+               
+            
+        </div>
+    </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            downloadList();
+            $('#pTable').DataTable();
+
+            eventButton();
+            $("#Language").change(function (e) {
+                downloadList();
+                eventButton();
+            });
+
+            
+
+            tinymce.init({
+                selector: 'textarea',
+                height: 300,
+                theme: 'modern',
+                plugins: [
+                  'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                  'searchreplace wordcount visualblocks visualchars code fullscreen',
+                  'insertdatetime media nonbreaking save table contextmenu directionality',
+                  'emoticons template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fontselect | fontsizeselect ',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | openmanager',
+                paste_data_images: true,
+                paste_as_text: true,
+                paste_enable_default_filters: false,
+                //file_browser_callback: "openmanager",
+                //open_manager_upload_path: '/Uploads/',
+                image_advtab: true,
+                templates: [
+                  { title: 'Test template 1', content: 'Test 1' },
+                  { title: 'Test template 2', content: 'Test 2' }
+                ],
+                content_css: [
+                  '/Content/codepen.min.css' 
+                ]
+            });
+
+        });
+
+        var app = angular.module('table', []);
+        app.controller('tablecontroller', function ($scope) {
+            
+           // $scope.master = { firstName: "John", lastName: "Doe" };
+            //$scope.reset = function () {
+            //    //$scope.user = angular.copy($scope.master);
+            //};
+            //$scope.reset();
+        });
+
+        function downloadList() {
+
+            $("#tablepage #body tr").remove();
+           
+            var data = callAjaxOnly("@Url.Action("getListPage")", "code=" + $("#Language").val());
+               
+            $.each(data, function (i, v) {
+
+                $("#tablepage #body").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+                    "<a title='View' id='" + v.Id + "' class='color-3' href='/Page/View/" + v.Id + "'>" +
+                            "<span class='glyphicon glyphicon-eye-open'></span>" +
+                         "</a>  &nbsp;  " +
+                        "<a title='Edit' id='"+ v.Id +"' class='color-3' href='/Page/Edit/" + v.Id + "'>" +
+                            "<span class='glyphicon glyphicon-edit'></span>" +
+                         "</a>  &nbsp;  " +
+                         (v.Language_Code == "en" ? " " :
+                         "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='#'>" +
+                                            "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                            " </a> "
+                                            ) +
+                    " </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> <a href='/Page/View/" + v.Id + "'>" + v.Title +
+                        " </a>" +
+                    "</td>" +
+                  
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    //"<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Content + "</td>" +
+                    "</tr>" 
+                    
+                    );
+            });
+
+            eventAction();
+        }
+
+        function eventButton() {
+            if ($("#Language").val() == "en") {
+                $("#New").addClass('disabled');
+            } else {
+                $("#New").removeClass('disabled');
+            }
+        }
+        function eventAction() {
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+                
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/Page/Create";
+                    downloadList();
+                    if (res.result) {
+                        
+                    }
+
+                }
+            });
+        }
+    </script>
+
+    }
+
+

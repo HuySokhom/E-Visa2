@@ -1,0 +1,138 @@
+﻿@model eVisa.ViewModel.PageView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="margin-bottom-2">
+    <div class="panel-success border">
+        <div class="panel-heading">
+            <h4>Create Content Page</h4>
+        </div>
+        <div class="">
+            @using (Html.BeginForm("Edit", "Page", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="">
+                   <div class="col-md-12">
+                        <h4>
+                            @Html.Raw(Model.Title)
+                        </h4>
+                        @Html.Raw(Model.Content)
+                       <div>
+                           <a href="/Page/Index" class="btn btn-success">
+                               <span class="glyphicon glyphicon-backward"></span>
+                               Back
+                           </a>
+                           <a href="/Page/Edit/@Model.Id" class="btn btn-success">
+                               <span class="glyphicon glyphicon-edit"></span>
+                               Edit
+                           </a>
+                       </div>
+                   </div>
+                </div>              
+            }
+        </div>
+    </div>
+</div>
+<hr />
+<div class="">
+    <iframe width="100%" height="800px" src="@Model.Links"></iframe>
+</div>
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+           // downloadList();
+            $("#Name").change(function (e) {
+                downloadList();
+            });
+
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/ImageSlider/Create";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+            
+          
+            tinymce.init({
+                selector: 'textarea',
+                height: 300,
+                theme: 'modern',
+                plugins: [
+                  'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                  'searchreplace wordcount visualblocks visualchars code fullscreen',
+                  'insertdatetime media nonbreaking save table contextmenu directionality',
+                  'emoticons template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fontsizeselect |',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | openmanager',
+                paste_data_images: true,
+                paste_as_text: true,
+                paste_enable_default_filters: false,
+                //file_browser_callback: "openmanager",
+                //open_manager_upload_path: '/Uploads/',
+                image_advtab: true,
+                templates: [
+                  { title: 'Test template 1', content: 'Test 1' },
+                  { title: 'Test template 2', content: 'Test 2' }
+                ],
+                content_css: [
+                  '/Content/codepen.min.css'
+                ]
+            });
+
+        });
+
+        var app = angular.module('table', []);
+        app.controller('tablecontroller', function ($scope) {
+            
+           // $scope.master = { firstName: "John", lastName: "Doe" };
+            //$scope.reset = function () {
+            //    //$scope.user = angular.copy($scope.master);
+            //};
+            //$scope.reset();
+        });
+
+        function downloadList() {
+
+            $("#tablepage tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getListPage")", "Id=" + $("#Name").val());
+               
+            $.each(data, function (i, v) {
+
+                $("#tablepage tbody").append(
+                    "<tr>" +
+                       
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                     "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/Page/Delete/" + v.Id + "'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a>" +
+                        "<a title='Edit' class='color-3' href=/Page/Edit/"+ v.Id + ">" +
+                            "<span class='glyphicon glyphicon-edit'></span>" +
+                         "</a> </td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Title + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Link_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Content + "</td>" +
+                    "</tr>"
+                    );
+            });
+        }
+    </script>
+
+    }
+
+

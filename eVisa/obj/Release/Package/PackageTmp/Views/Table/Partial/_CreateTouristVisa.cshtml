@@ -1,0 +1,60 @@
+﻿@model eVisa.ViewModel.TouristVisaView
+@using (Html.BeginForm("CreateTouristVisa", "Table", FormMethod.Post, new { @class = "form-horizontal", role = "form", @Id = "frmCreate" }))
+{
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Create a new </h4>
+                </div>
+                <div class="row modal-body  ">
+                    @Html.HiddenFor(m => m.Language_code)
+                    <div class="col-md-12">
+                        <fieldset disabled>
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    @Html.LabelFor(m => m.Language_code)
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.Language_code, Model.LanguageList, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </fieldset>
+                                <div class="row form-group">
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(m => m.Name)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.Name, Model.Name, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                        
+                                <div class="row form-group" >
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(m => m.Text)
+                                    </div>
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(m => m.Text, Model.Text, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                    </div>
+                  
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="save" value="save">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Save
+                    </button>
+                   
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+}
+

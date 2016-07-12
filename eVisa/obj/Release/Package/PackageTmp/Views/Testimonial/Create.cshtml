@@ -1,0 +1,245 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>Testimonial List</h4>
+        </div>
+        <div class="panel-body">
+            <br />
+            <div class="">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Add New" />
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-1">
+                        @Html.Label("Language", "Language", new { @class = "control-label" })
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("cboLanguage", (IEnumerable<SelectListItem>)ViewBag.Language, new { @class = "form-control" })
+                    </div>
+                    
+
+                </div>
+            </div>
+            <br />
+            <div id="loading"></div>
+            <br />
+            <div class="">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tablemenu">
+                        <table id="pTable" class="table table-bordered margin-top-20">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Action
+                                    </th>
+                                    <th>
+                                        Lanuguage
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Photo
+                                    </th>
+                                    <th>
+                                        Content
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="new" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Create")
+    </div>
+</div>
+<div id="edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Edit")
+    </div>
+</div>
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+           
+            clearForm();
+          download();
+          $('#pTable').DataTable();
+          $("#cboLanguage").change(function (e) {
+                download("");
+            });
+
+            $("#btnew").click(function (e) {
+                e.preventDefault();
+                $("#new").modal("show");
+
+                $("#frmCreate #Language_Code").val($("#cboLanguage").val());
+                $("#Language_Code").val($("#cboLanguage").val());
+            });
+            textarea();
+        });
+
+        function textarea(){
+            tinymce.init({
+                selector: 'textarea',
+                height: 200,
+                theme: 'modern',
+                plugins: [
+                  'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                  'searchreplace wordcount visualblocks visualchars code fullscreen',
+                  'insertdatetime media nonbreaking save table contextmenu directionality',
+                  'emoticons template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+                toolbar2: 'print preview media | forecolor backcolor emoticons',
+                image_advtab: true,
+                templates: [
+                  { title: 'Test template 1', content: 'Test 1' },
+                  { title: 'Test template 2', content: 'Test 2' }
+                ],
+                content_css: [
+                  '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+                  '//www.tinymce.com/css/codepen.min.css'
+                ]
+            });
+        }
+            
+
+        function download() {
+            $("#tablemenu tbody tr").remove();
+
+            var data = callAjaxOnly("@Url.Action("getTestimonialList")", "code=" + $("#cboLanguage").val());
+            $.each(data, function (i, v) {
+
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+
+                    "<a title='Edit' id= '" + v.Id + "' class='edit-row color-3' href='/'>" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> &nbsp;" +
+                        "<a title='Delete' id='"+ v.Id +"' class='delete-row color-3' href='/'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a>" +
+                    " </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> <img src='" + v.Url + "'  /> </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> <b> " + v.Name + "</b> "+  v.Country +"," + ToJavaScriptDate(v.Dates) + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Content + "</td>" +
+
+                    "</tr>"
+                    );
+            });
+
+            eventAction();
+        }
+
+        function eventAction() {
+
+            $(".edit-row").click(function (e) {
+
+                e.preventDefault();
+                $("#edit").modal("show");
+                var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                
+                if (res != null) {
+                    $.each(res, function (i, v) {
+                      
+                        $("#frmEdit #Name").val(v.Name);
+                        $("#frmEdit #Id").val(v.Id);
+                        $("#frmEdit #Tel").val(v.Tel);
+                        $("#frmEdit #Fax").val(v.Fax);
+                        $("#frmEdit #Email").val(v.Email);
+                        $("#frmEdit #Website").val(v.Website);
+                        $("#frmEdit #National").val(v.National); 
+                        $("#frmEdit #Language_Code").val(v.Language_Code);
+                        $("#frmEdit #Country").val(v.Country);
+                        tinyMCE.activeEditor.setContent(v.Content);
+
+                    });
+
+                   
+                }
+
+            });
+            
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+                    download();
+                    // window.location = "/ImageSlider/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+
+        }
+
+        function clearForm() {
+
+            $("#frmEdit #Name").val("");
+            $("#frmEdit #Id").val("");
+            $("#frmEdit #Tel").val("");
+            $("#frmEdit #Fax").val("");
+            $("#frmEdit #Email").val("");
+            $("#frmEdit #Website").val("");
+            $("#frmEdit #National").val("");
+            $("#frmEdit #Language_Code").val("");
+            $("#frmEdit #Country").val("");
+            
+            $("#frmCreate #Name").val("");
+            $("#frmCreate #Tel").val("");
+            $("#frmCreate #Fax").val("");
+            $("#frmCreate #Email").val("");
+            $("#frmCreate #Website").val("");
+            $("#frmCreate #National").val("");
+            $("#frmCreate #Language_Code").val("");
+            $("#frmCreate #Country").val("");
+           
+        }
+    </script>
+}
+
+
+
+
+
+
+
+

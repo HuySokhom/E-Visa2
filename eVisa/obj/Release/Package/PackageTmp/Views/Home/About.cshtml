@@ -1,0 +1,14 @@
+﻿@model eVisa.ViewModel.PageView
+@{
+    ViewBag.Title = "About";
+}
+<div class="content">
+    <br />
+    <div class="container">
+        <h1>@Model.Title</h1>
+        <div class="link">
+            @Html.Raw(Model.Content)
+        </div>
+        <br /><br />
+    </div>
+</div>

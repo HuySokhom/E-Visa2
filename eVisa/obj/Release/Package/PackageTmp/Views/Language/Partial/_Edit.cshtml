@@ -1,0 +1,48 @@
+﻿@model eVisa.ViewModel.LanguageEditView
+@using (Html.BeginForm("Edit", "Language", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", @Id = "frmEdit" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(e => e.Id)
+    <div class="modal-content">
+        <div class="panel-heading modal-header">
+            <h4 class="modal-title"> Create a new </h4>
+        </div>
+        <div class="row modal-body  ">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Paper Name" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", placeholder = "Description" })
+                    @Html.ValidationMessageFor(m => m.Code)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    <div id="show">
+                        @Html.TextBoxFor(m => m.Photo, new { type = "file" })
+                    </div>
+                    
+                    <img id="img" />
+                    
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="save" value="save">
+                <span class="glyphicon glyphicon-ok"></span>
+                Save
+            </button>
+            @*<input id="btAddNew" type="submit" class="btn btn-primary glyphicon glyphicon-ok" value="Register" />*@
+        </div>
+    </div>
+}

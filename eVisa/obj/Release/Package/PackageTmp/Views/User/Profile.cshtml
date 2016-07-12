@@ -1,0 +1,213 @@
+﻿@model eVisa.Models.Users
+
+@{
+    ViewBag.Title = "User Profile";
+}
+<div class="content">
+    <br />
+    <div class="container" data-ng-init="getCountry();">
+    @using (Html.BeginForm("Profile", "User", FormMethod.Post, new { @class = "" }))
+    {
+        <h1>1. Personal Information</h1> 
+        <div class="">
+            <div class="col-md-4 col-sm-6">
+                <label>Surname</label>
+                @Html.TextBoxFor(model => model.surname, new { @class = "form-control", required = "required" })
+                <div></div>
+               
+                <label>Middle Name</label>
+                @Html.TextBoxFor(model => model.middle_name, new { @class = "form-control", required = "required" })
+                <div></div>
+
+                <label>Given Name</label>
+                @Html.TextBoxFor(model => model.given_name, new { @class = "form-control", required = "required" })
+                <div></div>
+
+                <label>Sex:</label>
+                <p>
+                    @Html.RadioButtonFor(model => model.sex, "Male", new { id = "male", name = "group1", @isChecked = true })
+                    @Html.Label("male", "Male")
+
+                    @Html.RadioButtonFor(model => model.sex, "Female", new { id = "female", name = "group1", @isChecked = true })
+                    @Html.Label("female", "Female")
+                </p>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <label>Date of Birth</label>
+                <table style="width:300px;">
+                    <tr>
+                        <td>
+                            @Html.DropDownListFor(model => model.dob, new List<SelectListItem>{
+                                new SelectListItem() {Text = "1", Value="1"},
+                                new SelectListItem() {Text = "2", Value="2"},
+                                new SelectListItem() {Text = "3", Value="3"},
+                                new SelectListItem() {Text = "4", Value="4"},
+                                new SelectListItem() {Text = "5", Value="5"},
+                                new SelectListItem() {Text = "6", Value="6"},
+                                new SelectListItem() {Text = "7", Value="7"},
+                                new SelectListItem() {Text = "8", Value="8"},
+                                new SelectListItem() {Text = "9", Value="9"},
+                                new SelectListItem() {Text = "9", Value="9"},
+                                new SelectListItem() {Text = "10", Value="10"},
+                                new SelectListItem() {Text = "11", Value="11"},
+                                new SelectListItem() {Text = "12", Value="12"}
+                            }, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <select ng-model="month" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                                <option value="">Month</option>
+                            </select>
+                            @Html.DropDownListFor(model => model.day, (MultiSelectList)ViewBag.Day, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <select 
+                                ng-model="year"
+                                class="form-control"
+                                style="width:75px;"
+                                required ng-options="n for n in [] | rangeYearFuture:30"
+                                data-ng-init="1990 == year"
+                            >
+                                <option value="">Year</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                @Html.TextBoxFor(model => model.dob, new { @class = "form-control datepicker", required = "required", @Value = Model.dob.ToString("yyyy/MM/dd") })
+                <div></div>
+
+                <label>Country/Region of Birth</label>
+                @Html.DropDownListFor(model => model.country, (MultiSelectList)ViewBag.countries, new { @class = "form-control" })
+
+
+                <label>Country of Nationality</label>
+                @Html.DropDownListFor(model => model.nationality, (MultiSelectList)ViewBag.countries, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <img src="@Model.photo" title="photo" class="img-responsive" id="photo" style="width: 265px;" />
+                @Html.TextBoxFor(model => model.photo, new { type = "hidden", id = "valuePhoto"})
+                <br />
+                <input class="form-control" type="file" name="photo" id="upload_image" />
+                <div id="message">
+                    <span class="message"></span>
+                </div>
+            </div>
+        </div>
+        <h1 class="clearfix">2. Passport Information</h1> 
+        <div class="">
+            <label>Passport Number</label>
+            @Html.TextBoxFor(model => model.passport_no, new { @class = "form-control", required = "required" })
+            <div></div>
+
+            <label>Issuing Date</label>
+            @Html.TextBoxFor(model => model.passport_issue, new { @class = "form-control datepicker"})
+            
+            <label>Expiry Date</label>
+            @Html.TextBoxFor(model => model.passport_expire, new { @class = "form-control datepicker"})
+
+            <label>Country of Issue</label>
+            @Html.DropDownListFor(model => model.country_issue, (MultiSelectList)ViewBag.countries, new { @class = "form-control" })
+        </div>
+        <h1 class="clearfix">3. Contact Information</h1> 
+        <div class="">
+            <label>Surname</label>
+            @Html.TextBoxFor(model => model.contact_name, new { @class = "form-control", required = "required" })
+            <div></div>
+
+            <label>Primary E-mail</label>
+            @Html.TextBoxFor(model => model.primary_email, new { @class = "form-control", required = "required" })          
+
+            <label>Retype Primary E-mail</label>    
+            @Html.TextBoxFor(model => model.primary_email, new { @class = "form-control", required = "required" })
+                
+            <label>Secondary E-mail</label>
+            @Html.TextBoxFor(model => model.secondary_email, new { @class = "form-control", required = "required" })
+                
+            <label>Phone Number</label>
+            @Html.TextBoxFor(model => model.phone_number, new { @class = "form-control", required = "required" })
+            
+            <label>Residential Address</label>
+            @Html.TextBoxFor(model => model.residential_address, new { @class = "form-control", required = "required" })
+           
+            <label>Heard about us from?</label>
+            @Html.DropDownListFor(model => model.heard_from, new List<SelectListItem>{
+                new SelectListItem() {Text = "Airport", Value="Airport"},
+                new SelectListItem() {Text = "Embassy", Value="Embassy"},
+                new SelectListItem() {Text = "Forum", Value="Forum"},
+                new SelectListItem() {Text = "Friend", Value="Friend"},
+                new SelectListItem() {Text = "Google", Value="Google"},
+                new SelectListItem() {Text = "Government Organization", Value="Government Organization"},
+                new SelectListItem() {Text = "Guide Book", Value="Guide Book"},
+                new SelectListItem() {Text = "MSN", Value="MSN"},
+                new SelectListItem() {Text = "Newsletter", Value="Newsletter"},
+                new SelectListItem() {Text = "Others", Value="Others"},
+                new SelectListItem() {Text = "Travel Agent", Value="Travel Agent"},
+                new SelectListItem() {Text = "Travel Magazine", Value="Travel Magazine"},
+                new SelectListItem() {Text = "Travel Web Page", Value="Travel Web Page"},
+                new SelectListItem() {Text = "Yahoo", Value="Yahoo"},
+            }, new { @class = "form-control" })
+
+        </div>
+        <br class="clearfix" />
+        <button class="btn aling-left" type="submit">
+            <i class="fa fa-save"></i>
+            Save
+        </button>    
+    }
+        <button class="btn aling-right" onclick="location.href ='@Url.Action("Index", "User")'">
+            <i class="fa fa-times-circle-o"></i>
+            Cancel
+        </button>
+    </div>
+    <br /><br />
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var data = new FormData();
+                    var files = $("#upload_image").get(0).files;
+                    if (files.length > 0) {
+                        data.append("MyImages", files[0]);
+                    }
+
+                    $.ajax({
+                        url: "/User/UploadImage",
+                        type: "POST",
+                        processData: false,
+                        contentType: false,
+                        data: data,
+                        success: function (response) {
+                            console.log(response);
+                            if(response.success){
+                                //code after success
+                                //$scope.photo = '/Uploads/Users/' + response;
+                                //console.log($scope.photo);
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#photo').attr('src', '/Uploads/Users/' + response.image);
+                                    $('#valuePhoto').val('/Uploads/Users/' + response.image)
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                                $("#message span").text(response.message);
+                            } else {
+                                $("#message span").text(response.message);
+                            }
+                            
+                        },
+                        error: function (er) {
+                            $("#message span").text("Invalid or file error");
+                            //console.log(er);
+                        }
+                    });
+                }
+            }
+
+            $("#upload_image").change(function () {
+                readURL(this);
+            });
+        });
+    </script>
+}

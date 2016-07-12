@@ -1,0 +1,189 @@
+﻿@model eVisa.ViewModel.PageView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="margin-bottom-2">
+    <div class="panel-success border">
+        <div class="panel-heading">
+            <h4>Create Content Page</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Edit", "Page", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="">
+                    <div class="col-md-12">
+                        <div class="col-md-6" >
+                            <fieldset disabled></fieldset>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Name, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(m => m.Name, Model.MenuList, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Name)
+                                    </div>
+                                </div>
+                                
+                                @*<div class="form-group">
+                                    @Html.LabelFor(m => m.Link_Code, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(m => m.Link_Code, Model.TitleIndexList, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Link_Code)
+                                    </div>
+                                </div>*@
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Language_Code, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(m => m.Language_Code, Model.LanguageList, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Language_Code)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-3 control-label" })
+                                    <div class="col-md-6">
+                                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Description)
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Title, new { @class = "col-md-3 control-label" })
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Title)
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                        </div>
+                        
+                       
+                    </div>
+                   
+                
+                </div>
+                <div class="">
+                    @Html.LabelFor(m => m.Content, new { @class = "col-md-1 control-label" })            
+                </div>
+                 <div class="form-group">
+                     
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(m => m.Content, new { @class = " form-control" })
+                            @Html.ValidationMessageFor(m => m.Content)
+                        </div>
+                    </div>
+                <a href="/Page/Index" class="btn btn-success">
+                    <span class="glyphicon glyphicon-backward"></span>
+                    Back
+                </a>
+                <button type="submit" class="btn btn-success" name="save" value="save">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Save
+                </button>
+               
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+           // downloadList();
+            $("#Name").change(function (e) {
+                downloadList();
+            });
+
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/ImageSlider/Create";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+            
+          
+            tinymce.init({
+                selector: 'textarea',
+                height: 800,
+                theme: 'modern',
+                plugins: [
+                  'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                  'searchreplace wordcount visualblocks visualchars code fullscreen',
+                  'insertdatetime media nonbreaking save table contextmenu directionality',
+                  'emoticons template paste textcolor colorpicker textpattern imagetools'
+                ],
+                toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fontsizeselect |',
+                toolbar2: 'print preview media | forecolor backcolor emoticons | openmanager',
+                paste_data_images: true,
+                paste_as_text: true,
+                paste_enable_default_filters: false,
+                //file_browser_callback: "openmanager",
+                //open_manager_upload_path: '/Uploads/',
+                image_advtab: true,
+                templates: [
+                  { title: 'Test template 1', content: 'Test 1' },
+                  { title: 'Test template 2', content: 'Test 2' }
+                ],
+                content_css: [
+                  '/Content/codepen.min.css'
+                ]
+            });
+
+        });
+
+        var app = angular.module('table', []);
+        app.controller('tablecontroller', function ($scope) {
+            
+           // $scope.master = { firstName: "John", lastName: "Doe" };
+            //$scope.reset = function () {
+            //    //$scope.user = angular.copy($scope.master);
+            //};
+            //$scope.reset();
+        });
+
+        function downloadList() {
+
+            $("#tablepage tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getListPage")", "Id=" + $("#Name").val());
+               
+            $.each(data, function (i, v) {
+
+                $("#tablepage tbody").append(
+                    "<tr>" +
+                       
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                     "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/Page/Delete/" + v.Id + "'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a>" +
+                        "<a title='Edit' class='color-3' href=/Page/Edit/"+ v.Id + ">" +
+                            "<span class='glyphicon glyphicon-edit'></span>" +
+                         "</a> </td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Title + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Link_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Content + "</td>" +
+                    "</tr>"
+                    );
+            });
+        }
+    </script>
+
+    }
+
+

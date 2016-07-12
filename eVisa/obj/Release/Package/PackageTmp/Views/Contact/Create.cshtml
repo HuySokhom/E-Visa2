@@ -1,0 +1,213 @@
+﻿@model eVisa.ViewModel.ContactView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-success border">
+        <div class="panel-heading">
+            <h4>Tourism Profile</h4>
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("Create", "Contact", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-6">
+                            
+
+                            <div class="form-group">
+                                <b> General Informaion</b>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Language_Code, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(m => m.Language_Code, Model.LanguageList, new { @class = "form-control", placeholder = "Paper Name" })
+                                    @Html.ValidationMessageFor(m => m.Language_Code)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GeneralTel, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.GeneralTel, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.GeneralTel)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GeneralFax, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.GeneralFax, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.GeneralFax)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.GeneralEmail, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.GeneralEmail, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.GeneralEmail)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <b> Payment Information</b>
+                            </div>
+                            
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PaymentTel, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.PaymentTel, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.PaymentTel)
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.PaymentFax, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.PaymentFax, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.PaymentFax)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Paymentemail, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Paymentemail, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.Paymentemail)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Photohelp, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Photohelp, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.Photohelp)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Photoguide, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(m => m.Photoguide, new { @class = "form-control", placeholder = "Description" })
+                                    @Html.ValidationMessageFor(m => m.Photoguide)
+                                </div>
+                            </div>
+                        </div>
+                            
+                        
+                      
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="save" value="save">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Save
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            }
+
+            @Html.ValidationSummary()
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tablemenu">
+                        <table class="table table-bordered margin-top-20">
+                            <tr class="success">
+                                <th>
+                                    Action
+                                </th>
+                                <th>
+                                    Language
+                                </th>
+                                <th>
+                                    Content
+                                </th>
+                                
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            downloadList();
+
+            $("#Language_Code").change(function (e) {
+                downloadList();
+            });
+
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/Contact/Create";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+        })
+
+        function downloadList() {
+            $("#tablemenu tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getContact")", "code=" + $("#Language_Code").val());
+            $.each(data, function (i, v) {
+
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                        "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/TourismProfile/Delete/" + v.Id + "'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a> " +
+
+                            "<a title='Edit' class='color-3' href=/TourismProfile/Edit" + v.Id + ">" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> </td>" +
+
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Address + "</td>" +
+                        "<td>" +
+                            "<p> Tel :" + v.Tel + "</p>" +
+                            "<p> Fax :" + v.Fax + "</p>" +
+                            "<p> E-mail :" + v.Email + "</p>" +
+                            "<p> Website :" + v.Website + "</p>" +
+                        "</td>" +
+                    "</tr>"
+                    );
+            });
+        }
+    </script>
+}
+
+

@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "Payment Confirmation";
+}
+
+<div class="content" data-ng-controller="payment_ctrl">
+    <div class="container">
+        <div class="row bs-wizard" style="border-bottom:0;">
+            <div class="col-xs-3 bs-wizard-step complete">
+                <div class="text-center bs-wizard-stepnum">Apply</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step complete">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Application</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step complete">
+                <!-- complete -->
+                <div class="text-center bs-wizard-stepnum">Review</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+
+            <div class="col-xs-3 bs-wizard-step active">
+                <!-- active -->
+                <div class="text-center bs-wizard-stepnum">Payment</div>
+                <div class="progress"><div class="progress-bar"></div></div>
+                <a href="#" class="bs-wizard-dot"></a>
+            </div>
+        </div>
+        <div id="print">
+            <h1>
+                Payment Confirmation
+            </h1>
+            <b>Notice: </b>
+            <div class="separator"></div>
+            <br />
+            <p>
+                Please do not attempt to resubmit your application if you have encountered any payment problem.
+                You can resubmit your payment at "Check & Change" section with your reference number and primary contact email.
+            </p>
+            <div>Check & Change URL:</div>
+            <div>Reference Number: 114071600567</div>
+            <div>Primary Email: hy.chanhan@gmail.com</div>
+            <br />
+            <b>Help</b>
+            <div class="separator"></div>
+            <p>
+                <div>
+                    If your payment is successful but have not yet received any email from us, please re-check your SPAM folder before contacting us.
+                </div>
+                <div>
+                    For more information regarding your e-Visa application please contact Tel: 855 23 22 49 73 / Fax: 855 23 22 49 72
+                    and E-mail cambodiaevisa@mfaic.gov.kh / help@mfaic.gov.kh
+                </div>
+                <div>
+                    This stages your application not successful yet. Indeed this application will be completed after you make payment successfully.
+                    Please proceed to the payment page by click on the submit button below.
+                </div>
+                <div>
+                    Please do not enter double transactions on your payment page otherwise this application reject refundable.
+                </div>
+                <div>
+                    You will be received an email this page for your reference please check your email or if you cannot find it in your
+                    mailbox please visit your junk mailbox or bulk mailbox.
+                </div>
+                <div>
+                    If you encounter any problem on your payment page, please do not attempt to submit your payment again and again and
+                    please contact us to verify your payment status.
+                </div>
+                <div style="text-align:right">
+                    <a data-ng-click="printPayment();">
+                        <i class="fa fa-print"></i>
+                        Print this page
+                    </a>
+                </div>
+            </p>
+
+            <b>Additional Service Charge</b>
+            <div class="separator"></div>
+            <p>
+                <div>Dear Travelers,</div>
+                <div>We would like to inform you that there will be an additional charge US$3 for credit card service, payment gateway clearance fee and relevant technical support. Thank you! </div>
+            </p>
+
+            <b>
+                Choose Payment Gateway
+            </b>
+            <div class="separator"></div>
+            <br />
+            <p>
+                <input name="group1" type="radio" id="test1" />
+                <label for="test1">TeleMoney, USD, logo</label>
+                <br />
+                <input name="group1" type="radio" id="test2" />
+                <label for="test2">2C2P, USD, logo</label>
+                <br />
+                <input name="group1" type="radio" id="test3" />
+                <label for="test3">Security, USD, logo</label>
+            </p>
+            <div style=" width: 540px;">
+                <b>We Accepted:</b>
+                Visa, Master, JCB
+            </div>
+        </div>
+        <br />
+        <button class="btn" onclick="window.location.href = '/Home/Review'">
+            <i class="fa fa-backward"></i>
+            Back to Review
+        </button>
+        <button class="btn" onclick="window.location.href = '/Home/PaymentCon'">
+            <i class="fa fa-send-o"></i>
+            Submit Payment
+        </button>
+        <br /><br />
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="/App/core/restful/restful.js"></script>
+    <script type="text/javascript" src="/App/Payment/payment_ctrl.js"></script>
+}

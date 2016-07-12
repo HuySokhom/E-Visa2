@@ -1,0 +1,48 @@
+﻿@model eVisa.ViewModel.ImageEditView
+
+@using (Html.BeginForm("Create", "ImageSlider", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form",@Id="frmEdit" }))
+{
+    <div class="modal-content">
+        <div class="panel-heading modal-header">
+            <h4 class="modal-title"> Create a new </h4>
+        </div>
+        @Html.HiddenFor(e => e.Id)
+        <div class="row modal-body  ">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Paper Name" })
+                    @Html.ValidationMessageFor(m => m.Name)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Description, 3, 20, new { @class = "form-control", placeholder = "Description" })
+                    @Html.ValidationMessageFor(m => m.Description)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Photo, new { type = "file" })
+                    (1701 x 567) pixels
+                    @Html.ValidationMessageFor(m => m.Photo)
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" name="save" value="save">
+                <span class="glyphicon glyphicon-ok"></span>
+                Save
+            </button>
+            @*<input id="btAddNew" type="submit" class="btn btn-primary glyphicon glyphicon-ok" value="Register" />*@
+        </div>
+    </div>
+
+
+}
+

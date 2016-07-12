@@ -1,0 +1,208 @@
+﻿@model eVisa.ViewModel.FAQView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>FAQ</h4>
+        </div>
+        <div class="panel-body">
+            <br />
+            <div class="">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Add New" />
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    
+                    <div class="col-md-1">
+                        @Html.Label("Language", "Language", new { @class = "control-label" })
+
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("Search", Model.LanguageList, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div id="loading"></div>
+            <br />
+            <div class="">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tables">
+                        <table id="pTable" class="table table-bordered margin-top-20">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Action
+                                    </th>
+                                    <th>
+                                        Language
+                                    </th>
+                                    <th>
+                                        Quesion
+                                    </th>
+                                    <th>
+                                        Answer
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="new" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Create")
+
+    </div>
+</div>
+<div id="edit" class="modal" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Edit")
+
+    </div>
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            download("");
+            clearForm();
+            $('#pTable').DataTable();
+            $("#Search").change(function (e) {
+                download();
+            });
+
+            $("#btnew").click(function (e) {
+                e.preventDefault();
+                $("#new").modal("show");
+                $("#frmCreate #Language_Code").val($("#Search").val());
+                $("#Language_Code").val($("#Search").val());
+            });
+            
+        });
+
+            //tinyMCE.init({
+            //    // General options
+            //    mode: "textareas",
+            //    theme: "modern",
+            //    // Theme options
+            //    theme_advanced_buttons1: "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+            //    theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+            //    theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+            //    theme_advanced_buttons4: "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+            //    theme_advanced_toolbar_location: "top",
+            //    theme_advanced_toolbar_align: "left",
+            //    theme_advanced_statusbar_location: "bottom",
+            //    theme_advanced_resizing: true,
+
+            //    // Example content CSS (should be your site CSS)
+            //    content_css: "css/example.css",
+            //});
+
+       
+        function download() {
+            $("#tables tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getFAQ")","code="+$("#Search").val());
+
+            $.each(data, function (i, v) {
+
+                $("#tables tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+
+                         "<a title='Edit' id='"+ v.Id +"' class='edit-row color-3' href='/'>" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> &nbsp;" +
+                        "<a title='Delete' id='"+ v.Id +"' class='delete-row color-3' href='/'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a> " + 
+                    " </td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Language_Code + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.question + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> "+ v.answer + "</td>" +
+                    "</tr>"
+                    );
+            });
+
+            eventAction();
+        }
+
+        function eventAction() {
+
+            $(".edit-row").click(function (e) {
+
+                e.preventDefault();
+                $("#edit").modal("show");
+                var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                    
+                if (res != "") {
+                    
+                    $("#frmEdit #Id").val(res.Id);
+                    $("#frmEdit #Language_Code").val(res.Language_Code);
+                    $("#frmEdit #question").val(res.question);
+                    $("#frmEdit #answer").val(res.answer);
+                 
+                }
+
+            });
+            
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+                    download("");
+                    // window.location = "/ImageSlider/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+
+        }
+
+        function clearForm() {
+
+            $("#frmEdit #Id").val("");
+            $("#frmEdit #question").val("");
+            $("#frmEdit #answer").val("");
+
+            $("#frmCreate #question").val("");
+            $("#frmCreate #answer").val("");
+        }
+    </script>
+}
+
+
+
+

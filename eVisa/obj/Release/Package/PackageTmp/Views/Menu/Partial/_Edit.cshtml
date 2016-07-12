@@ -1,0 +1,79 @@
+﻿@model eVisa.ViewModel.MenuView
+@using (Html.BeginForm("Edit", "Menu", FormMethod.Post, new { @class = "form-horizontal", role = "form",@Id="frmEdit" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-content">
+                <div class="panel-heading modal-header">
+                    <h4 class="modal-title"> Edit </h4>
+                </div>
+                <div class="row modal-body  ">
+                    <div class="col-md-12">
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.HiddenFor(m => m.Language_Code)
+                        @Html.HiddenFor(m => m.Link_Code)
+                       <div id="content">
+                           <fieldset disabled>
+                               <div class="row form-group">
+                                   <div class="col-md-3">
+                                       @Html.LabelFor(e => e.Menu_Id, new { @class = "control-label" })
+                                   </div>
+
+                                   <div class="col-md-6">
+                                       @* @Html.TextBoxFor(e => e.Name,Model.Name,new { @class = "form-control" })*@
+                                       @Html.DropDownListFor(m => m.Link_Code, Model.MenuList, new { @class = "form-control" })
+                                       @Html.ValidationMessageFor(m => m.Menu_Id)
+
+                                   </div>
+
+                               </div>
+                           </fieldset>
+                           
+                           <div class="row form-group">
+
+                               <div class="col-md-3">
+                                   @Html.LabelFor(m => m.Language_Code, new { @class = "control-label" })
+                               </div>
+                               <div class="col-md-6">
+                                   @Html.DropDownListFor(m => m.Language_Code, Model.LanguageList, new { @class = "form-control" })
+                                   @Html.HiddenFor(m => m.Language_Code)
+                                   @Html.ValidationMessageFor(m => m.Language_Code)
+                               </div>
+
+                           </div>
+                       </div>
+                            
+                        
+
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                @Html.LabelFor(e => e.Name, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-6">
+                                @* @Html.TextBoxFor(e => e.Name,Model.Name,new { @class = "form-control" })*@
+                                @Html.TextBoxFor(m => m.Name, Model.Name, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
+                       
+                    </div>
+                   
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="save" value="save">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Save
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+}
+<fieldset disabled></fieldset>

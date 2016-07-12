@@ -1,0 +1,21 @@
+﻿<h1>Change Password</h1>
+<form name="changePassword" data-ng-submit="save();">
+    <label>Old Password</label>
+    <input type="password" class="form-control" required="required" placeholder="input old password..." data-ng-model="old_password" />
+
+    <label>New Password</label>
+    <input type="password" class="form-control" required="required" placeholder="input new password..." data-ng-model="new_password" />
+
+    <label>Confirm Password</label>
+    <input type="password" class="form-control" required="required" placeholder="input confirm password..." data-ng-model="confirm_password" />
+
+    <br />
+    <button class="btn aling-left" type="submit">
+        <i class="fa fa-save"></i>
+        Save
+    </button>
+</form>
+<button class="btn aling-right" onclick="location.href ='#/'">
+    <i class="fa fa-times-circle-o"></i>
+    Cancel
+</button>

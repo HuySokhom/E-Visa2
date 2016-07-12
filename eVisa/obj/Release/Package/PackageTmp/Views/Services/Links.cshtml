@@ -1,0 +1,38 @@
+﻿@model IEnumerable<eVisa.ViewModel.TourismView>
+@{
+    ViewBag.Title = "Links";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    eVisa.Function.BaseFunction fun = new eVisa.Function.BaseFunction();
+}
+<div class="content">
+    <br />
+    <div class="container">
+        <h1>Service Directory</h1>
+        <p>
+            <b>Dear travellers,</b>
+            You can now look for car rental and all of Tour & Travel services companies in Cambodia more easier & faster.
+            To see detail information please you go to each web link as the following:
+        </p>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col s12 m6 l6">
+                    <a href="http://avis.com.kh">
+                        <img src="@fun.ResolveServerUrl(item.Url,false)" title="@item.Name" class="img-rounded" />
+                    </a>
+                    <p class="text-justify">
+                        @item.Content
+                    </p>
+                    <p>
+                        <b>Contact:</b>
+                    </p>
+                    <p>Tel :  @item.Tel</p>
+                    <p>E-mail:  <a href="info@avrcambodia.com" class="color-3"> @item.Email </a></p>
+                    <p>Website: <a href="http://avis.com.kh" class="color-3"> @item.Website </a></p>
+                </div>
+            }
+        </div>
+        <br /><br />
+    </div>
+</div>

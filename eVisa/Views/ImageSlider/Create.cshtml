@@ -1,0 +1,51 @@
+﻿@model eVisa.ViewModel.ImageViewModel
+@{
+    ViewBag.Title = "ImageSlider";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-success border">
+        <div class="panel-heading">
+            <h4>Slide Image</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Create", "ImageSlider", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+            {
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Paper Name" })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(m => m.Description, 3, 20, new { @class = "form-control", placeholder = "Description" })
+                        @Html.ValidationMessageFor(m => m.Description)
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Photo, new { type = "file" })
+                        @Html.ValidationMessageFor(m => m.Photo)
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" name="save" value="save">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Save
+                </button>
+
+
+            }
+        </div>
+    </div>
+</div>
+
+           
+

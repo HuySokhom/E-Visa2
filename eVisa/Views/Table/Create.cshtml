@@ -1,0 +1,59 @@
+﻿@model eVisa.ViewModel.TouristVisaView
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>Tourist Visa</h4>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Create", "Table", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                
+                
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                @Html.LabelFor(m => m.Language_code)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Language_code, ViewBag.language as IList<SelectListItem>, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+               
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(m => m.Name,  new { @class = "form-control" })
+                            </div>
+                            
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Text, new { @class = "control-label" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(m => m.Text, new { @class = "form-control" })
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            }
+         </div>
+      </div>
+  </div>
+

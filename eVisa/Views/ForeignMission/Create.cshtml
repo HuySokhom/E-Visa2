@@ -1,0 +1,224 @@
+﻿@model eVisa.ViewModel.ForeignMissionView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>Foreign Mission</h4>
+        </div>
+        <div class="panel-body">
+            <br />
+            <div class="">
+                <div class="col-md-12">
+
+                    <div class="col-md-1">
+                        <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Add New" />
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-1">
+
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-1">
+                        @Html.LabelFor(e => e.Language_Code, new { @class = "control-label" })
+
+                    </div>
+                    <div class="col-md-2">
+                       @Html.DropDownList("cboLanguage", Model.LanguageList, new { @class = "form-control" })
+                    </div>
+                    
+
+                </div>
+            </div>
+            <br />
+            <div id="loading"></div>
+            <br />
+            <div class="">
+                <div class="col-md-12">
+                    <div class="table-responsive" id="tablemenu">
+                        <table id="pTable" class="table table-bordered margin-top-20">
+                            <thead>
+                                <tr class="success">
+                                    <th>
+                                        Action
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Address
+                                    </th>
+                                    <th>
+                                        Contact
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="new" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Create")
+
+    </div>
+</div>
+<div id="edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        @Html.Partial("Partial/_Edit")
+
+    </div>
+</div>
+
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            clearForm();
+            download();
+            $('#pTable').DataTable();
+            $("#cboLanguage").change(function (e) {
+
+                download("");
+            });
+
+            $("#btnew").click(function (e) {
+                e.preventDefault();
+                $("#new").modal("show");
+
+                $("#frmCreate #Language_Code").val($("#cboLanguage").val());
+                $("#Language_Code").val($("#cboLanguage").val());
+            });
+
+
+        });
+
+        function download() {
+            $("#tablemenu tbody tr").remove();
+
+            var data = callAjaxOnly("@Url.Action("getMinistryList")", "code=" + $("#cboLanguage").val());
+            $.each(data, function (i, v) {
+
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+                            "<a title='Edit' id='"+ v.Id +"' class='edit-row color-3' href='/'>" +
+                                "<span class='glyphicon glyphicon-edit'></span>" +
+                             "</a> &nbsp; " +
+
+                             "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/TourismProfile/Delete/" + v.Id + "'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a> " +
+                    "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Address + "</td>" +
+                        "<td>" +
+                            "<p> Tel :" + v.Tel + "</p>" +
+                            "<p> Fax :" + v.Fax + "</p>" +
+                            "<p> E-mail :" + v.Email + "</p>" +
+                            "<p> Website :" + v.Website + "</p>" +
+                        "</td>" +
+                    "</tr>"
+                    );
+            });
+
+            eventAction();
+        }
+
+        function eventAction() {
+
+            $(".edit-row").click(function (e) {
+
+                e.preventDefault();
+                $("#edit").modal("show");
+                var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                    
+                if (res != "") {
+                   
+                    $("#frmEdit #Id").val(res.Id);
+                    $("#frmEdit #Name").val(res.Name);
+                    $("#frmEdit #Tel").val(res.Tel);
+                    
+                    $("#frmEdit #Country").val(res.Country);
+                    $("#frmEdit #Language_Code").val(res.Language_Code);
+                    $("#frmEdit #Mission").val(res.Mission);
+
+                    $("#frmEdit #Fax").val(res.Fax);
+                    $("#frmEdit #Email").val(res.Email);
+                    $("#frmEdit #Website").val(res.Website);
+                    $("#frmEdit #Address").val(res.Address);
+                }
+
+            });
+            
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+                    download();
+                    // window.location = "/ImageSlider/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+        }
+
+        function clearForm() {
+            $("#frmEdit #Id").val("");
+            $("#frmEdit #Name").val("");
+            $("#frmEdit #Tel").val("");
+            $("#frmEdit #Country").val("");
+            $("#frmEdit #Language_Code").val("");
+            $("#frmEdit #Mission").val("");
+            $("#frmEdit #Fax").val("");
+            $("#frmEdit #Email").val("");
+            $("#frmEdit #Website").val("");
+            $("#frmEdit #Address").val("");
+
+
+            
+            $("#frmCreate #Name").val("");
+            $("#frmCreate #Tel").val("");
+
+            $("#frmCreate #Country").val("");
+            $("#frmCreate #Language_Code").val("");
+            $("#frmCreate #Mission").val("");
+
+            $("#frmCreate #Fax").val("");
+            $("#frmCreate #Email").val("");
+            $("#frmCreate #Website").val("");
+            $("#frmCreate #Address").val("");
+        }
+
+    </script>
+}
+
+
+
+
+
+
+

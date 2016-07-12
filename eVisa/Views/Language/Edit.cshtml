@@ -1,0 +1,108 @@
+﻿@model eVisa.ViewModel.LanguageView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h6></h6>
+<div class="row margin-bottom-2">
+    <div class="panel-success border">
+        <div class="panel-heading">
+            <h4>Slide Image</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                    @using (Html.BeginForm("Edit", "Language", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                    {
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Paper Name" })
+                                @Html.ValidationMessageFor(m => m.Name)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", placeholder = "Description" })
+                                @Html.ValidationMessageFor(m => m.Code)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Photo, new { type = "file" })
+                                @Model.Url
+                                <img src="@Model.Url" class="border" />
+                                @Html.ValidationMessageFor(m => m.Photo)
+                               
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="col-md-2"> </div>
+                                <button type="submit" class="btn btn-primary" name="save" value="save">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                        
+                        
+                    }
+               
+               
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+
+            //downloadMenuList();
+
+            $(".delete-row").click(function (e) {
+                e.preventDefault();
+
+                if (confirm('Do you want to delete !')) {
+                    var id = $(this).attr('id');
+                    var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                    window.location = "/Language/Index";
+                    if (res.result) {
+
+                    }
+
+                }
+            });
+
+        })
+
+        function downloadMenuList() {
+            $("#tablemenu tbody tr:gt(0)").remove();
+
+            var data = callAjaxOnly("@Url.Action("getLanguageList")");
+            $.each(data, function (i, v) {
+
+                $("#tablemenu tbody").append(
+                    "<tr>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + ">" +
+                        "<a title='Delete' id='"+ v.Id +"' class='delete-row color-3' href='/ImageSlider/Delete/"+ v.Id +"'>" +
+                                "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                " </a> </td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Name + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> " + v.Code + "</td>" +
+                    "<td " + (i % 2 ? "class='success label-note'" : ' ') + "> <img src='" + v.Url + "'  /> </td>" +
+                    "</tr>"
+                    );
+            });
+        }
+    </script>
+}

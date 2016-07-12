@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Frequent E-Visa User";
+}
+
+<div class="content" data-ng-controller="login_ctrl">
+    <div class="container">
+        <br />
+        <div class="row">
+            <div class="col s12 m6">
+                <form name="loginForm" ng-submit="login();">
+
+                    <h1>
+                        FREQUENT E-VISA USER
+                    </h1>
+                    <div class="alert alert-danger" data-ng-if="message">
+                        <span data-ng-bind-html="message"></span>
+                    </div>
+                    <label>User ID Or Primary E-mail</label>
+                    @Html.TextBox("user_id", "", new { @class = "form-control", required = "required", ng_model = "user_id", })
+
+                    <label>Password</label>
+                    @Html.Password("password", "", new { @class = "form-control", required = "required", ng_model = "password" })
+
+                    <br />
+                    <button class="btn" type="submit" data-ng-disabled="process">
+                        <i class="fa fa-refresh fa-spin"
+                           data-ng-show="process">
+                        </i>
+                        Sign In
+                    </button>
+                    <br /><br />
+                    <p>
+                        <i class="fa fa-hand-o-right"></i>
+                        <a data-toggle="modal" data-target=".forget_popup">
+                            Forgot Password
+                        </a>
+                    </p>
+                    <p>
+                        <i class="fa fa-arrow-circle-o-right"></i>
+                        <a data-toggle="modal" data-target=".signup_popup">
+                            Sign Up
+                        </a>
+                    </p>
+                    <br />
+
+                </form>
+            </div>
+
+            <div class="col s12 m6">
+                <h1>What is frequent user?</h1>
+                <ol>
+                    <li>Save time and hassle free</li>
+                    <li>Apply for e-visa is more faster and conventient always</li>
+                    <li>Have your own activity history</li>
+                    <li>Update your contact is more easier</li>
+                </ol>
+            </div>
+        </div>
+        <div class="modal fade signup_popup" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        Terms and Conditions
+                    </div>
+                    <div class="modal-body">
+                        I hereby certify that I have read and understood all the terms and conditions set forth in this application
+                        and the answers I have furnished on this form are true and correct to the best of my knowledge and belief.
+                        I understand that any false or misleading statement may result in the permanent refusal of an e-visa or
+                        denial of entry into the Cambodia. I understand that possession of an e-visa does not automatically entitle
+                        the bearer to enter the Kingdom of Cambodia upon arrival at a port of entry if he or she is found inadmissible.
+                        <br /><br />
+                        <ol>
+                            <li>Evidence of funds to cover your expenses in Cambodia</li>
+                            <li>Have not commit any drug trafficking or crime offensive</li>
+                            <li>Prostitution business in Cambodia is prohibited</li>
+                            <li>Never been expelled from Cambodia before</li>
+                            <li>Have not participated in any terrorist organizations</li>
+                            <li>e-Visa application fee is non-refundable</li>
+                        </ol>
+                        <br />
+                        <input type="checkbox" id="myCheckbox" ng-model="check" class="filled-in" />
+                        <label for="myCheckbox"></label>
+                        Accept the terms and conditions before continuing to registration form.
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                        <button type="button" class="btn" data-ng-click="signUp();" data-ng-disabled="!check">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form name="forgetForm">
+            <div class="modal fade forget_popup" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            Forget Password
+                        </div>
+                        <div class="modal-body">
+                            <label>Please enter your email ...</label>
+                            <input type="email" data-ng-model="email" class="form-control" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
+                            <button type="submit" class="btn">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript" src="/App/login/login_ctrl.js"></script>
+}

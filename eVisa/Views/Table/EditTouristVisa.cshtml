@@ -1,0 +1,84 @@
+﻿@model eVisa.ViewModel.TouristVisaView
+@{
+    ViewBag.Title = "EditTouristVisa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h6></h6>
+<div class="row">
+    <div class="panel-success border  margin-bottom-1">
+        <div class="panel-heading">
+            <h4>Edit TouristVisa</h4>
+        </div>
+
+        <div class="panel-body">
+            @using (Html.BeginForm("EditTouristVisa", "Table", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Language_code)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.DropDownListFor(m => m.Language_code, Model.LanguageList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Name)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(m => m.Name, Model.Name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Text)
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(m => m.Text, Model.Text, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-1">
+                                @Html.LabelFor(m => m.Header)
+                            </div>
+                            <div class="col-md-1">
+                                @Html.CheckBoxFor(m => m.Header,Model.Header)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="col-md-2">
+                            <button id="btSave" type="submit" class="btn btn-primary" name="save" value="save">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+          
+        </div>
+    </div>
+</div>

@@ -1,0 +1,197 @@
+﻿@model eVisa.ViewModel.LanguageView
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row margin-bottom-2">
+    <div class="panel-default">
+        <div class="panel-heading">
+            <h4>Language Lists</h4>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-12">
+                <input id="btnew" type="button" data-toggle="modal" data-target="#new" class="btn btn-success" value="Register" />
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive" id="tablemenu">
+                    <table id="pTable" class="table table-bordered margin-top-20">
+                        <thead>
+                            <tr class="success">
+                                <th>
+                                    Action
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Code
+                                </th>
+                                <th>
+                                    Photo
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="new" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    @using (Html.BeginForm("Create", "Language", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form",@Id="frmNew" }))        
+        {
+        @Html.AntiForgeryToken()
+        <div class="modal-content">
+            <div class="panel-heading modal-header">
+                <h4 class="modal-title"> Create a new </h4>
+            </div>
+            <div class="row modal-body  ">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Paper Name" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", placeholder = "Description" })
+                            @Html.ValidationMessageFor(m => m.Code)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Photo, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Photo, new { type = "file" })
+                            @Html.ValidationMessageFor(m => m.Photo)
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="col-md-12">
+                            <div class="col-md-2"> </div>
+                            <button type="submit" class="btn btn-primary" name="save" value="save">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                Save
+                            </button>
+                        </div>
+                    </div>*@
+
+            </div>
+            <div class="modal-footer">    
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>   
+                <button type="submit" class="btn btn-primary" name="save" value="save">
+                    <span class="glyphicon glyphicon-ok"></span>
+                    Save
+                </button>
+                @*<input id="btAddNew" type="submit" class="btn btn-primary glyphicon glyphicon-ok" value="Register" />*@
+            </div>    
+        </div>
+        }
+    </div>
+</div>
+
+<div id="edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+       @Html.Partial("Partial/_Edit")
+    </div>
+</div>
+
+            
+@section Scripts
+{
+@Scripts.Render("~/bundles/jqueryval")
+
+
+                <script type="text/javascript">
+                    $(document).ready(function (e) {
+                        
+                        downloadMenuList("");
+                        $('#pTable').DataTable();
+                        $("#txtserch").keypress(function (e) {
+                            downloadMenuList($("#txtserch").val());
+                        });
+
+                        $("#show").click(function (e) {
+
+                            $("#frmEdit #img").removeAttr("src");
+                        });
+
+                        $("#btnew").click(function (e) {
+                            e.preventDefault();
+               
+                            $("#new").modal("show");
+             
+                            @*var res = callgetAjaxOnly("@(Url.Action("Resetpassword"))", "id=" + $(this).attr('id'));
+               
+                            $("#frmResetPwd #UserName").val(res.UserName);
+                            $("#frmResetPwd #resetuserId").val(res.Id);*@
+                
+                            $("#bt_user_reset").click(function (e) {
+
+                                // downloadRole();
+                            });
+                        });
+
+                        $(".edit-row").click(function (e) {
+                            e.preventDefault();
+                            $("#edit").modal("show");
+                            var res = callgetAjaxOnly("@(Url.Action("Edit"))", "id=" + $(this).attr('id'));
+                            if (res != null) {
+                                
+                                $("#frmEdit #Name").val(res.Name);
+                                $("#frmEdit #Code").val(res.Code);
+                                $("#frmEdit #Photo").val('');
+                                $("#frmEdit #img").attr('src', res.Url);
+                                $("#frmEdit #Id").val(res.Id);
+                            }
+
+                        });
+
+                        $(".delete-row").click(function (e) {
+                            e.preventDefault();
+
+                            if (confirm('Do you want to delete !')) {
+                                var id = $(this).attr('id');
+                                var res = callAjaxOnly("@(Url.Action("AjaxDelete"))", "id=" + id);
+
+                                downloadMenuList("");
+                                if (res.result) {
+
+                                }
+
+                            }
+                        });
+
+                    })
+
+                    function downloadMenuList(search) {
+
+                        $("#tablemenu tbody tr").remove();
+                        
+                        var data = callAjaxOnly("@Url.Action("getLanguageList")", "search=" + search);
+                        $.each(data, function (i, v) {
+
+                            $("#tablemenu tbody").append(
+                                "<tr>" +
+                                "<td " + (i % 2 ? "class=' label-note'" : ' ') + ">" +
+                                    "<a title='Delete' id='" + v.Id + "' class='delete-row color-3' href='/Delete/" + v.Id + "'>" +
+                                            "  <span class='glyphicon glyphicon-remove-circle'></span> " +
+                                            " </a> &nbsp; " +
+
+                                    "<a title='Edit' id='" + v.Id + "' class='edit-row color-3' href='#'>" +
+                                            "  <span class='glyphicon glyphicon-edit'></span> " +
+                                            " </a> </td>" +
+                                "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Name + "</td>" +
+                                "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> " + v.Code + "</td>" +
+                                "<td " + (i % 2 ? "class=' label-note'" : ' ') + "> <img src='" + v.Url + "'  /> </td>" +
+                                "</tr>"
+                                );
+                        });
+                    }
+                </script>
+            }

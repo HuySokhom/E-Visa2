@@ -1,0 +1,182 @@
+<div>
+    <form name="profile" data-ng-submit="save();">
+        <div class="col-md-4 col-sm-6">
+            <h1>1. Personal Information</h1>
+            <label>Surname <span class="require">*</span></label>
+            <input type="text" required class="form-control" data-ng-model="Profile.SurName" />
+            <div></div>
+
+            <label>Given Name <span class="require">*</span></label>
+            <input type="text" required class="form-control" data-ng-model="Profile.GivenName" />
+            <div></div>
+            <label>Sex: <span class="require">*</span></label>
+            <p>
+                <input name="group1" type="radio" data-ng-model="Profile.Sex" value="Male" id="male" />
+                <label for="male">Male</label>
+                <input name="group1" type="radio" data-ng-model="Profile.Sex" value="Female" id="female" />
+                <label for="female">Female</label>
+            </p>
+            <label>DOB <span class="require">*</span></label>
+            <table style="width:300px;">
+                <tr>
+                    <td>
+                        <select ng-model="day" class="form-control" style="width:75px;" required ng-options="n for n in [] | rangeNumber:31">
+                            <option value="">Day</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="month" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                            <option value="">Month</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="year" class="form-control" style="width:75px;" required ng-options="n for n in [] | rangeYear:1920">
+                            <option value="">Year</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <label>Country <span class="require">*</span></label>
+            <select class="form-control"
+                    name="Profile.Country"
+                    ng-model="Profile.Country"
+                    required
+                    ng-options="country.name as country.name for country in countries"
+                    ng-selected="Profile.Country == country"></select>
+
+            <label>Country of Nationality <span class="require">*</span></label>
+            <select class="form-control"
+                    required
+                    data-ng-model="Profile.Nationality"
+                    data-ng-options="country.name as country.name for country in countries"
+                    data-ng-init="Nationality == country.name"></select>
+
+            <label>Residential Address</label>
+            <input ng-model="Profile.ResidentialAddress" class="form-control" type="text">
+
+            <label>Phone Number <span class="require">*</span></label>
+            <input type="text" required class="form-control" data-ng-model="Profile.PhoneNo" />
+
+            <label>Primary E-mail <span class="require">*</span></label>
+            <input type="email" required class="form-control" name="PrimaryEmail" data-ng-model="Profile.PrimaryEmail" />
+            <div class="message" ng-show="profile.PrimaryEmail.$error.email">
+                Not valid email.
+            </div>
+
+            <label>Secondary E-mail <span class="require">*</span></label>
+            <input type="email" required class="form-control" name="SecondaryEmail" data-ng-model="Profile.SecondaryEmail" />
+            <div class="message" ng-show="profile.SecondaryEmail.$error.email">
+                Not valid email.
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <h1>
+                2. Passport Information
+            </h1>
+            <label>Upload your photo <span class="require">*</span></label>
+            <input class="form-control" type="file" id="upload_image" accept="image/*" name="photo" />
+            <img data-ng-show="Profile.Photo" src="{{Profile.Photo}}" class="img-profile" />
+            <div id="message">
+                <span class="message"></span>
+            </div>
+
+            <label>Passport Number <span class="require">*</span></label>
+            <input ng-model="Profile.PassportNo" type="text" class="form-control" required>
+            <div>
+            </div>
+
+            <label>Issuing Date <span class="require">*</span></label>
+            <table style="width:300px;">
+                <tr>
+                    <td>
+                        <select ng-model="day_issue"
+                                class="form-control"
+                                style="width:75px;"
+                                ng-options="n for n in [] | rangeNumber:31"
+                                required>
+                            <option value="">Day</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="month_issue"
+                                class="form-control"
+                                style="width:85px;"
+                                ng-options="n for n in [] | rangeNumber:12"
+                                required>
+                            <option value="">Month</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="year_issue"
+                                class="form-control"
+                                style="width:75px;"
+                                ng-options="n for n in [] | rangeYear:1920"
+                                required>
+                            <option value="">Year</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <label>Expiry Date <span class="require">*</span></label>
+            <table style="width:300px;">
+                <tr>
+                    <td>
+                        <select ng-model="day_expiry"
+                                class="form-control"
+                                style="width:75px;"
+                                ng-options="n for n in [] | rangeNumber:31"
+                                required>
+                            <option value="">Day</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="month_expiry"
+                                class="form-control"
+                                style="width:85px;"
+                                ng-options="n for n in [] | rangeNumber:12"
+                                required>
+                            <option value="">Month</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select ng-model="year_expiry"
+                                class="form-control"
+                                style="width:75px;"
+                                ng-options="n for n in [] | rangeYearFuture:30"
+                                required>
+                            <option value="">Year</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <label>Country of Issue <span class="require">*</span></label>
+            <select class="form-control"
+                    data-ng-model="Profile.CountryIssue"
+                    data-ng-options="country.name as country.name for country in countries"
+                    data-ng-init="Profile.CountryIssue = country.name"
+                    required>
+                <option value="">--Select--</option>
+            </select>
+            <label>Heard about us from?</label>
+            <select class="form-control"
+                    data-ng-model="Profile.HeardFrom"
+                    data-ng-options="item.name as item.name for item in apply_items"
+                    data-ng-init="Profile.HeardFrom = item"></select>
+        </div>
+        <div class="clearfix" ></div>
+        <br />
+        <div class="col-md-12">
+            <button class="btn aling-left" type="submit" data-ng-disabled="process">
+                <i class="fa fa-save" data-ng-show="!process"></i>
+                <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
+                Save
+            </button>
+
+            <button class="btn aling-right" onclick="location.href ='#/'">
+                <i class="fa fa-times-circle-o"></i>
+                Cancel
+            </button>
+        </div>
+</form>    
+</div>
