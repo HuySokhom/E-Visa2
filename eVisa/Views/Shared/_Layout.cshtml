@@ -311,18 +311,6 @@
                 });
             });
 
-            // functionality for change class cllap at rigth side
-            $('.collapsible-header').click(function (e) {
-                var classCss = $(this).find('i').hasClass("fa-minus");
-                if (classCss) {
-                    //$(this).find('i').css("border", "3px double red");
-                    $(this).find('i').removeClass("fa-minus");
-                    $(this).find('i').addClass("fa-plus");
-                } else {
-                    $(this).find('i').addClass("fa-minus");
-                    $(this).find('i').removeClass("fa-plus");
-                }
-            });
         });
         function EventLanuguage() {
             $('ul.dropdown-content li input').click(function (e) {

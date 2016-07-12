@@ -9,12 +9,12 @@
         <div class="col-md-12">
             <h1>Frequently Asked Questions</h1>
 
-            <ul class="collapsible" data-collapsible="expandable">
+            <ul class="collapsible" data-collapsible="accordion">
                 @foreach (var item in Model)
                 {
                     <li class="active">
-                        <div class="collapsible-header" style="font-weight:600;">
-                            <i class="fa fa-plus"></i>
+                        <div class="collapsible-header" style="font-weight:600;" data-ng-click="setActive('@Html.Raw(item.Id)');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '@Html.Raw(item.Id)', 'fa fa-plus' : isActive != '@Html.Raw(item.Id)'}"></i>
                             @Html.Raw(item.question)
                         </div>
                         <div class="collapsible-body">
