@@ -188,6 +188,7 @@
     <Compile Include="Controllers\MissionWorldController.cs" />
     <Compile Include="Controllers\NavMenuController.cs" />
     <Compile Include="Controllers\PageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Controllers\TestimonialController.cs" />
@@ -416,6 +417,7 @@
     <Content Include="Images\avatar.png" />
     <Content Include="Images\bg_content_default.jpg" />
     <Content Include="Images\blank.gif" />
+    <Content Include="Images\children_icon.png" />
     <Content Include="Images\evisalogo.gif" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Flag\cambodian.png" />
@@ -1473,6 +1475,7 @@
     <Folder Include="Views\Children\" />
     <Folder Include="Views\Country\" />
     <Folder Include="Views\ForeignMission\Guidelines\" />
+    <Folder Include="Views\Payment\" />
     <Folder Include="Views\UserManager\" />
     <Folder Include="Views\Verify\" />
   </ItemGroup>

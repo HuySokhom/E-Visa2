@@ -3,9 +3,9 @@ app.controller(
 	'$scope'
 	, 'Restful'
 	, '$stateParams'
-	, '$location'
+	, '$window'
     , 'alertify'
-	, function ($scope, Restful, $stateParams, $location, $alertify) {
+	, function ($scope, Restful, $stateParams, $window, $alertify) {
 	    $scope.Child = {};
 	    $scope.Contact = {};
 		var url = '/Application/';
@@ -42,7 +42,7 @@ app.controller(
 		        $scope.applicationReviews = '';
 		        if (data.success) {
 		            $scope.applicationReviews = data.Data;
-		            //console.log($scope.applicationReviews);
+		            console.log($scope.applicationReviews);
 		        }
 		    });
 		};
@@ -158,45 +158,6 @@ app.controller(
 					});
 		    
 		};
-
-        // upload functionality
-		//$scope.Profile.Photo = '';
-		function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var data = new FormData();
-		        var files = $("#upload_image").get(0).files;
-		        if (files.length > 0) {
-		            data.append("MyImages", files[0]);
-		        }
-		       
-		        $.ajax({
-		            url: "/User/UploadImage",
-		            type: "POST",
-		            processData: false,
-		            contentType: false,
-		            data: data,
-		            success: function (response) {
-		                if (response.success) {
-		                    $scope.Contact.Photo = '/Uploads/Users/' + response.image;
-		                    $scope.Child.ChildPhoto = '/Uploads/Users/' + response.image;
-		                    $("#message span").text(response.message);
-		                    $("#img").attr('src', '/Uploads/Users/' + response.image);
-		                } else {
-		                    $("#message span").text(response.message);
-		                }
-		            },
-		            error: function (er) {
-		                $("#message span").text("Invalid or file error");
-		            }
-		        });
-		    }
-		}
-
-		$("#upload_image").change(function () {
-		    readURL(this); console.log(this);
-		});
-
-
 
 		$scope.editReview = function (params) {
 		    $scope.Contact = angular.copy(params);
@@ -332,5 +293,63 @@ app.controller(
 					});
 
 		};
+
+	    //*** upload functionality *****//
+	    //$scope.Profile.Photo = '';
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var data = new FormData();
+		        var files = $("#upload_image").get(0).files;
+		        if (files.length > 0) {
+		            data.append("MyImages", files[0]);
+		        }
+
+		        $.ajax({
+		            url: "/User/UploadImage",
+		            type: "POST",
+		            processData: false,
+		            contentType: false,
+		            data: data,
+		            success: function (response) {
+		                if (response.success) {
+		                    $scope.Contact.Photo = '/Uploads/Users/' + response.image;
+		                    $scope.Child.ChildPhoto = '/Uploads/Users/' + response.image;
+		                    $("#message span").text(response.message);
+		                    $("#img").attr('src', '/Uploads/Users/' + response.image);
+		                } else {
+		                    $("#message span").text(response.message);
+		                }
+		            },
+		            error: function (er) {
+		                $("#message span").text("Invalid or file error");
+		            }
+		        });
+		    }
+		}
+
+		$("#upload_image").change(function () {
+		    readURL(this); console.log(this);
+		});
+
+	    /**************************************
+        ***  functionality for save next 
+        ***  step payment conditional 
+        ***************************************/
+		$scope.saveAppPayment = function () {
+		    var model = {
+		        ReferenceNo: $scope.applicationReviews[0].ReferenceNo,
+		    }; console.log(model);
+		    $scope.disabled = true;
+		    Restful.save("/Payment/SaveAppPayment", model).success(function (data) {
+		        $scope.disabled = false;
+		        console.log(data);
+		        if (data.success) {
+		            Materialize.toast("Save Success.", 4000);
+		            // redirect to review 
+		            $window.location.href = '/Home/PaymentCon';
+		        }
+		    });
+		};
+
 	}
 ]);

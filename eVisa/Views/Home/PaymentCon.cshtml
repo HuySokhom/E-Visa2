@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row bs-wizard" style="border-bottom:0;">
             <div class="col-xs-3 bs-wizard-step complete">
-                <div class="text-center bs-wizard-stepnum">Apply</div>
+                <div class="text-center bs-wizard-stepnum">Contact Information</div>
                 <div class="progress"><div class="progress-bar"></div></div>
                 <a href="#" class="bs-wizard-dot"></a>
             </div>
@@ -43,9 +43,21 @@
                 Please do not attempt to resubmit your application if you have encountered any payment problem.
                 You can resubmit your payment at "Check & Change" section with your reference number and primary contact email.
             </p>
-            <div>Check & Change URL:</div>
-            <div>Reference Number: 114071600567</div>
-            <div>Primary Email: hy.chanhan@gmail.com</div>
+            <div>
+                Check & Change URL: 
+                <i class="fa fa-hand-o-right"></i>
+                <a href="/Home/CheckStatus">
+                    <b>Check Now</b>
+                </a>
+            </div>
+            <div>Reference Number: 
+                <i class="fa fa-hand-o-right"></i>
+             <b>{{Contacts.ReferenceNo}}</b>
+            </div>
+            <div>Primary Email:
+                <i class="fa fa-hand-o-right"></i> 
+                <b>{{Contacts.PrimaryEmail}}</b>
+            </div>
             <br />
             <b>Help</b>
             <div class="separator"></div>
@@ -108,11 +120,11 @@
             </div>
         </div>
         <br />
-        <button class="btn" onclick="window.location.href = '/Home/Review'">
+        <button class="btn btn-default" onclick="window.location.href = '/Home/Review'">
             <i class="fa fa-backward"></i>
             Back to Review
         </button>
-        <button class="btn" onclick="window.location.href = '/Home/PaymentCon'">
+        <button class="btn btn-default" onclick="window.location.href = '/Home/PaymentCon'">
             <i class="fa fa-send-o"></i>
             Submit Payment
         </button>
