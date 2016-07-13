@@ -176,10 +176,11 @@ app.controller(
 		            contentType: false,
 		            data: data,
 		            success: function (response) {
-		                if (response.success) {console.log(response);
+		                if (response.success) {
 		                    $scope.Contact.Photo = '/Uploads/Users/' + response.image;
 		                    $scope.Child.ChildPhoto = '/Uploads/Users/' + response.image;
 		                    $("#message span").text(response.message);
+		                    $("#img").attr('src', '/Uploads/Users/' + response.image);
 		                } else {
 		                    $("#message span").text(response.message);
 		                }

@@ -74,7 +74,7 @@
         <label>Upload your photo <span class="require">*</span></label>
         <input class="form-control" type="file" id="upload_image" accept="image/*"/>
         <img data-ng-show="Contact.Photo" src="{{Contact.Photo}}" class="img-responsive" />
-        <img src="https://placeholdit.imgix.net/~text?txtsize=85&txt=No%20Image&w=316&h=240" data-ng-show="!Contact.Photo" class="img-responsive"/>
+        <img src="/Images/blank.gif" data-ng-show="!Contact.Photo" class="img-responsive" />
         <div id="message">
             <span class="message"></span>
         </div>

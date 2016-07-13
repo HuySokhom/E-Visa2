@@ -35,7 +35,7 @@
         <h1>Review</h1>
         <p>Please double check your applications before proceeding to the payment page.</p>
         <button data-ng-disabled="applicationReviews.length == 9"
-                class="btn"
+                class="btn btn-default"
                 data-toggle="modal"
                 data-target=".apply_popup"
                 data-ng-click="clear();">
@@ -47,7 +47,7 @@
                 Limit 9 Application
             </span>
         </button>
-        <button class="btn" onclick="window.location.href='/Home/PaymentCon'">
+        <button class="btn btn-default" onclick="window.location.href='/Home/PaymentCon'">
             <i class="fa fa-arrow-circle-right"></i>
             Continue & Payment
         </button>
@@ -122,18 +122,24 @@
                 <div>{{item.VisitPerson}}</div>
             </div>
             <div class="col-md-3 col-sm-4">
-                <button class="btn" data-ng-click="addChild(item);">
-                    <i class="fa fa-plus-circle"></i>
-                    Add Child
-                </button>
-                <button class="btn" data-ng-click="editReview(item);">
-                    <i class="fa fa-edit"></i>
-                    Edit
-                </button>
-                <button class="btn" data-ng-click="remove($index, item.id);">
-                    <i class="fa fa-trash"></i>
-                    Delete
-                </button>
+                <div class="margin-top">
+                    <button class="btn btn-default" data-ng-click="addChild(item);">
+                        <i class="fa fa-plus-circle"></i>
+                        Add Child
+                    </button>
+                </div>
+                <div class="margin-top">
+                    <button class="btn btn-primary" style="width: 111px;" data-ng-click="editReview(item);">
+                        <i class="fa fa-edit"></i>
+                        Edit
+                    </button>
+                </div>
+                <div class="margin-top">
+                    <button class="btn btn-danger" style="width: 111px;" data-ng-click="remove($index, item.id);">
+                        <i class="fa fa-trash"></i>
+                        Delete
+                    </button>
+                </div>
             </div>
             <div class="clearfix border-app"></div>
         </div>
@@ -178,7 +184,8 @@
                                         </select>
                                     </td>
                                     <td>
-                                        <select ng-model="month" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                                        <select ng-model="month" class="form-control" style="width:85px;" required
+                                                ng-options="m.id as m.name for m in monthNames">
                                             <option value="">Month</option>
                                         </select>
                                     </td>
@@ -191,9 +198,10 @@
                             </table>
                             <label>Photo: <span class="require">*</span></label>
                             <input class="form-control" type="file" id="upload_image" accept="image/*" name="photo" />
-                            <img data-ng-show="Child.ChildPhoto" src="{{Child.ChildPhoto}}" class="img-responsive" />
-                            <img src="https://placeholdit.imgix.net/~text?txtsize=85&txt=No%20Image&w=316&h=240"
-                                 data-ng-show="!Child.ChildPhoto"
+                            <img data-ng-show="Child.ChildPhoto" id="img" src="{{Child.ChildPhoto}}" class="img-responsive" />
+                            <img src="/Images/children_icon.png"
+                                 data-ng-show="!Child.ChildPhoto" 
+                                 id="img"
                                  class="img-responsive" />
                             <div id="message">
                                 <span class="message"></span>
@@ -202,15 +210,15 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal">
+                        <button class="btn btn-default" data-dismiss="modal">
                             Close
                         </button>
-                        <button type="submit" class="btn" data-ng-disabled="disabled">
+                        <button type="submit" class="btn btn-default" data-ng-disabled="disabled">
                             <i class="fa fa-save" data-ng-show="!disabled"></i>
                             <i class="fa fa-circle-o-notch fa-spin fa-2x" data-ng-show="disabled"></i>
                             Save
                         </button>
-                        <a class="btn" data-ng-if="childId" data-ng-click="deleteChild();">
+                        <a class="btn btn-danger" data-ng-if="childId" data-ng-click="deleteChild();">
                             <i class="fa fa-trash"></i>
                             Delete
                         </a>
@@ -253,8 +261,8 @@
                         </div>
                     </div>
                     <div class="modal-footer" data-ng-show="delete">
-                        <button class="btn" data-ng-click="closeAppForm();" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn" data-ng-disabled="disabled">
+                        <button class="btn btn-default" data-ng-click="closeAppForm();" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default" data-ng-disabled="disabled">
                             <i class="fa fa-save" data-ng-show="!disabled"></i>
                             <i class="fa fa-circle-o-notch fa-spin fa-2x" data-ng-show="disabled"></i>
                             Save
