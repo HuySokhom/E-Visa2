@@ -8,17 +8,20 @@ app.controller(
 
 	    $scope.init = function () {
 	        Restful.get("/Apply/GetContact").success(function (data) {
-	            $scope.id = data.Data[0].id;
-	            $scope.Surname = data.Data[0].SurName;
-	            $scope.GivenName = data.Data[0].GivenName;
+	            //console.log(data);
+	            if(data.Data.length > 0){
+	                $scope.id = data.Data[0].id;
+	                $scope.Surname = data.Data[0].SurName;
+	                $scope.GivenName = data.Data[0].GivenName;
 
-	            $scope.Country = data.Data[0].Country;
-	            $scope.heardFrom = data.Data[0].HeardFrom;
-	            $scope.PhoneNumber = data.Data[0].PhoneNo;
-	            $scope.PrimaryEmail = data.Data[0].PrimaryEmail;
-	            $scope.RetypePrimaryEmail = data.Data[0].PrimaryEmail;
-	            $scope.SecondaryEmail = data.Data[0].SecondaryEmail;
-	            console.log(data);
+	                $scope.Country = data.Data[0].Country;
+	                $scope.heardFrom = data.Data[0].HeardFrom;
+	                $scope.PhoneNumber = data.Data[0].PhoneNo;
+	                $scope.PrimaryEmail = data.Data[0].PrimaryEmail;
+	                $scope.RetypePrimaryEmail = data.Data[0].PrimaryEmail;
+	                $scope.SecondaryEmail = data.Data[0].SecondaryEmail;
+	            }
+	            
 	        });
 	    };
 	    $scope.init();

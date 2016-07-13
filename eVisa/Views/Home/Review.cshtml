@@ -63,7 +63,7 @@
         <div data-ng-repeat="item in applicationReviews" class="row">
             <div class="col-md-3 col-sm-4">
                 <img src="{{item.Photo}}" data-ng-show="item.Photo" class="img-responsive" />
-                <img src="https://placeholdit.imgix.net/~text?txtsize=85&txt=No%20Image&w=316&h=240"
+                <img src="/Images/blank.gif"
                      data-ng-show="item.Photo == '' || item.Photo == null"
                      class="img-responsive" />
                 <div data-ng-repeat="child in item.Children">
@@ -71,7 +71,7 @@
                          class="child-image"
                          data-ng-show="child.ChildPhoto"
                          data-ng-click="editChild(child)" />
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=85&txt=No%20Image&w=316&h=240"
+                    <img src="/Images/children_icon.png"
                          data-ng-hide="child.ChildPhoto"
                          class="child-image"
                          data-ng-click="editChild(child)" />

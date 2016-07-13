@@ -30,7 +30,12 @@
                             </select>
                         </td>
                         <td>
-                            <select ng-model="month" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                            <select ng-model="month"
+                                    class="form-control"
+                                    style="width:85px;"
+                                    required
+                                    ng-options="m.id as m.name for m in monthNames"
+                                    ng-init="month === m.id">
                                 <option value="">Month</option>
                             </select>
                         </td>
@@ -89,7 +94,12 @@
                     </select>
                 </td>
                 <td>
-                    <select ng-model="month_issue" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                    <select ng-model="month_issue" 
+                            class="form-control" 
+                            style="width:85px;" 
+                            required
+                            ng-options="m.id as m.name for m in monthNames"
+                            ng-init="month === m.id">
                         <option value="">Month</option>
                     </select>
                 </td>
@@ -109,7 +119,12 @@
                     </select>
                 </td>
                 <td>
-                    <select ng-model="month_expiry" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                    <select ng-model="month_expiry" 
+                            class="form-control" 
+                            style="width:85px;" 
+                            required 
+                            ng-options="m.id as m.name for m in monthNames"
+                            ng-init="month === m.id">
                         <option value="">Month</option>
                     </select>
                 </td>
@@ -140,7 +155,12 @@
                     </select>
                 </td>
                 <td>
-                    <select ng-model="month_entry" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                    <select ng-model="month_entry" 
+                            class="form-control" 
+                            style="width:85px;" 
+                            required 
+                            ng-options="m.id as m.name for m in monthNames"
+                            ng-init="month === m.id">
                         <option value="">Month</option>
                     </select>
                 </td>

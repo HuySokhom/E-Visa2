@@ -35,14 +35,14 @@ app.controller(
 		            }
 		            $(".apply_popup").modal('show');
 		        }
-		        console.log($scope.Contacts);
+		        //console.log($scope.Contacts);
 		    });
 		    //************** get application info ***************//
 		    Restful.get(url).success(function (data) {
 		        $scope.applicationReviews = '';
 		        if (data.success) {
 		            $scope.applicationReviews = data.Data;
-		            console.log($scope.applicationReviews);
+		            //console.log($scope.applicationReviews);
 		        }
 		    });
 		};
@@ -77,7 +77,11 @@ app.controller(
 		        var results = pattern.exec(value);
 		        if (results) {
 		            var dt = new Date(parseFloat(results[1]));
-		            var date = dt.getDate() + '-' + (parseFloat(dt.getMonth()) + 1) + '-' + dt.getFullYear()
+		            var monthNames = [
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+		            ];
+		            var date = dt.getDate() + '-' + monthNames[parseFloat(dt.getMonth())] + '-' + dt.getFullYear()
 		            return date;
 		        } else {
 		            return value;
@@ -197,7 +201,7 @@ app.controller(
 		    $scope.Contact = angular.copy(params);
 		    $scope.id = $scope.Contact.id;
 		    $(".apply_popup").modal('show');
-		    var dob = $scope.dateFormat(params.DOB);
+		    var dob = $scope.dateFormat(params.DOB); console.log(dob);
 		    var entry_date = $scope.dateFormat(params.EntryDate);
 		    var issue_date = $scope.dateFormat(params.PassportIssueDate);
 		    var expire_date = $scope.dateFormat(params.PassportExpiryDate);
