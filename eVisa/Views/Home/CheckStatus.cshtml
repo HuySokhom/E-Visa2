@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "CheckStatus";
 }
-<div class="content">
+<div class="content" data-ng-controller="check_status_ctrl">
     <div class="container">
         <br />
         <h1>
@@ -21,27 +21,30 @@
             <li style="list-style:none">&nbsp;</li>
             <li style="font-weight:bold"> Please enter your reference number and primary email address only</li>
         </ul>
-
-        @using (Html.BeginForm("CheckStatus_Login", "Home", null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
-        {
+        <form name="checkStatus" data-ng-submit="check();">
+            @*@using (Html.BeginForm("CheckStatus_Login", "Home", null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
+            {*@
             <label>Reference No:</label>
-            @Html.TextBox("txtReferenceNo", "", new { @class = "form-control"})
+            @Html.TextBox("ReferenceNo", "", new { @class = "form-control", data_ng_model = "ReferenceNo", required = "required" })
 
             <label>Primary Email Address:</label>
-            @Html.TextBox("txtPrimaryEmail", "", new { @class = "form-control" })
-    
+            @Html.TextBox("PrimaryEmail", "", new { @class = "form-control", data_ng_model = "PrimaryEmail", required = "required", type="email" })
+
             <p class="message">
-                (Please use primary email addresss only)
+                <i class="fa fa-star-o"></i>
+                Note: Please use primary email addresss only
             </p>
-            <button class="btn btn-default">
-                <i class="fa fa-backward"></i>
-                Back
-            </button>
-            <button type="submit" class="btn btn-default">
-                <i class="fa fa-check-square-o"></i>
+            <button type="submit" class="btn btn-default" data-ng-disabled="process">
+                <i class="fa fa-check-square-o" data-ng-show="!process"></i>
+                <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
                 Submit
             </button>
-        }
+            @* } *@
+        </form>
         <br /><br />
     </div>
 </div>
+@section scripts{
+    <script type="text/javascript" src="/App/core/restful/restful.js"></script>
+    <script type="text/javascript" src="/App/checkStatus/check_status_ctrl.js"></script>
+}

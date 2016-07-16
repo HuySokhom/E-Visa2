@@ -172,6 +172,7 @@
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ApplyController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CheckStatusController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
@@ -286,6 +287,7 @@
     <Content Include="App\Application\application_ctrl.js" />
     <Content Include="App\apply\apply_ctrl.js" />
     <Content Include="App\changePassword\change_password_ctrl.js" />
+    <Content Include="App\checkStatus\check_status_ctrl.js" />
     <Content Include="App\core\config\route.js" />
     <Content Include="App\core\directive\number.js" />
     <Content Include="App\core\restful\restful.js" />
@@ -1472,6 +1474,7 @@
     <Folder Include="obj\" />
     <Folder Include="Views\Application\" />
     <Folder Include="Views\Apply\" />
+    <Folder Include="Views\CheckStatus\" />
     <Folder Include="Views\Children\" />
     <Folder Include="Views\Country\" />
     <Folder Include="Views\ForeignMission\Guidelines\" />
