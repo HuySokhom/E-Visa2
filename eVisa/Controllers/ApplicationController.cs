@@ -1,5 +1,6 @@
 ﻿using eVisa.Function;
 using eVisa.Models;
+using eVisa.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,9 +17,140 @@ namespace eVisa.Controllers
 
         static string language = "";
 
-        //
-        // GET: /Application/
+
         public ActionResult Index()
+        {
+            //*********** Redirect to review if user login ********************//
+            if (Session["userId"] != null)
+            {
+                return RedirectToAction("Review");
+            }
+            // *********End redirect user to review **********//
+
+            //***** Check If User Guest Already Apply Redirect to Review  ********//
+            var uSession = Session.SessionID;
+            int uSessionCount = db.Application.Count(u => u.Userid == uSession && u.Status == 0);
+            if (uSessionCount > 0)
+            {
+                return RedirectToAction("Review");
+            }
+            //******** End check if user guest has to Apply **************//
+
+            // Check if user guest Not yet Apply Form Redirect to Apply //
+            int countContact = db.ContactInformation.Count(u => u.UserId == uSession);
+            if (countContact == 0)
+            {
+                return RedirectToAction("", "Apply");
+            }
+            //*********** End Condition **************//
+
+            if (Session["language"] == null)
+            {
+                language = "en";
+            }
+            else
+            {
+                language = Session["language"].ToString();
+            }
+            ViewBag.Message = "Your application description page.";
+            ViewBag.MenuList = fun.getItemMenu(db, db.Menus.Where(e => e.Language_Code == language.Trim() && e.IsActive == 1 && e.TypeMenu == 1)
+                  .Select(e => new MenuView()
+                  {
+                      Name = e.Name,
+                      SubMenu = e.SubMenu,
+                      Link_Code = e.Link_Code
+                  }));
+            ViewBag.LanguageList = db.Languages.Where(e => e.IsActive == 1 && e.Code != language)
+                    .Select(e => new LanguageView()
+                    {
+                        Name = e.Name,
+                        Url = e.Url,
+                        Id = e.Id,
+                        Code = e.Code
+                    }).ToList();
+
+            return View();
+        }
+
+        public ActionResult SearchReferenceNumber()
+        {
+            if (Session["language"] == null)
+            {
+                language = "en";
+            }
+            else
+            {
+                language = Session["language"].ToString();
+            }
+            ViewBag.Message = "Search Reference Number.";
+            ViewBag.MenuList = fun.getItemMenu(db, db.Menus.Where(e => e.Language_Code == language.Trim() && e.IsActive == 1 && e.TypeMenu == 1)
+                  .Select(e => new MenuView()
+                  {
+                      Name = e.Name,
+                      SubMenu = e.SubMenu,
+                      Link_Code = e.Link_Code
+                  }));
+            ViewBag.LanguageList = db.Languages.Where(e => e.IsActive == 1 && e.Code != language)
+                    .Select(e => new LanguageView()
+                    {
+                        Name = e.Name,
+                        Url = e.Url,
+                        Id = e.Id,
+                        Code = e.Code
+                    }).ToList();
+
+            return View();
+        }
+
+        public ActionResult Review()
+        {
+            var user = Session["userId"];
+            // Check if user guest have already apply form Info
+            if (user == null)
+            {
+                user = Session.SessionID;
+            }
+            int uSessionCount = db.Application.Count(u => u.Userid == user && u.Status == 0);
+            if (uSessionCount == 0)
+            {
+                var u = Session["userId"];
+                if (u == null)
+                {
+                    return RedirectToAction("");
+                }
+            }
+            if (Session["language"] == null)
+            {
+                language = "en";
+            }
+            else
+            {
+                language = Session["language"].ToString();
+            }
+            ViewBag.Message = "Your application description page.";
+            ViewBag.MenuList = fun.getItemMenu(db, db.Menus.Where(e => e.Language_Code == language.Trim() && e.IsActive == 1 && e.TypeMenu == 1)
+                  .Select(e => new MenuView()
+                  {
+                      Name = e.Name,
+                      SubMenu = e.SubMenu,
+                      Link_Code = e.Link_Code
+                  }));
+            ViewBag.LanguageList = db.Languages.Where(e => e.IsActive == 1 && e.Code != language)
+                    .Select(e => new LanguageView()
+                    {
+                        Name = e.Name,
+                        Url = e.Url,
+                        Id = e.Id,
+                        Code = e.Code
+                    }).ToList();
+            return View();
+        }
+
+        
+
+        //
+        // GET: /Application/Get
+        public ActionResult Get()
         {
             var userId = Session["userId"];
             if (userId == null)
@@ -68,7 +200,8 @@ namespace eVisa.Controllers
                             c.ChildSurName
                         }
                 };
-            return Json(new { success = true, Data = query }, JsonRequestBehavior.AllowGet); 
+            return Json(new { success = true, Data = query }, JsonRequestBehavior.AllowGet);
+            
         }
 
         [HttpPost]

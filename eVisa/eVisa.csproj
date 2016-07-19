@@ -1451,34 +1451,30 @@
     <Content Include="Views\Information\HowToApply.cshtml" />
     <Content Include="Views\Information\Map.cshtml" />
     <Content Include="Views\Account\_View.cshtml" />
-    <Content Include="Views\Home\Application.cshtml" />
-    <Content Include="Views\Home\ApplicationStatus.cshtml" />
-    <Content Include="Views\Home\CheckStatus.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
+    <Content Include="Views\CheckStatus\Status.cshtml" />
+    <Content Include="Views\CheckStatus\Index.cshtml" />
     <Content Include="Views\User\FQLogin.cshtml" />
     <Content Include="Views\User\FQSignup.cshtml" />
-    <Content Include="Views\Home\PaymentCon.cshtml" />
-    <Content Include="Views\Home\Review.cshtml" />
-    <Content Include="Views\Home\Apply.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Application\Review.cshtml" />
+    <Content Include="Views\Apply\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
-    <Content Include="Views\Home\ApplicationFormPartial.cshtml" />
+    <Content Include="Views\Application\ApplicationFormPartial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\Change.cshtml" />
     <Content Include="Views\User\History.cshtml" />
-    <Content Include="Views\Home\SearchReferenceNumber.cshtml" />
+    <Content Include="Views\Application\SearchReferenceNumber.cshtml" />
     <Content Include="Views\User\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\App_LocalResources\" />
     <Folder Include="obj\" />
-    <Folder Include="Views\Application\" />
-    <Folder Include="Views\Apply\" />
-    <Folder Include="Views\CheckStatus\" />
     <Folder Include="Views\Children\" />
     <Folder Include="Views\Country\" />
     <Folder Include="Views\ForeignMission\Guidelines\" />
-    <Folder Include="Views\Payment\" />
     <Folder Include="Views\UserManager\" />
     <Folder Include="Views\Verify\" />
   </ItemGroup>

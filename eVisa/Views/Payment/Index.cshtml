@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Payment Confirmation";
 }
-
+@model eVisa.Models.ContactInformation
 <div class="content" data-ng-controller="payment_ctrl">
     <div class="container">
         <div class="row bs-wizard" style="border-bottom:0;">
@@ -43,21 +43,37 @@
                 Please do not attempt to resubmit your application if you have encountered any payment problem.
                 You can resubmit your payment at "Check & Change" section with your reference number and primary contact email.
             </p>
-            <div>
-                Check & Change URL: 
-                <i class="fa fa-hand-o-right"></i>
-                <a href="/Home/CheckStatus">
-                    <b>Check Now</b>
-                </a>
-            </div>
-            <div>Reference Number: 
-                <i class="fa fa-hand-o-right"></i>
-             <b>{{Contacts.ReferenceNo}}</b>
-            </div>
-            <div>Primary Email:
-                <i class="fa fa-hand-o-right"></i> 
-                <b>{{Contacts.PrimaryEmail}}</b>
-            </div>
+            <table style="width: 265px; ">
+                <tr>
+                    <td>
+                        Check & Change URL
+                    </td>
+                    <td width="10px">:</td>
+                    <td>
+                        <a href="/CheckStatus">
+                            <b>Check Now</b>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Reference Number
+                    </td>
+                    <td>:</td>
+                    <td>
+                        <b>@Model.ReferenceNo</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Primary Email
+                    </td>
+                    <td>:</td>
+                    <td>
+                        <b>@Model.PrimaryEmail</b>
+                    </td>
+                </tr>
+            </table>
             <br />
             <b>Help</b>
             <div class="separator"></div>
@@ -120,11 +136,11 @@
             </div>
         </div>
         <br />
-        <button class="btn btn-default" onclick="window.location.href = '/Home/Review'">
+        <button class="btn btn-default" onclick="window.location.href = '/Application/Review'">
             <i class="fa fa-backward"></i>
             Back to Review
         </button>
-        <button class="btn btn-default" onclick="window.location.href = '/Home/PaymentCon'">
+        <button class="btn btn-default" onclick="window.location.href = '/Payment'">
             <i class="fa fa-send-o"></i>
             Submit Payment
         </button>

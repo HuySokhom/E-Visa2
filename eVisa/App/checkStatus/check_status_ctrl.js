@@ -16,7 +16,7 @@
                 if (data.success) {
                     $alertify.success("<b>Success: </b> Your ReferenceNo and PrimaryEmail Match.");
                     // redirect to ApplicationStatus
-                    return $window.location.href = '/Home/ApplicationStatus';
+                    return $window.location.href = '/CheckStatus/Status';
                 } else {
                     return $alertify.error("<b>Error: </b> Invalid ReferenceNo Or PrimaryEmail.");
                 }

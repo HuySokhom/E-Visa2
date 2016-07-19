@@ -48,7 +48,7 @@ app.controller(
 	            if (data.success) {
 	                $alertify.success("<b>Complete: </b> Save Success.");
 	                // redirect to Application
-	                $window.location.href = '/Home/Application';
+	                $window.location.href = '/Application';
 	            } else {
 	                return $alertify.log("<b>Warning: </b> Something went wrong. Please contact admin.");
 	            }

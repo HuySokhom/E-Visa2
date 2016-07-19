@@ -8,7 +8,7 @@ app.controller(
 	, function ($scope, Restful, $stateParams, $window, $alertify) {
 	    $scope.Child = {};
 	    $scope.Contact = {};
-		var url = '/Application/';
+		var url = '/Application/Get';
 		$scope.init = function (params) {
             //************* get user profile info *******************//
 		    Restful.get('/User/Profile/').success(function (data) {
@@ -346,7 +346,7 @@ app.controller(
 		        if (data.success) {
 		            Materialize.toast("Save Success.", 4000);
 		            // redirect to review 
-		            $window.location.href = '/Home/PaymentCon';
+		            $window.location.href = '/Payment';
 		        }
 		    });
 		};
