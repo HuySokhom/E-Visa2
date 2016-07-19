@@ -114,7 +114,7 @@ namespace eVisa.Controllers
                 contact.PrimaryEmail = contactInfo.PrimaryEmail;
                 contact.Status = 1;
                 contact.SecondaryEmail = contactInfo.SecondaryEmail;
-                contact.UserId = Session.SessionID;
+                contact.UserId = user.ToString();
                 contact.CreatedDate = DateTime.Now;
                 
                 contact.PhoneNo = contactInfo.PhoneNo;

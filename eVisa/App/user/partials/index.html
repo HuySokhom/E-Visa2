@@ -103,7 +103,8 @@
                                 <td>
                                     <select ng-model="month_entry"
                                             class="form-control"
-                                            style="width: 85px;" ng-options="n for n in [] | rangeNumber:12"
+                                            style="width: 85px;"
+                                            ng-options="m.id as m.name for m in monthNames"
                                             required>
                                         <option value="">Month</option>
                                     </select>

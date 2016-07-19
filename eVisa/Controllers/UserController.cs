@@ -104,7 +104,7 @@ namespace eVisa.Controllers
                         Code = e.Code
                     }).ToList();
 
-            var user = (from u in db.ContactInformation where u.UserId == userId select u).Single();
+            var user = (from u in db.ContactInformation where u.UserId == userId select u).FirstOrDefault();
             return new JsonResult() { Data = user, JsonRequestBehavior = JsonRequestBehavior.AllowGet };            
                 
         }
@@ -118,7 +118,7 @@ namespace eVisa.Controllers
                 if (ModelState.IsValid)
                 {
                     var userId = Session["userId"];
-                    var user = (from u in db.ContactInformation where u.UserId == userId select u).Single();
+                    var user = (from u in db.ContactInformation where u.UserId == userId select u).FirstOrDefault();
                     if (user != null)
                     {
                         user.SurName = model.SurName;
