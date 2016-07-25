@@ -104,7 +104,7 @@ namespace eVisa.Controllers
                         Code = e.Code
                     }).ToList();
 
-            var user = (from u in db.ContactInformation where u.UserId == userId select u).FirstOrDefault();
+            var user = (from u in db.ContactInformation where (u.UserId == userId && u.Profile == "Primary") select u).FirstOrDefault();
             return new JsonResult() { Data = user, JsonRequestBehavior = JsonRequestBehavior.AllowGet };            
                 
         }
@@ -118,7 +118,7 @@ namespace eVisa.Controllers
                 if (ModelState.IsValid)
                 {
                     var userId = Session["userId"];
-                    var user = (from u in db.ContactInformation where u.UserId == userId select u).FirstOrDefault();
+                    var user = (from u in db.ContactInformation where (u.UserId == userId && u.Profile == "Primary") select u).FirstOrDefault();
                     if (user != null)
                     {
                         user.SurName = model.SurName;
@@ -202,7 +202,7 @@ namespace eVisa.Controllers
                 {
                     var userId = Session["userId"];
                     var hash = Crypto.Hash(oldPassword);
-                    var user = (from u in db.ContactInformation where u.UserId == userId && u.Password == hash select u).FirstOrDefault();
+                    var user = (from u in db.ContactInformation where u.UserId == userId && u.Password == hash && u.Profile == "Primary" select u).FirstOrDefault();
                     if (user != null)
                     {
                         user.Password = Crypto.Hash(newPassword);
@@ -250,7 +250,7 @@ namespace eVisa.Controllers
                     //c.SecondaryEmail = data.SecondaryEmail;
                     c.UserId = data.UserId;
                     c.Password = Crypto.Hash(data.Password);
-
+                    c.Profile = "primary";
                     db.ContactInformation.Add(c);
                     db.SaveChanges();
 

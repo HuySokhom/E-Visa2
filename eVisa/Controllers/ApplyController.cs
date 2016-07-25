@@ -75,7 +75,7 @@ namespace eVisa.Controllers
                         c.SecondaryEmail = data.SecondaryEmail;
                         c.UserId = Session.SessionID;
                         c.CreatedDate = DateTime.Now;
-
+                        c.Profile = "primary";
                         db.ContactInformation.Add(c);
                         db.SaveChanges();
                         return Json(new { success = true, message = "Save Complete." }, JsonRequestBehavior.AllowGet);

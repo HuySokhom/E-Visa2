@@ -45,6 +45,8 @@ namespace eVisa.Models
         [StringLength(550)]
         public string Password { get; set; }
 
+        [StringLength(20)]
+        public string Profile { get; set; }
         public DateTime? DOB { get; set; }
         public string Nationality { get; set; }
         public string Photo { get; set; }

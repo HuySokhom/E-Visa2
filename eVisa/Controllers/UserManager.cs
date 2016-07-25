@@ -18,7 +18,7 @@ namespace eVisa.Controllers
             using ( var db = new eVisaContext() )
             {
                 var hash = Crypto.Hash(Password);
-                return db.ContactInformation.Any(u => u.UserId == UserId && u.Password == hash);
+                return db.ContactInformation.Any(u => u.UserId == UserId && u.Password == hash && u.Profile == "Primary");
             }
         }
 

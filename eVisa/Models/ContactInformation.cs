@@ -56,6 +56,8 @@ namespace eVisa.Models
         public string ContactName { get; set; }
         public string ResidentialAddress { get; set; }
 
+        [StringLength(20)]
+        public string Profile { get; set; }
 
         public int Status { get; set; }
         public string mobile_id { get; set; }
