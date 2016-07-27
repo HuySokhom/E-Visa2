@@ -62,7 +62,14 @@
                 </tr>
                 <tr>
                     <td>Payment Status</td>
-                    <td style="text-transform: uppercase;">{{data.PaymentStatus}}</td>
+                    <td style="text-transform: uppercase;">
+                        <span data-ng-class="
+                              data.PaymentStatus === 'Failed' ? 'label label-danger'
+                              : 'label label-info'
+                        ">
+                            {{data.PaymentStatus}}
+                        </span>
+                    </td>
                 </tr>
             </table>
             <div style="font-size:12px">
@@ -112,7 +119,12 @@
                         {{d.PointOfEntry}}
                     </td>
                     <td style="text-transform: uppercase;">
-                        {{d.PaymentStatus}}
+                        <span data-ng-class="
+                              d.PaymentStatus === 'Failed' ? 'label label-danger'
+                              : 'label label-info'
+                        ">
+                            {{d.PaymentStatus}}
+                        </span>
                     </td>
                     <td>
                         <button class="btn btn-default">

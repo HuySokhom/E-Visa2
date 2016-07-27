@@ -301,7 +301,7 @@ namespace eVisa.Controllers
                 app.EntryStatusDate = DateTime.Now;
                 app.TravelMode = model.TravelMode;
                 app.Photo = model.Photo;
-                app.PaymentStatus = "fail";
+                app.PaymentStatus = "Failed";
                 app.Path = model.Photo;
                 app.ArrivalTime = model.ArrivalTime;
                 app.ApplyDate = DateTime.Now;
