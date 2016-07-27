@@ -34,3 +34,4 @@ D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.csproj.GenerateResource.Cache
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.dll
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.pdb
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.csprojResolveAssemblyReference.cache
+D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.contacgt.resources

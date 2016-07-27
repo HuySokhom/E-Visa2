@@ -1,10 +1,65 @@
-﻿<h1>Application History</h1>
-<div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>Warning!</strong> No Data.
+﻿<div data-ng-controller="user_history_ctrl">
+    <h1>Application History</h1>
+    <table class="table table-bordered table-striped" data-ng-if="history.length > 0">
+        <tr>
+            <th>
+                No
+            </th>
+            <th>
+                ReferenceNo
+            </th>
+            <th>
+                SurName
+            </th>
+            <th>
+                GivenName
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                DOB
+            </th>
+            <th>
+                Nationality
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Payment Status
+            </th>
+        </tr>
+        <tr data-ng-repeat="h in history">
+            <td>{{$index + 1}}</td>
+            <td>{{h.ReferenceNo}}</td>
+            <td>{{h.SurName}}</td>
+            <td>{{h.GivenName}}</td>
+            <td>{{h.PrimaryEmail}}</td>
+            <td>{{dateFormat(h.DOB) | date:"dd-MMMM-yyyy"}}</td>
+            <td>{{h.Nationality}}</td>
+            <td>{{h.Country}}</td>
+            <td>
+                <span data-ng-class="
+                      h.PaymentStatus === 'Failed' ? 'label label-danger'
+                      : 'label label-info'
+                ">
+                    {{h.PaymentStatus}}
+                </span>
+            </td>
+        </tr>
+    </table>
+    <div data-ng-if="!history" class="align-center col-md-12">
+        <i class="fa fa-refresh fa-spin" style="font-size: 80px;"></i>
+    </div>
+    <div data-ng-if="history.length == 0">
+        <div class="alert alert-warning alert-dismissible">
+            <strong>Warning!</strong> Empty Data.
+        </div>
+    </div>
+    <button class="btn btn-default" onclick="location.href ='#/'">
+        <i class="fa fa-times-circle-o"></i>
+        Back
+    </button>
 </div>
-<button class="btn btn-default" onclick="location.href ='#/'">
-    <i class="fa fa-times-circle-o"></i>
-    Back
-</button>
 

@@ -204,6 +204,28 @@ namespace eVisa.Controllers
             
         }
 
+        [HttpGet]
+        // GET: /Application/Get
+        public ActionResult History()
+        {
+            var userId = Session["userId"];
+            var query = from c in db.ContactInformation
+                        where (c.UserId == userId)
+                        select new
+                        {
+                            c.ReferenceNo,
+                            c.SurName,
+                            c.GivenName,
+                            c.DOB,
+                            c.Nationality,
+                            c.Country,
+                            c.PrimaryEmail,
+                            c.PaymentStatus
+                        };
+            return Json(new { success = true, data = query }, JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpPost]
         public ActionResult Save(Application model)
         {

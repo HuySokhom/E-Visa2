@@ -96,9 +96,10 @@ namespace eVisa.Controllers
              *********** info copy from current contact ***************
              *********************************************************/
             var contactInfo = db.ContactInformation.Where(u => u.UserId == user && u.ReferenceNo != "").FirstOrDefault();
-            if (contactInfo.ReferenceNo == "")
+            if (contactInfo.ReferenceNo == null)
             {
                 contactInfo.ReferenceNo = app.ReferenceNo;
+                contactInfo.PaymentStatus = "Failed";
                 db.Entry(contactInfo).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -116,7 +117,7 @@ namespace eVisa.Controllers
                 contact.SecondaryEmail = contactInfo.SecondaryEmail;
                 contact.UserId = user.ToString();
                 contact.CreatedDate = DateTime.Now;
-                
+                contact.PaymentStatus = "Failed";
                 contact.PhoneNo = contactInfo.PhoneNo;
                 contact.Sex = contactInfo.Sex;
                 contact.DOB = contactInfo.DOB;

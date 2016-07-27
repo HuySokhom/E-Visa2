@@ -13,7 +13,10 @@
             var res = str.match($scope.userFormat);
             if ( !res ) {
                 return Materialize.toast('Invalid UserId.', 4000);
-            } 
+            }
+            if ($scope.password.length < 8) {
+                return Materialize.toast('Password should be 8 character.', 4000);
+            }
             var Json = {
                 UserId: $scope.userId,
                 Password: $scope.password

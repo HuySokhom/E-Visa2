@@ -80,7 +80,28 @@ namespace eVisa.Controllers
             if(ModelState.IsValid){
             var check = db.ContactInformation.Where(c => c.ReferenceNo == con.ReferenceNo && c.PrimaryEmail == con.PrimaryEmail).Count();
                 if(check == 1){
-                    return Json(new { success = true, message = "Check Status." }, JsonRequestBehavior.AllowGet);
+                    var query = from c in db.ContactInformation
+                                where (c.ReferenceNo == con.ReferenceNo && c.PrimaryEmail == con.PrimaryEmail)
+                                select new
+                                {
+                                    c.PrimaryEmail,
+                                    c.CreatedDate,
+                                    c.ReferenceNo,
+                                    c.PaymentStatus,
+                                    ApplicationDetail = from a in db.Application
+                                               where (c.ReferenceNo == a.ReferenceNo && a.Status == 1)
+                                               select new
+                                               {
+                                                   a.SurName,
+                                                   a.GivenName,
+                                                   a.PassportNo,
+                                                   a.EntryDate,
+                                                   a.PointOfEntry,
+                                                   a.PaymentStatus
+                                               }
+                                };
+                    var data = db.Application.Where(a => a.ReferenceNo == con.ReferenceNo).ToList();
+                    return Json(new { success = true, message = "Check Status.", data = query }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

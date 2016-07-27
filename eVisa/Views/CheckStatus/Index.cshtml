@@ -4,43 +4,129 @@
 <div class="content" data-ng-controller="check_status_ctrl">
     <div class="container">
         <br />
-        <h1>
-            Check Status
-        </h1>
-        <ul>
-            <li>
-                <strong>For your convenience, now you can check your application status and make changes online</strong>
-                <ol>
-                    <li>Check application status</li>
-                    <li>Download e-Visa certificate</li>
-                    <li>Change travel information</li>
-                    <li>Resubmit payment if payment failed</li>
-                    <li>Print receipt</li>
-                </ol>
-            </li>
-            <li style="list-style:none">&nbsp;</li>
-            <li style="font-weight:bold"> Please enter your reference number and primary email address only</li>
-        </ul>
-        <form name="checkStatus" data-ng-submit="check();">
-            @*@using (Html.BeginForm("CheckStatus_Login", "Home", null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
-            {*@
-            <label>Reference No:</label>
-            @Html.TextBox("ReferenceNo", "", new { @class = "form-control", data_ng_model = "ReferenceNo", required = "required" })
+        <div data-ng-hide="!success">
+            <h1>
+                Check Status
+            </h1>
+            <ul>
+                <li>
+                    <strong>For your convenience, now you can check your application status and make changes online</strong>
+                    <ol>
+                        <li>Check application status</li>
+                        <li>Download e-Visa certificate</li>
+                        <li>Change travel information</li>
+                        <li>Resubmit payment if payment failed</li>
+                        <li>Print receipt</li>
+                    </ol>
+                </li>
+                <li style="list-style:none">&nbsp;</li>
+                <li style="font-weight:bold"> Please enter your reference number and primary email address only</li>
+            </ul>
+            <form name="checkStatus" data-ng-submit="check();">
+                @*@using (Html.BeginForm("CheckStatus_Login", "Home", null, FormMethod.Post, new { @id = "myForm", @name = "myForm" }))
+                {*@
+                <label>Reference No:</label>
+                @Html.TextBox("ReferenceNo", "", new { @class = "form-control", data_ng_model = "ReferenceNo", required = "required" })
 
-            <label>Primary Email Address:</label>
-            @Html.TextBox("PrimaryEmail", "", new { @class = "form-control", data_ng_model = "PrimaryEmail", required = "required", type="email" })
+                <label>Primary Email Address:</label>
+                @Html.TextBox("PrimaryEmail", "", new { @class = "form-control", data_ng_model = "PrimaryEmail", required = "required", type = "email" })
 
-            <p class="message">
-                <i class="fa fa-star-o"></i>
-                Note: Please use primary email addresss only
-            </p>
-            <button type="submit" class="btn btn-default" data-ng-disabled="process">
-                <i class="fa fa-check-square-o" data-ng-show="!process"></i>
-                <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
-                Submit
+                <p class="message">
+                    <i class="fa fa-star-o"></i>
+                    Note: Please use primary email addresss only
+                </p>
+                <button type="submit" class="btn btn-default" data-ng-disabled="process">
+                    <i class="fa fa-check-square-o" data-ng-show="!process"></i>
+                    <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
+                    Submit
+                </button>
+                @* } *@
+            </form>
+        </div>
+        <div data-ng-hide="success">
+            <h1>Application Status</h1>
+            <b>This is your e-Visa application references. </b>
+            <br /><br />
+            <table style="width: 450px;" class="table table-bordered table-striped">
+                <tr>
+                    <td>Reference Number</td>
+                    <td>{{data.ReferenceNo}}</td>
+                </tr>
+                <tr>
+                    <td>Primary E-mail</td>
+                    <td>{{data.PrimaryEmail}}</td>
+                </tr>
+                <tr>
+                    <td>Date of Applying</td>
+                    <td>{{dateFormat(data.CreatedDate) | date:"dd-MMMM-yyyy, h:mm:ss a"}}</td>
+                </tr>
+                <tr>
+                    <td>Payment Status</td>
+                    <td style="text-transform: uppercase;">{{data.PaymentStatus}}</td>
+                </tr>
+            </table>
+            <div style="font-size:12px">
+                <i class="fa fa-save"></i> Save |
+                <i class="fa fa-print"></i> Print |
+                <i class="fa fa-send-o"></i> Send to Primary E-mail
+            </div>
+            <br /><br />
+            <b>APPLICATION SUBMISSION</b>
+            <br /><br />
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>No</th>
+                    <th>Surname</th>
+                    <th>Given Name</th>
+                    <th>Passport</th>
+                    <th>Entry Date</th>
+                    <th>Point of Entry</th>
+                    <th>e-Visa Status</th>
+                    <th>Download Certificate</th>
+                </tr>
+                <tr data-ng-if="data.ApplicationDetail.length == 0">
+                    <td colspan="8">
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> No Data.
+                        </div>
+                    </td>
+                </tr>
+                <tr data-ng-if="data.ApplicationDetail.length > 0" data-ng-repeat="d in data.ApplicationDetail">
+                    <td>
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        {{d.SurName}}
+                    </td>
+                    <td>
+                        {{d.GivenName}}
+                    </td>
+                    <td>
+                        {{d.PassportNo}}
+                    </td>
+                    <td>
+                        {{dateFormat(d.EntryDate) | date:"dd-MMMM-yyyy"}}
+                    </td>
+                    <td>
+                        {{d.PointOfEntry}}
+                    </td>
+                    <td style="text-transform: uppercase;">
+                        {{d.PaymentStatus}}
+                    </td>
+                    <td>
+                        <button class="btn btn-default">
+                            <i class="fa fa-download"></i>
+                            Download
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <button data-ng-click="success = true" class="btn btn-default">
+                <i class="fa fa-step-backward"></i>
+                Back
             </button>
-            @* } *@
-        </form>
+        </div>
         <br /><br />
     </div>
 </div>

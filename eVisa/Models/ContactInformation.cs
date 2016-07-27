@@ -59,6 +59,9 @@ namespace eVisa.Models
         [StringLength(20)]
         public string Profile { get; set; }
 
+        [StringLength(20)]
+        public string PaymentStatus { get; set; }
+
         public int Status { get; set; }
         public string mobile_id { get; set; }
         public DateTime CreatedDate { get; set; }
