@@ -175,6 +175,7 @@
     <Compile Include="Controllers\CheckStatusController.cs" />
     <Compile Include="Controllers\ChildrenController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\ContactInformationController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\CreditsThanksController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
@@ -300,6 +301,7 @@
     <Content Include="App\main.js" />
     <Content Include="App\Payment\payment_ctrl.js" />
     <Content Include="App\ReviewApp\controller\review_ctrl.js" />
+    <Content Include="App\SearchReferenceNo\search_reference_ctrl.js" />
     <Content Include="App\singup\singup_ctrl.js" />
     <Content Include="App\user\config\route.js" />
     <Content Include="App\user\controller\user_change_ctrl.js" />
@@ -1477,6 +1479,7 @@
     <Folder Include="App_Start\App_LocalResources\" />
     <Folder Include="obj\" />
     <Folder Include="Views\Children\" />
+    <Folder Include="Views\ContactInformation\" />
     <Folder Include="Views\Country\" />
     <Folder Include="Views\ForeignMission\Guidelines\" />
     <Folder Include="Views\UserManager\" />

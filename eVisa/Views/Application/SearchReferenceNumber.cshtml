@@ -1,25 +1,86 @@
 ﻿@{
     ViewBag.Title = "Search Reference Number";
 }
-<div class="content">
+<div class="content" data-ng-controller="search_reference_ctrl">
     <br />
     <div class="container">
-        <ul>
-            <li>For your convenience, now you can search your application reference number online</li>
-            <li>Please enter your passport number and primary email address only</li>
-        </ul>
-        <label>Passport No</label>
-        @Html.TextBox("PassportNo", "", new { @class = "form-control", required = "required", ng_model = "PassportNo", })
-        <div>
+        <div data-ng-hide="!success">
+            <ul>
+                <li>For your convenience, now you can search your application reference number online</li>
+                <li>Please enter your passport number and primary email address only</li>
+            </ul>
+            <form data-ng-submit="search();">
+                <label>Passport No</label>
+                @Html.TextBox("PassportNo", "", new { @class = "form-control", required = "required", data_ng_model = "PassportNo", })
 
+                <label>Primary Email Address</label>
+                @Html.TextBox("PrimaryEmail", "", new { @class = "form-control", type = "email", required = "required", data_ng_model = "PrimaryEmail", })
+
+                <br />
+                <button class="btn btn-default" type="submit" data-ng-disabled="process">
+                    <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
+                    <i class="fa fa-search" data-ng-show="!process"></i>
+                    Search
+                </button>
+            </form>
         </div>
-        <label>Primary Email Address</label>
-        @Html.TextBox("PrimaryEmailAddress", "", new { @class = "form-control", required = "required", ng_model = "PrimaryEmailAddress", })
-        <br />
-        <button class="btn btn-default">
-            <i class="fa fa-search"></i>
-            Search
-        </button>
+
+        <div data-ng-hide="success">
+            <h1>Application Reference</h1>
+            <b>This is your e-Visa application references. </b>
+            <br /><br />
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>No</th>
+                    <th>Reference Number</th>
+                    <th>Email</th>
+                    <th>Passport</th>
+                    <th>Apply Date</th>
+                    <th>e-Visa Status</th>
+                </tr>
+                <tr data-ng-if="data.length == 0">
+                    <td colspan="8">
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> No Data.
+                        </div>
+                    </td>
+                </tr>
+                <tr data-ng-if="data.length > 0" data-ng-repeat="d in data">
+                    <td>
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        {{d.ReferenceNo}}
+                    </td>
+                    <td>
+                        {{d.PrimaryEmail}}
+                    </td>
+                    <td>
+                        {{d.PassportNo}}
+                    </td>
+                    <td>
+                        {{dateFormat(d.CreatedDate) | date:"dd-MMMM-yyyy"}}
+                    </td>
+                    <td style="text-transform: uppercase;">
+                        <span data-ng-class="
+                              d.PaymentStatus === 'Failed' ? 'label label-danger'
+                              : 'label label-info'
+                        ">
+                            {{d.PaymentStatus}}
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <button data-ng-click="success = true" class="btn btn-default">
+                <i class="fa fa-step-backward"></i>
+                Back
+            </button>
+        </div>
     </div>
     <br />
 </div>
+@section scripts{
+    <script type="text/javascript" src="/App/core/restful/restful.js"></script>
+    <script type="text/javascript" src="/App/SearchReferenceNo/search_reference_ctrl.js"></script>
+}

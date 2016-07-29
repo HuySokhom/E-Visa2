@@ -220,7 +220,8 @@ namespace eVisa.Controllers
                             c.Nationality,
                             c.Country,
                             c.PrimaryEmail,
-                            c.PaymentStatus
+                            c.PaymentStatus,
+                            c.CreatedDate
                         };
             return Json(new { success = true, data = query }, JsonRequestBehavior.AllowGet);
 

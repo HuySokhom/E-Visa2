@@ -27,6 +27,9 @@
                 Country
             </th>
             <th>
+                Apply Date
+            </th>
+            <th>
                 Payment Status
             </th>
         </tr>
@@ -39,6 +42,7 @@
             <td>{{dateFormat(h.DOB) | date:"dd-MMMM-yyyy"}}</td>
             <td>{{h.Nationality}}</td>
             <td>{{h.Country}}</td>
+            <td>{{dateFormat(h.CreatedDate) | date:"dd-MMMM-yyyy"}}</td>
             <td>
                 <span data-ng-class="
                       h.PaymentStatus === 'Failed' ? 'label label-danger'

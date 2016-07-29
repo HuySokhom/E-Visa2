@@ -11,31 +11,9 @@ app.controller(
 		var url = '/Application/Get';
 		$scope.init = function (params) {
             //************* get user profile info *******************//
-		    Restful.get('/User/Profile/').success(function (data) {
-		        $scope.Contacts = data;
-		        if (data.success) {
-		            var dob = $scope.dateFormat(data.DOB)
-		            if (dob) {
-		                $scope.year = dob.year;
-		                $scope.month = dob.month;
-		                $scope.day = dob.day;
-		            }
-		            var issueDate = $scope.dateFormat(data.PassportIssueDate);
-		            if (issueDate) {
-		                $scope.day_issue = issueDate.day;
-		                $scope.month_issue = issueDate.month;
-		                $scope.year_issue = issueDate.year;
-		            }
-
-		            var expiryDate = $scope.dateFormat(data.PassportExpiryDate);
-		            if (expiryDate) {
-		                $scope.day_expiry = expiryDate.day;
-		                $scope.month_expiry = expiryDate.month;
-		                $scope.year_expiry = expiryDate.year;
-		            }
-		            $(".apply_popup").modal('show');
-		        }
-		        //console.log($scope.Contacts);
+		    Restful.get('/ContactInformation/Get/').success(function (data) {
+		        $scope.ContactsInformation = data;
+		        console.log(data);
 		    });
 		    //************** get application info ***************//
 		    Restful.get(url).success(function (data) {
@@ -329,15 +307,45 @@ app.controller(
 
 
 	    /***************************************************
-        ****************************************************
-
-        **** functionality for edit contact information ****
-
-        ****************************************************
+            Start Functionality For Edit Contact Information 
         ***************************************************/
 
+		$scope.editContact = function () {
+		    $scope.contactEdit = angular.copy($scope.ContactsInformation);
+		    $("#contact").modal('show');
+		};
+	    
+		$scope.saveContact = function () {
+		    var model = {
+		        SurName: $scope.contactEdit.SurName,
+		        GivenName: $scope.contactEdit.GivenName,
+		        PrimaryEmail: $scope.contactEdit.PrimaryEmail,
+		        SecondaryEmail: $scope.contactEdit.SecondaryEmail,
+		        Country: $scope.contactEdit.Country,
+		        PhoneNo: $scope.contactEdit.PhoneNo,
+		        HeardFrom: $scope.contactEdit.HeardFrom,
+		        id: $scope.contactEdit.Id
+		    };
+		    $scope.disabled = true;
+		    Restful.save("/ContactInformation/SaveContact", model).success(function (data) {
+		        $scope.disabled = false;
+		        $("#contact").modal('hide');
+		        $scope.ContactsInformation = model;
+		        if (data.success) {
+		            $alertify.logPosition("top right");
+		            return $alertify.success("<b>Complete: </b> Save success.");
+		        } else {
+		            $alertify.logPosition("top right");
+		            return $alertify.error("<b>Warning: </b> Sorry you can apply your child only 3 application.");
+		        }
+		    });
+		};
+
+	    /**********************************
+            End edit Contact Information 
+        ***********************************/
 		$("#upload_image").change(function () {
-		    readURL(this); console.log(this);
+		    readURL(this); 
 		});
 
 	    /**************************************
@@ -345,17 +353,21 @@ app.controller(
         ***  step payment conditional 
         ***************************************/
 		$scope.saveAppPayment = function () {
+		    if($scope.applicationReviews.length === 0){
+		        $alertify.logPosition("top right");
+		        return $alertify.error("<b>Warning: </b> Please Add Application To Continue.");
+		    }
 		    var model = {
 		        ReferenceNo: $scope.applicationReviews[0].ReferenceNo,
-		    }; console.log(model);
+		    };
 		    $scope.disabled = true;
 		    Restful.save("/Payment/SaveAppPayment", model).success(function (data) {
 		        $scope.disabled = false;
-		        console.log(data);
 		        if (data.success) {
-		            Materialize.toast("Save Success.", 4000);
+		            $alertify.logPosition("top right");
+		            $alertify.success("<b>Complete: </b> Save success.");
 		            // redirect to review 
-		            $window.location.href = '/Payment';
+		            return $window.location.href = '/Payment';
 		        }
 		    });
 		};

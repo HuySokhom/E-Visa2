@@ -294,40 +294,43 @@
                 </div>
                 <form name="Child" data-ng-submit="saveContact();">
                     <div class="modal-body">
-                        <label>SurName:<span class="require">*</span></label>
-                        <input type="text" required class="form-control" data-ng-model="Child.ChildSurName" />
-                        <label>GivenName:<span class="require">*</span></label>
-                        <input type="text" required class="form-control" data-ng-model="Child.ChildGivenName" />
-                        <label>Country: <span class="require">*</span></label>
-                        <select class="form-control" data-ng-model="Child.ChildSex">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
+                        <label>Surname <span class="require">*</span></label>
+                        <input data-ng-model="contactEdit.SurName" class="form-control" required>
+                        <div>
+                        </div>
+
+                        <label>Given Name <span class="require">*</span></label>
+                        <input data-ng-model="contactEdit.GivenName" required class="form-control">
+                        <div>
+                        </div>
+
+                        <label>Country <span class="require">*</span></label>
+                        <select class="form-control"
+                                ng-model="contactEdit.Country"
+                                required
+                                data-ng-options="country.name as country.name for country in countries">
+                            <option value=""></option>
                         </select>
-                        <label>Phone Number: <span class="require">*</span></label>
-                        <table style="width:260px;">
-                            <tr>
-                                <td>
-                                    <select ng-model="day" class="form-control" style="width:75px;" required ng-options="n for n in [] | rangeNumber:31">
-                                        <option value="">Day</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select ng-model="month" class="form-control" style="width:85px;" required
-                                            ng-options="m.id as m.name for m in monthNames">
-                                        <option value="">Month</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select ng-model="year" class="form-control" style="width:75px;" required ng-options="n for n in [] | rangeYear:2006">
-                                        <option value="">Year</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                        <label>Primary Email: <span class="require">*</span></label>
-                        <input class="form-control" type="text" data-ng-model="PrimaryEmail"/>
+
+                        <label>Phone Number <span class="require">*</span></label>
+                        <input ng-model="contactEdit.PhoneNo" required class="form-control">
+                        <div>
+                        </div>
+
+                        <label>Primary Email <span class="require">*</span></label>
+                        <input ng-model="contactEdit.PrimaryEmail" class="form-control" required type="email">
+                        <div>
+                        </div>
                         
-                        <label>Secondary Email: <span class="require">*</span></label>
+                        <label>Secondary Email <span class="require">*</span></label>
+                        <input ng-model="contactEdit.SecondaryEmail" class="form-control" required type="email">
+                        <div>
+                        </div>
+
+                        <label>Heard About Us From? <span class="require">*</span></label>
+                        <select class="form-control" required data-ng-model="contactEdit.HeardFrom" ng-options="item.name as item.name for item in apply_items">
+                            <option value="">--Select--</option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-default" data-dismiss="modal">

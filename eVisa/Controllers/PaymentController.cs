@@ -61,7 +61,6 @@ namespace eVisa.Controllers
             if (user == null)
             {
                 user = Session.SessionID;
-                entities = (from u in db.ContactInformation where u.UserId == user select u).OrderByDescending(p => p.id).First();
             }
             entities = (from u in db.ContactInformation where u.UserId == user select u).OrderByDescending(p => p.id).First();
             return View(entities);

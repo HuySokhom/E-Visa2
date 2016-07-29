@@ -27,11 +27,11 @@
             });
         };
 
-        $scope.initStatus = function (data) {
-            Restful.get("/CheckStatus/Check", data).success(function (data) {
-                console.log(data);
-            });
-        };
+        //$scope.initStatus = function (data) {
+        //    Restful.get("/CheckStatus/Check", data).success(function (data) {
+        //        console.log(data);
+        //    });
+        //};
 
         // functionality for format date json from db
         $scope.dateFormat = function (value) {

@@ -75,6 +75,7 @@ namespace eVisa.Controllers
             return View();
         }
 
+        // Function Check Application Status 
         public ActionResult Check(ContactInformation con)
         {
             if(ModelState.IsValid){
@@ -89,18 +90,18 @@ namespace eVisa.Controllers
                                     c.ReferenceNo,
                                     c.PaymentStatus,
                                     ApplicationDetail = from a in db.Application
-                                               where (c.ReferenceNo == a.ReferenceNo && a.Status == 1)
-                                               select new
-                                               {
-                                                   a.SurName,
-                                                   a.GivenName,
-                                                   a.PassportNo,
-                                                   a.EntryDate,
-                                                   a.PointOfEntry,
-                                                   a.PaymentStatus
-                                               }
+                                        where (c.ReferenceNo == a.ReferenceNo && a.Status == 1)
+                                        select new
+                                        {
+                                            a.SurName,
+                                            a.GivenName,
+                                            a.PassportNo,
+                                            a.EntryDate,
+                                            a.PointOfEntry,
+                                            a.PaymentStatus
+                                        }
                                 };
-                    var data = db.Application.Where(a => a.ReferenceNo == con.ReferenceNo).ToList();
+                    //var data = db.Application.Where(a => a.ReferenceNo == con.ReferenceNo).ToList();
                     return Json(new { success = true, message = "Check Status.", data = query }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -110,6 +111,48 @@ namespace eVisa.Controllers
             }
             return Json(new { success = false, message = "Invalid" }, JsonRequestBehavior.AllowGet);
         }
+
+
+        // functionality for search reference number 
+        public ActionResult SearchRefernceNo(ContactInformation con)
+        {
+            if (ModelState.IsValid)
+            {
+                var check = db.ContactInformation.Where(c => c.PassportNo == con.PassportNo && c.PrimaryEmail == con.PrimaryEmail).Count();
+                if (check > 0)
+                {
+                    var query = from c in db.ContactInformation
+                                where (c.PassportNo == con.PassportNo && c.PrimaryEmail == con.PrimaryEmail)
+                                select new
+                                {
+                                    c.PrimaryEmail,
+                                    c.CreatedDate,
+                                    c.ReferenceNo,
+                                    c.PaymentStatus,
+                                    c.PassportNo,
+                                    ApplicationDetail = from a in db.Application
+                                        where (c.ReferenceNo == a.ReferenceNo && a.Status == 1)
+                                        select new
+                                        {
+                                            a.SurName,
+                                            a.GivenName,
+                                            a.PassportNo,
+                                            a.EntryDate,
+                                            a.PointOfEntry,
+                                            a.PaymentStatus
+                                        }
+                                };
+                    //var data = db.Application.Where(a => a.ReferenceNo == con.ReferenceNo).ToList();
+                    return Json(new { success = true, message = "Check Status.", data = query }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { success = false, message = "No ReferenceNo Or Primary Email." }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { success = false, message = "Invalid" }, JsonRequestBehavior.AllowGet);
+        }
+
 
 	}
 }
