@@ -210,7 +210,7 @@ namespace eVisa.Controllers
         {
             var userId = Session["userId"];
             var query = from c in db.ContactInformation
-                        where (c.UserId == userId)
+                        where (c.UserId == userId && c.ReferenceNo != null)
                         select new
                         {
                             c.ReferenceNo,

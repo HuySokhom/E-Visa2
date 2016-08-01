@@ -65,7 +65,7 @@ app.controller(
 	                $('#apply_single_evisa').modal('hide');
 	                Materialize.toast("save success.", 4000);	                
 	                // redirect to review 
-	                $window.location.href = '/Home/Review';
+	                $window.location.href = '/Application/Review';
 	            } else {
 	                $('#apply_single_evisa').modal('hide');
 	                Materialize.toast(
@@ -73,7 +73,7 @@ app.controller(
                         4000
                     );
                     // redirect to review 
-	                $window.location.href = '/Home/Review';
+	                $window.location.href = '/Application/Review';
 	            }
 	        });
 	        

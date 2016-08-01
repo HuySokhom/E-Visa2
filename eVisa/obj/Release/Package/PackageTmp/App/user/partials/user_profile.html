@@ -9,7 +9,7 @@
             <label>Given Name <span class="require">*</span></label>
             <input type="text" required class="form-control" data-ng-model="Profile.GivenName" />
             <div></div>
-            <label>Sex: <span class="require">*</span></label>
+            <label>Gender: <span class="require">*</span></label>
             <p>
                 <input name="group1" type="radio" data-ng-model="Profile.Sex" value="Male" id="male" />
                 <label for="male">Male</label>
@@ -25,7 +25,7 @@
                         </select>
                     </td>
                     <td>
-                        <select ng-model="month" class="form-control" style="width:85px;" required ng-options="n for n in [] | rangeNumber:12">
+                        <select ng-model="month" class="form-control" style="width:85px;" required ng-options="m.id as m.name for m in monthNames">
                             <option value="">Month</option>
                         </select>
                     </td>
@@ -102,7 +102,7 @@
                         <select ng-model="month_issue"
                                 class="form-control"
                                 style="width:85px;"
-                                ng-options="n for n in [] | rangeNumber:12"
+                                ng-options="m.id as m.name for m in monthNames"
                                 required>
                             <option value="">Month</option>
                         </select>
@@ -134,7 +134,7 @@
                         <select ng-model="month_expiry"
                                 class="form-control"
                                 style="width:85px;"
-                                ng-options="n for n in [] | rangeNumber:12"
+                                ng-options="m.id as m.name for m in monthNames"
                                 required>
                             <option value="">Month</option>
                         </select>
@@ -164,19 +164,20 @@
                     data-ng-options="item.name as item.name for item in apply_items"
                     data-ng-init="Profile.HeardFrom = item"></select>
         </div>
-        <div class="clearfix" ></div>
+        <div class="clearfix"></div>
         <br />
         <div class="col-md-12">
-            <button class="btn aling-left" type="submit" data-ng-disabled="process">
-                <i class="fa fa-save" data-ng-show="!process"></i>
-                <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
-                Save
-            </button>
-
-            <button class="btn aling-right" onclick="location.href ='#/'">
+            <button class="btn aling-right btn-default" onclick="location.href ='#/'">
                 <i class="fa fa-times-circle-o"></i>
                 Cancel
             </button>
-        </div>
-</form>    
+</form>
+
+    <button class="btn aling-left btn-default" type="submit" data-ng-disabled="process">
+        <i class="fa fa-save" data-ng-show="!process"></i>
+        <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
+        Save
+    </button>
+
+    </div> 
 </div>

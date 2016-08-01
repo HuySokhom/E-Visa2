@@ -3,39 +3,17 @@ app.controller(
 	'$scope'
 	, 'Restful'
 	, '$stateParams'
-	, '$location'
+	, '$window'
     , 'alertify'
-	, function ($scope, Restful, $stateParams, $location, $alertify) {
+	, function ($scope, Restful, $stateParams, $window, $alertify) {
 	    $scope.Child = {};
 	    $scope.Contact = {};
-		var url = '/Application/';
+		var url = '/Application/Get';
 		$scope.init = function (params) {
             //************* get user profile info *******************//
-		    Restful.get('/User/Profile/').success(function (data) {
-		        $scope.Contacts = data;
-		        if (data.success) {
-		            var dob = $scope.dateFormat(data.DOB)
-		            if (dob) {
-		                $scope.year = dob.year;
-		                $scope.month = dob.month;
-		                $scope.day = dob.day;
-		            }
-		            var issueDate = $scope.dateFormat(data.PassportIssueDate);
-		            if (issueDate) {
-		                $scope.day_issue = issueDate.day;
-		                $scope.month_issue = issueDate.month;
-		                $scope.year_issue = issueDate.year;
-		            }
-
-		            var expiryDate = $scope.dateFormat(data.PassportExpiryDate);
-		            if (expiryDate) {
-		                $scope.day_expiry = expiryDate.day;
-		                $scope.month_expiry = expiryDate.month;
-		                $scope.year_expiry = expiryDate.year;
-		            }
-		            $(".apply_popup").modal('show');
-		        }
-		        console.log($scope.Contacts);
+		    Restful.get('/ContactInformation/Get/').success(function (data) {
+		        $scope.ContactsInformation = data;
+		        console.log(data);
 		    });
 		    //************** get application info ***************//
 		    Restful.get(url).success(function (data) {
@@ -77,7 +55,11 @@ app.controller(
 		        var results = pattern.exec(value);
 		        if (results) {
 		            var dt = new Date(parseFloat(results[1]));
-		            var date = dt.getDate() + '-' + (parseFloat(dt.getMonth()) + 1) + '-' + dt.getFullYear()
+		            var monthNames = [
+                        "January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"
+		            ];
+		            var date = dt.getDate() + '-' + monthNames[parseFloat(dt.getMonth())] + '-' + dt.getFullYear()
 		            return date;
 		        } else {
 		            return value;
@@ -155,49 +137,11 @@ app.controller(
 		    
 		};
 
-        // upload functionality
-		//$scope.Profile.Photo = '';
-		function readURL(input) {
-		    if (input.files && input.files[0]) {
-		        var data = new FormData();
-		        var files = $("#upload_image").get(0).files;
-		        if (files.length > 0) {
-		            data.append("MyImages", files[0]);
-		        }
-		       
-		        $.ajax({
-		            url: "/User/UploadImage",
-		            type: "POST",
-		            processData: false,
-		            contentType: false,
-		            data: data,
-		            success: function (response) {
-		                if (response.success) {console.log(response);
-		                    $scope.Contact.Photo = '/Uploads/Users/' + response.image;
-		                    $scope.Child.ChildPhoto = '/Uploads/Users/' + response.image;
-		                    $("#message span").text(response.message);
-		                } else {
-		                    $("#message span").text(response.message);
-		                }
-		            },
-		            error: function (er) {
-		                $("#message span").text("Invalid or file error");
-		            }
-		        });
-		    }
-		}
-
-		$("#upload_image").change(function () {
-		    readURL(this); console.log(this);
-		});
-
-
-
 		$scope.editReview = function (params) {
 		    $scope.Contact = angular.copy(params);
 		    $scope.id = $scope.Contact.id;
 		    $(".apply_popup").modal('show');
-		    var dob = $scope.dateFormat(params.DOB);
+		    var dob = $scope.dateFormat(params.DOB); console.log(dob);
 		    var entry_date = $scope.dateFormat(params.EntryDate);
 		    var issue_date = $scope.dateFormat(params.PassportIssueDate);
 		    var expire_date = $scope.dateFormat(params.PassportExpiryDate);
@@ -327,5 +271,106 @@ app.controller(
 					});
 
 		};
+
+	    //*** upload functionality *****//
+	    //$scope.Profile.Photo = '';
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var data = new FormData();
+		        var files = $("#upload_image").get(0).files;
+		        if (files.length > 0) {
+		            data.append("MyImages", files[0]);
+		        }
+
+		        $.ajax({
+		            url: "/User/UploadImage",
+		            type: "POST",
+		            processData: false,
+		            contentType: false,
+		            data: data,
+		            success: function (response) {
+		                if (response.success) {
+		                    $scope.Contact.Photo = '/Uploads/Users/' + response.image;
+		                    $scope.Child.ChildPhoto = '/Uploads/Users/' + response.image;
+		                    $("#message span").text(response.message);
+		                    $("#img").attr('src', '/Uploads/Users/' + response.image);
+		                } else {
+		                    $("#message span").text(response.message);
+		                }
+		            },
+		            error: function (er) {
+		                $("#message span").text("Invalid or file error");
+		            }
+		        });
+		    }
+		}
+
+
+	    /***************************************************
+            Start Functionality For Edit Contact Information 
+        ***************************************************/
+
+		$scope.editContact = function () {
+		    $scope.contactEdit = angular.copy($scope.ContactsInformation);
+		    $("#contact").modal('show');
+		};
+	    
+		$scope.saveContact = function () {
+		    var model = {
+		        SurName: $scope.contactEdit.SurName,
+		        GivenName: $scope.contactEdit.GivenName,
+		        PrimaryEmail: $scope.contactEdit.PrimaryEmail,
+		        SecondaryEmail: $scope.contactEdit.SecondaryEmail,
+		        Country: $scope.contactEdit.Country,
+		        PhoneNo: $scope.contactEdit.PhoneNo,
+		        HeardFrom: $scope.contactEdit.HeardFrom,
+		        id: $scope.contactEdit.Id
+		    };
+		    $scope.disabled = true;
+		    Restful.save("/ContactInformation/SaveContact", model).success(function (data) {
+		        $scope.disabled = false;
+		        $("#contact").modal('hide');
+		        $scope.ContactsInformation = model;
+		        if (data.success) {
+		            $alertify.logPosition("top right");
+		            return $alertify.success("<b>Complete: </b> Save success.");
+		        } else {
+		            $alertify.logPosition("top right");
+		            return $alertify.error("<b>Warning: </b> Sorry you can apply your child only 3 application.");
+		        }
+		    });
+		};
+
+	    /**********************************
+            End edit Contact Information 
+        ***********************************/
+		$("#upload_image").change(function () {
+		    readURL(this); 
+		});
+
+	    /**************************************
+        ***  functionality for save next 
+        ***  step payment conditional 
+        ***************************************/
+		$scope.saveAppPayment = function () {
+		    if($scope.applicationReviews.length === 0){
+		        $alertify.logPosition("top right");
+		        return $alertify.error("<b>Warning: </b> Please Add Application To Continue.");
+		    }
+		    var model = {
+		        ReferenceNo: $scope.applicationReviews[0].ReferenceNo,
+		    };
+		    $scope.disabled = true;
+		    Restful.save("/Payment/SaveAppPayment", model).success(function (data) {
+		        $scope.disabled = false;
+		        if (data.success) {
+		            $alertify.logPosition("top right");
+		            $alertify.success("<b>Complete: </b> Save success.");
+		            // redirect to review 
+		            return $window.location.href = '/Payment';
+		        }
+		    });
+		};
+
 	}
 ]);

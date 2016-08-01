@@ -1,10 +1,10 @@
 eVisa.v12.suo
 eVisa/Uploads
 eVisa/bin/eVisa.dll
-eVisa/bin/eVisa.pdb
 *.dll
 eVisa.v12.suo
 *.suo
 eVisa.v12.suo
 eVisa/bin/eVisa.dll
-eVisa/obj/Debug/eVisa.pdb
+eVisa/obj/*
+eVisa/obj/Debug/*

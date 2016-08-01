@@ -312,7 +312,7 @@ input[type="checkbox"].input-validation-error {
 }
 .title-item a:hover{
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     color: #DBA766;
@@ -330,7 +330,7 @@ input[type="checkbox"].input-validation-error {
 }
 .title-item-3:hover{
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 
 .title-item-2:hover{
@@ -344,7 +344,7 @@ input[type="checkbox"].input-validation-error {
 
 .title-item:hover {
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 
 .text-color {
@@ -1578,7 +1578,7 @@ md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
     background-color: #ddd !important;
 }
 a:hover{
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 [type="checkbox"] + label {
     height: 10px;

@@ -312,7 +312,7 @@ input[type="checkbox"].input-validation-error {
 }
 .title-item a:hover{
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     color: #DBA766;
@@ -330,7 +330,7 @@ input[type="checkbox"].input-validation-error {
 }
 .title-item-3:hover{
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 
 .title-item-2:hover{
@@ -344,7 +344,7 @@ input[type="checkbox"].input-validation-error {
 
 .title-item:hover {
     text-decoration:none;
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 
 .text-color {
@@ -1558,12 +1558,12 @@ h2 {
 .support-item > a{
     font-size: 13px;
 }
-.btn{
+.btn-default{
     background-color: rgb(329,329,329);
     border: 1px solid #999999;
     color: #333;
 }
-.btn:hover, .btn-large:hover {
+.btn-default:hover, .btn-large:hover {
     background-color: rgb(329,329,329);
 }
 button:focus {
@@ -1578,7 +1578,7 @@ md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
     background-color: #ddd !important;
 }
 a:hover{
-    color: rgb(17,136,148);
+    color: #E04B4A;
 }
 [type="checkbox"] + label {
     height: 10px;
@@ -1637,11 +1637,18 @@ ng-message > .ng-scope{
     box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.16), 0 0px 0px 0 rgba(0, 0, 0, 0.12);
 }
 .child-image{
-    width: 98px;
+    width: 90px;
+    height: 80px;
     padding: 10px 10px 10px 0px;
     cursor:pointer;
     float:left;
 }
 .alertify{
     z-index: 99999;
+}
+.margin-top{
+    margin-top: 5px;
+}
+label {
+    color: #696969;
 }

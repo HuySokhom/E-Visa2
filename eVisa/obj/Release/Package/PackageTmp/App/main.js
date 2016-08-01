@@ -20,7 +20,7 @@ app.controller('app_ctrl',[
         $http.post("/User/LogOff/").success(function (data, status) {
             console.log(data);
             console.log(status);
-            location.reload();
+            $window.location = "/User/FQLogin";
         });
     };
 
@@ -82,8 +82,61 @@ app.controller('app_ctrl',[
             id: 14,
             name: 'Yahoo',
         }
-
     ];
+
+
+
+    $scope.monthNames = [
+        {
+            id: 1, 
+            name: "January"
+        },
+        {
+            id: 2, 
+            name: "February"
+        },
+        {
+            id: 3, 
+            name: "March"
+        },
+        {
+            id: 4, 
+            name: "April"
+        },
+        {
+            id: 5, 
+            name: "May"
+        },
+        {
+            id: 6, 
+            name: "June"
+        },
+        {
+            id: 7, 
+            name: "July"
+        },
+        {
+            id: 8, 
+            name: "August"
+        },
+        {
+            id: 9, 
+            name: "September"
+        },
+        {
+            id: 10, 
+            name: "October"
+        },
+        {
+            id: 11, 
+            name: "November"
+        },
+        {
+            id: 12, 
+            name: "December"
+        }
+    ];
+
     // sing up show prompt
     $scope.signUp = function () {
         $window.location.href = '/User/FQSignup';
@@ -123,6 +176,10 @@ app.controller('app_ctrl',[
             console.log(status);
             location.reload();
         });
+    };
+    $scope.isActive = '1';
+    $scope.setActive = function (text) {
+        $scope.isActive = text;
     };
 
 }]);

@@ -49,14 +49,14 @@ app.controller(
 	            if (data.success) {
 	                Materialize.toast("save success.", 4000);	                
 	                // redirect to review 
-	                $window.location.href = '/Home/Review';
+	                $window.location.href = '/Application/Review';
 	            } else {
 	                Materialize.toast(
                         "Your Application has reach to the maximum of rang. We allow you to apply application only 9 application.",
                         4000
                     );
                     // redirect to review 
-	                $window.location.href = '/Home/Review';
+	                $window.location.href = '/Application/Review';
 	            }
 	        });
 	        

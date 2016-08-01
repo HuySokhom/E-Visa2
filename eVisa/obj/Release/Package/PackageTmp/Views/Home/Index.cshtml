@@ -8,6 +8,43 @@
     Dictionary<int, string> Menus = (Dictionary<int, string>)ViewBag.MenuList;
     
     }
+
+<div class="">
+    <div id="bs-slide" class="carousel slide carousel-fade" style="height: auto;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators  ">
+            @foreach (var item in Model.ImageView)
+            {
+                <li data-target="#bs-slide" data-slide-to="@j" class=@(j == 0 ? "active" : "")></li>
+                j = j + 1;
+            }
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @foreach (var item in Model.ImageView)
+            {
+                i = i + 1;
+                if (i == 1)
+                {
+                    <div class="item active">
+                        <img src="@item.Url" />
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <img src="@item.Url" />
+                        <div class="carousel-caption">
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@*
 <div class="row">
     <div class="slider">
         <ul class="slides">
@@ -20,10 +57,11 @@
         </ul>
     </div>
 </div>
-<div class="row" style="margin-top: -60px; margin-bottom: 0px;">
+*@
+<div class="row" style="margin-bottom: 0px;">
     <div class="content">
         <div class="container">
-            <div class="col l8 sm12">
+            <div class="col-md-8">
                 <div class="" style="margin-top: 15px;">
                     @if (@Model.PageAnnounment != null)
                     {
@@ -43,7 +81,7 @@
                     <table class="table table-bordered">
                         @foreach (var item in Model.TouristTable)
                         {
-                            <tr class="@(item.Header ? "success" : "")">
+                            <tr style="@(item.Header ? "font-weight: bold;" : "")">
                                 <td style="vertical-align: top; width: 200px;"> @item.Name </td>
                                 <td style="vertical-align:top;"> @item.Text </td>
                             </tr>
@@ -55,7 +93,7 @@
                         <tbody>
                             @foreach (var item in Model.NameofPort)
                             {
-                                <tr class="@(item.Header ? "success" : "")">
+                                <tr style="@(item.Header ? "font-weight: bold;" : "")">
                                     <td width="75%"> @item.Name </td>
                                     <td width="10%"> @item.Border </td>
                                     <td width="10%"> @item.Entry </td>
@@ -68,24 +106,24 @@
 
                 </div>
             </div>
-
-            <div class="col l4 sm12" style="margin-top: 8px; border: 1px solid #ddd; margin-bottom: 15px;">
-                <ul class="collapsible" data-collapsible="expandable">
+            
+            <div class="col-md-4" style="margin-top: 8px; border: 1px solid #ddd; margin-bottom: 15px;">
+                <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header active" data-ng-click="setActive('1');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '1', 'fa fa-plus' : isActive != '1'}"></i>
                             E-Visa
                         </div>
                         <div class="collapsible-body" style="padding: 15px;">
                             <div class="support ">
                                 <div class="support-item ">
-                                    <a href="/Home/CheckStatus">
+                                    <a href="/CheckStatus">
                                         <i class="fa fa-download"></i>
                                         @Menus[20]
                                     </a>
                                 </div>
                                 <div class="support-item ">
-                                    <a href="/Home/Apply">
+                                    <a href="/Apply">
                                         <i class="fa fa-check-square-o"></i>
                                         @Menus[21]
                                     </a>
@@ -97,7 +135,7 @@
                                     </a>
                                 </div>
                                 <div class="support-item ">
-                                    <a href="/Home/FQLogin">
+                                    <a href="/User/FQLogin">
                                         <i class="fa fa-star-o"></i>
                                         @Menus[22]
                                     </a>
@@ -106,8 +144,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header" data-ng-click="setActive('2');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '2', 'fa fa-plus' : isActive != '2'}"></i>
                             Online Support (24/7)
                         </div>
                         <div class="collapsible-body" style="padding: 15px;">
@@ -139,8 +177,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header" data-ng-click="setActive('3');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '3', 'fa fa-plus' : isActive != '3'}"></i>
                             Map
                         </div>
                         <div class="collapsible-body align-center" style="padding: 15px;">
@@ -150,8 +188,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header" data-ng-click="setActive('4');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '4', 'fa fa-plus' : isActive != '4'}"></i>
                             Photo Guidelines
                         </div>
                         <div class="collapsible-body align-center" style="padding: 15px;">
@@ -161,8 +199,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header" data-ng-click="setActive('5');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '5', 'fa fa-plus' : isActive != '5'}"></i>
                             Cambodia Photo Galleries
                         </div>
                         <div class="collapsible-body" style="padding: 15px;">
@@ -180,8 +218,8 @@
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header active">
-                            <i class="fa fa-minus"></i>
+                        <div class="collapsible-header" data-ng-click="setActive('6');">
+                            <i data-ng-class="{'fa fa-minus' : isActive === '6', 'fa fa-plus' : isActive != '6'}"></i>
                             Information
                         </div>
                         <div class="collapsible-body" style="padding: 15px;">
@@ -201,29 +239,29 @@
 @section Scripts
 {
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.slider').slider();
-    });
-    $(document).ready(function (e) {
+    //$(document).ready(function () {
+    //    $('.slider').slider();
+    //});
+    //$(document).ready(function (e) {
 
-        $("#pn1").click(function (e) {
-                e.preventDefault();
-                $("#p1-dialog").modal();
+    //    $("#pn1").click(function (e) {
+    //            e.preventDefault();
+    //            $("#p1-dialog").modal();
               
-            });
+    //        });
         
-            $("#pn2").click(function (e) {
-                e.preventDefault();
-                $("#p2-dialog").modal();
-            });
+    //        $("#pn2").click(function (e) {
+    //            e.preventDefault();
+    //            $("#p2-dialog").modal();
+    //        });
         
-            $("#pn3").click(function (e) {
-                e.preventDefault();
-                $("#p3-dialog").modal();
+    //        $("#pn3").click(function (e) {
+    //            e.preventDefault();
+    //            $("#p3-dialog").modal();
                 
-            });
+    //        });
         
-    });
+    //});
 
     //  $(document).ready(function () {
 
