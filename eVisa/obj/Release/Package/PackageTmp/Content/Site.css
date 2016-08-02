@@ -1494,9 +1494,10 @@ md-checkbox .md-label span {
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
     .main-text{
-        font-size: 25px;
+        font-size: 20px;
         color: #000000;
         text-align: center;
+        margin-top: -12px;
     } 
 }
 @media (min-width: 768px) and (max-width: 1315px) {
@@ -1651,4 +1652,11 @@ ng-message > .ng-scope{
 }
 label {
     color: #696969;
+}
+.row{
+    margin-bottom:0px;
+}
+.footer-apply{
+    margin-top: 50px;
+    margin-bottom: 20px;
 }

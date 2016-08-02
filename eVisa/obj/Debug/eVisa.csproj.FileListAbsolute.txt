@@ -24,12 +24,7 @@ D:\Sokhom\E-Visa2\eVisa\bin\PagedList.Mvc.dll
 D:\Sokhom\E-Visa2\eVisa\bin\PagedList.xml
 D:\Sokhom\E-Visa2\eVisa\bin\PagedList.Mvc.xml
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.csprojResolveAssemblyReference.cache
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.change_children.resources
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.change.resources
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.change1.resources
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.op.resources
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.change2.resources
-D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.contacgt.resources
+D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Migrations.ActionRecord.resources
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Resources.en.resources
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.Resources.kh.resources
 D:\Sokhom\E-Visa2\eVisa\obj\Debug\eVisa.csproj.GenerateResource.Cache

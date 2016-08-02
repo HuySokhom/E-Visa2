@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActionRecordController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ApplyController.cs" />
@@ -204,32 +205,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607010250358_change_children.cs" />
-    <Compile Include="Migrations\201607010250358_change_children.Designer.cs">
-      <DependentUpon>201607010250358_change_children.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607040233555_change.cs" />
-    <Compile Include="Migrations\201607040233555_change.Designer.cs">
-      <DependentUpon>201607040233555_change.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607040248226_change1.cs" />
-    <Compile Include="Migrations\201607040248226_change1.Designer.cs">
-      <DependentUpon>201607040248226_change1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607040359116_op.cs" />
-    <Compile Include="Migrations\201607040359116_op.Designer.cs">
-      <DependentUpon>201607040359116_op.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607070317491_change2.cs" />
-    <Compile Include="Migrations\201607070317491_change2.Designer.cs">
-      <DependentUpon>201607070317491_change2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607270212189_contacgt.cs" />
-    <Compile Include="Migrations\201607270212189_contacgt.Designer.cs">
-      <DependentUpon>201607270212189_contacgt.cs</DependentUpon>
+    <Compile Include="Migrations\201608020205114_ActionRecord.cs" />
+    <Compile Include="Migrations\201608020205114_ActionRecord.Designer.cs">
+      <DependentUpon>201608020205114_ActionRecord.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActionRecord.cs" />
     <Compile Include="Models\ApplicationTemp.cs" />
     <Compile Include="Models\ChildrenTemp.cs" />
     <Compile Include="Models\Children.cs" />
@@ -423,6 +405,7 @@
     <Content Include="Images\Apply\4.jpg" />
     <Content Include="Images\Apply\5.jpg" />
     <Content Include="Images\avatar.png" />
+    <Content Include="Images\bg.png" />
     <Content Include="Images\bg_content_default.jpg" />
     <Content Include="Images\blank.gif" />
     <Content Include="Images\children_icon.png" />
@@ -556,6 +539,7 @@
     <Content Include="Images\Photo\help04.gif" />
     <Content Include="Images\Photo\help05.gif" />
     <Content Include="Images\SlideImage\SlideShow.css" />
+    <Content Include="Images\smartphone.png" />
     <Content Include="Images\Table\sort_asc.png" />
     <Content Include="Images\Table\sort_desc.png" />
     <Content Include="Images\Testimonial\Dave Jaros.gif" />
@@ -1478,6 +1462,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\App_LocalResources\" />
     <Folder Include="obj\" />
+    <Folder Include="Views\ActionRecord\" />
     <Folder Include="Views\Children\" />
     <Folder Include="Views\ContactInformation\" />
     <Folder Include="Views\Country\" />
@@ -1496,23 +1481,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607010250358_change_children.resx">
-      <DependentUpon>201607010250358_change_children.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607040233555_change.resx">
-      <DependentUpon>201607040233555_change.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607040248226_change1.resx">
-      <DependentUpon>201607040248226_change1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607040359116_op.resx">
-      <DependentUpon>201607040359116_op.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607070317491_change2.resx">
-      <DependentUpon>201607070317491_change2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607270212189_contacgt.resx">
-      <DependentUpon>201607270212189_contacgt.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608020205114_ActionRecord.resx">
+      <DependentUpon>201608020205114_ActionRecord.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

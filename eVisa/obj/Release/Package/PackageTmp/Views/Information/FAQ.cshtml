@@ -12,9 +12,9 @@
             <ul class="collapsible" data-collapsible="accordion">
                 @foreach (var item in Model)
                 {
-                    <li class="active">
-                        <div class="collapsible-header" style="font-weight:600;" data-ng-click="setActive('@Html.Raw(item.Id)');">
-                            <i data-ng-class="{'fa fa-minus' : isActive === '@Html.Raw(item.Id)', 'fa fa-plus' : isActive != '@Html.Raw(item.Id)'}"></i>
+                    <li>
+                        <div class="collapsible-header" style="font-weight:600;">
+                            <i class="accordion_icon fa fa-plus"></i>
                             @Html.Raw(item.question)
                         </div>
                         <div class="collapsible-body">
@@ -26,3 +26,17 @@
         </div>        
     </div>
 </div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        jQuery('.collapsible li').click(function () {
+            jQuery(this).toggleClass('active').find('i').toggleClass('fa-plus fa-minus')
+                   .closest('li').siblings('li')
+                   .removeClass('active').find('i').removeClass('fa-minus').addClass('fa-plus');
+            jQuery(this).next('.collapsible-body').slideToggle().siblings('.collapsible-body').slideUp();
+
+        });
+    </script>
+
+}

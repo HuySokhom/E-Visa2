@@ -77,6 +77,8 @@ namespace eVisa.Models
 
         public DbSet<ChildrenTemp> ChildrenTemp { get; set; }
 
+        public DbSet<ActionRecord> ActionRecord { get; set; }
+
 
     }
 

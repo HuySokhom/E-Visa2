@@ -7,13 +7,13 @@ namespace eVisa.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class change : IMigrationMetadata
+    public sealed partial class ActionRecord : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(change));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ActionRecord));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607040233555_change"; }
+            get { return "201608020205114_ActionRecord"; }
         }
         
         string IMigrationMetadata.Source
