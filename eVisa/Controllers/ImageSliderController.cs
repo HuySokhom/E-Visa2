@@ -69,10 +69,10 @@ namespace eVisa.Controllers
                 Stream stream = model.Photo.InputStream;
                 System.Drawing.Image size = System.Drawing.Image.FromStream(stream);
 
-                if (size.Height != 567 && size.Width != 1700) {
-                    ModelState.AddModelError("res", "Invalid Image size !");
-                    return RedirectToAction("Index", "ImageSlider", new {i = 2 });
-                }
+                //if (size.Height != 567 && size.Width != 1700) {
+                //    ModelState.AddModelError("res", "Invalid Image size !");
+                //    return RedirectToAction("Index", "ImageSlider", new {i = 2 });
+                //}
 
 
 

@@ -1367,11 +1367,11 @@ span.capitalize {
     text-decoration: none;
 }
 .login-side-menu{
-    float: right;
+    /*float: right;*/
     color:  #888888;
 }
 .login-side-menu{
-    padding: 15px;
+    padding: 7px;
 }
 nav {
     background-color: #ffffff;

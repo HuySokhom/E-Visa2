@@ -399,9 +399,11 @@
     <Content Include="Content\material_icon.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\print.css" />
+    <Content Include="Content\slider.css" />
     <Content Include="Content\style.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="Images\a22.png" />
     <Content Include="Images\apple-link.png" />
     <Content Include="Images\Apply\1.jpg" />
     <Content Include="Images\Apply\2.jpg" />
@@ -410,9 +412,13 @@
     <Content Include="Images\Apply\5.jpg" />
     <Content Include="Images\appstore.gif" />
     <Content Include="Images\avatar.png" />
+    <Content Include="Images\b05.png" />
     <Content Include="Images\bg.png" />
     <Content Include="Images\bg_content_default.jpg" />
     <Content Include="Images\blank.gif" />
+    <Content Include="Images\c-finger-pointing.png" />
+    <Content Include="Images\c-navigator-horizontal.png" />
+    <Content Include="Images\c-navigator.png" />
     <Content Include="Images\children_icon.png" />
     <Content Include="Images\e-visa.png" />
     <Content Include="Images\evisalogo.gif" />
@@ -1152,6 +1158,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jssor.slider.min.js" />
     <Content Include="Scripts\less-1.5.1.js" />
     <Content Include="Scripts\less-1.5.1.min.js" />
     <Content Include="Scripts\master.js" />
@@ -1166,6 +1173,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\slider.js" />
     <Content Include="Scripts\Slider\jssor.js" />
     <Content Include="Scripts\Slider\jssor.slider.js" />
     <Content Include="Scripts\tinymce\license.txt" />
