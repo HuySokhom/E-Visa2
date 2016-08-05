@@ -586,5 +586,15 @@ namespace eVisa.Function
             
         }
 
+        /***********************************************************
+         * Funcationality For Tract Action Record Each User Process 
+         * When Apply E-visa Application
+         ***********************************************************/
+
+        public int TractActionRecord()
+        {
+            return 0;
+        }
+
     }
 }

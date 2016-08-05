@@ -72,13 +72,20 @@
             2. Passport Information
         </h1>
         <label>Upload your photo <span class="require">*</span></label>
+        <div>
+            <button class="btn btn-default" data-toggle="modal" data-target="#cropped_image">
+                <i class="fa fa-upload"></i>
+                Upload Image
+            </button>
+            <img data-ng-show="Contact.Photo" src="{{Contact.Photo}}" class="img-responsive" style="margin: 10px 0px 10px 0px;"/>
+        </div>
+        @*
         <input class="form-control" type="file" id="upload_image" accept="image/*"/>
-        <img data-ng-show="Contact.Photo" src="{{Contact.Photo}}" class="img-responsive" />
         <img src="/Images/blank.gif" data-ng-show="!Contact.Photo" class="img-responsive" />
         <div id="message">
             <span class="message"></span>
         </div>
-
+        *@
 
         <label>Passport Number <span class="require">*</span></label>
         <input ng-model="Contact.PassportNo" type="text" class="form-control" required name="PassportNo">
@@ -233,4 +240,3 @@
     </div>
     <div class="clearfix"></div>
 </div>
-    

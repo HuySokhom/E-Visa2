@@ -1,0 +1,40 @@
+﻿<div class="modal fade"
+     id="cropped_image"
+     data-keyboard="false"
+     data-backdrop="static"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-ng-click="closeAppForm();" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Upload Photo
+            </div>
+            <br />
+            <div class="col-md-6">
+                <div>Select an image file: <input type="file" id="fileInput" /></div>
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="square" result-image="myCroppedImage" result-image-size="300"></img-crop>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <br />
+                <div>Image Result:</div>
+                <div><img ng-src="{{myCroppedImage}}" /></div>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+                <button data-ng-click="crop();" class="btn btn-default" data-ng-disabled="disabled">
+                    <i class="fa fa-save" data-ng-show="!disabled"></i>
+                    <i class="fa fa-refresh fa-spin" data-ng-show="disabled"></i>
+                    Cropp & Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

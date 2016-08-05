@@ -505,6 +505,28 @@ namespace eVisa.Controllers
             return Json(new { success = true, image = Convert.ToString(_imgname), message = "Upload Success." }, JsonRequestBehavior.AllowGet);
         }
 
+        // functionality fro crop image upload 
+        public System.Drawing.Image Base64ToImage(string base64String)   
+        {
+            var base64Content = base64String.Split(',')[1];
+            //byte[] bImage = Convert.FromBase64String(base64Content);            
+            //string convert = base64String.Substring(1, base64String.Length - 2).Replace(@"\/", "/");//.Replace("data:image/jpeg;base64,", String.Empty);
+            byte[] imageBytes = Convert.FromBase64String(base64Content);
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+            return image;  
+        }
+
+        public ActionResult BaseToImage(string base64String)
+        {
+            var imgname = Guid.NewGuid().ToString() + ".jpg";
+            Base64ToImage(base64String).Save(Server.MapPath("~/Uploads/Users/" + imgname));
+            var image = "/Uploads/Users/" + imgname;
+            return Json(new { success = true, image_name = image, message = "Upload Success." }, JsonRequestBehavior.AllowGet);
+
+        }  
+
 
         public int checkValidExtension(string ext)
         {

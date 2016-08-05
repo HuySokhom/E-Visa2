@@ -15,6 +15,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="shortcut icon" href="/Images/favicon.ico" type="image/x-icon">
     <link href="/Content/bootstrap_style_lib/theme-default.css" rel="stylesheet">
     <link href="/Content/bootstrap-datetimepicker.css" rel="stylesheet">    
 </head>
@@ -29,6 +30,20 @@
                 <li class="xn-logo">
                     <a href="/admin">E-Visa</a>
                     <a href="#" class="x-navigation-control"></a>
+                    <div class="profile">
+                        <div class="profile-image">
+                            <img src="/images/Logo/e-visa-home-iphone.png" alt="John Doe" style="background: #ffffff;" />
+                        </div>
+                        <div class="profile-data">
+                            <div class="profile-data-name">
+                                <i class="fa fa-user"></i>
+                                @User.Identity.GetUserName()
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="active">
+                    <a href="#/"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
                 </li>
                 <li class="xn-openable">
                     <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Administrator</span></a>

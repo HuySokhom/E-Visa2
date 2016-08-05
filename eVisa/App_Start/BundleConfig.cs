@@ -22,6 +22,7 @@ namespace eVisa
                 "~/Scripts/angular-ui-router.min.js",
                 "~/Scripts/angular-cookies.min.js",
                 "~/Scripts/angular-alertify.js",
+                "~/Scripts/angular-img-crop.js",
                 "~/App/main.js"
             ));
 

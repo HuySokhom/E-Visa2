@@ -279,6 +279,8 @@
     <Content Include="App\core\directive\number.js" />
     <Content Include="App\core\restful\restful.js" />
     <Content Include="App\core\services\services.js" />
+    <Content Include="App\imageCropped\directive\cropped.js" />
+    <Content Include="App\imageCropped\partials\cropped_image.html" />
     <Content Include="App\login\login_ctrl.js" />
     <Content Include="App\main.js" />
     <Content Include="App\Payment\payment_ctrl.js" />
@@ -296,6 +298,7 @@
     <Content Include="App\user\partials\user_history.html" />
     <Content Include="App\user\partials\user_change.html" />
     <Content Include="App\user\partials\user_profile.html" />
+    <Content Include="App_Data\dbo.sql" />
     <Content Include="audio\alert.mp3" />
     <Content Include="audio\fail.mp3" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -328,6 +331,7 @@
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\WebGrease.dll" />
     <Content Include="ConnectionStrings.xml" />
+    <Content Include="Content\angular-img-crop.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\arrow.png" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -404,11 +408,13 @@
     <Content Include="Images\Apply\3.jpg" />
     <Content Include="Images\Apply\4.jpg" />
     <Content Include="Images\Apply\5.jpg" />
+    <Content Include="Images\appstore.gif" />
     <Content Include="Images\avatar.png" />
     <Content Include="Images\bg.png" />
     <Content Include="Images\bg_content_default.jpg" />
     <Content Include="Images\blank.gif" />
     <Content Include="Images\children_icon.png" />
+    <Content Include="Images\e-visa.png" />
     <Content Include="Images\evisalogo.gif" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Flag\cambodian.png" />
@@ -420,6 +426,7 @@
     <Content Include="Images\Flag\korean.png" />
     <Content Include="Images\Flag\turkey.png" />
     <Content Include="Images\google-link.png" />
+    <Content Include="Images\googleplay.gif" />
     <Content Include="Images\icons\list_control_down.png" />
     <Content Include="Images\Images\2C2P.gif" />
     <Content Include="Images\Images\About\about01.jpg" />
@@ -538,6 +545,7 @@
     <Content Include="Images\Photo\help02.gif" />
     <Content Include="Images\Photo\help04.gif" />
     <Content Include="Images\Photo\help05.gif" />
+    <Content Include="Images\select2.png" />
     <Content Include="Images\SlideImage\SlideShow.css" />
     <Content Include="Images\smartphone.png" />
     <Content Include="Images\Table\sort_asc.png" />
@@ -630,6 +638,7 @@
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.min.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
+    <Content Include="Scripts\angular-img-crop.js" />
     <Content Include="Scripts\angular-material.min.js" />
     <Content Include="Scripts\angular-messages.min.js" />
     <Content Include="Scripts\angular-sanitize.min.js" />
@@ -1459,7 +1468,6 @@
     <Content Include="Views\User\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="App_Start\App_LocalResources\" />
     <Folder Include="obj\" />
     <Folder Include="Views\ActionRecord\" />

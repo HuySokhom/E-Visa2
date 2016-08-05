@@ -236,11 +236,10 @@
 
     <!--  Start Application POPUP --->    
     <div class="modal fade apply_popup"
-            tabindex="-1"
-            data-keyboard="false"
-            data-backdrop="static"
-            role="dialog"
-            data-ng-cloak>
+         data-keyboard="false"
+         data-backdrop="static"
+         style="overflow-x: hidden;overflow-y: auto;"
+         >
         <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
@@ -346,11 +345,13 @@
             </div>
         </div>
     </div>
-    <!--  End Edit Contact Info POPUP --->
+    <!--  End Edit Contact Info POPUP --->    
+    <!-- plugin directive for image crop -->
+    <div cropped:view></div>
 </div>
 @section scripts{
 
     <script type="text/javascript" src="/App/core/restful/restful.js"></script>
     <script type="text/javascript" src="/App/ReviewApp/controller/review_ctrl.js"></script>
-
+    <script type="text/javascript" src="/App/imageCropped/directive/cropped.js"></script>
 }
