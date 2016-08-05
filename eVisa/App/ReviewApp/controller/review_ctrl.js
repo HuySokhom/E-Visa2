@@ -114,7 +114,7 @@ app.controller(
 	    //******Delete Application Funcationality ***********//
 	    //***************************************************//
 		$scope.remove = function ($index, id) {
-		    console.log(id);
+		    //console.log(id);
 		    $alertify.okBtn("Ok")
 				.cancelBtn("Cancel")
 				.confirm("<b>Waring: </b>" +
@@ -141,7 +141,7 @@ app.controller(
 		    $scope.Contact = angular.copy(params);
 		    $scope.id = $scope.Contact.id;
 		    $(".apply_popup").modal('show');
-		    var dob = $scope.dateFormat(params.DOB); console.log(dob);
+		    var dob = $scope.dateFormat(params.DOB); 
 		    var entry_date = $scope.dateFormat(params.EntryDate);
 		    var issue_date = $scope.dateFormat(params.PassportIssueDate);
 		    var expire_date = $scope.dateFormat(params.PassportExpiryDate);
@@ -241,7 +241,7 @@ app.controller(
 	    
         // remove child ************************/
 		$scope.deleteChild = function () {
-		    console.log($scope.Child);
+		    //console.log($scope.Child);
 		    $alertify.okBtn("Ok")
 				.cancelBtn("Cancel")
 				.confirm("<b>Waring: </b>" +
