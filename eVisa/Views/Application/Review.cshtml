@@ -202,7 +202,14 @@
                                 </tr>
                             </table>
                             <label>Photo: <span class="require">*</span></label>
-                            <input class="form-control" type="file" id="upload_image" accept="image/*" name="photo" />
+                            <div>
+                                <button class="btn btn-default" data-toggle="modal" data-target="#cropped_image">
+                                    <i class="fa fa-upload"></i>
+                                    Upload Image
+                                </button>
+                            </div>
+
+                            @*<input class="form-control" type="file" id="upload_image" accept="image/*" name="photo" />
                             <img data-ng-show="Child.ChildPhoto" id="img" src="{{Child.ChildPhoto}}" class="img-responsive" />
                             <img src="/Images/children_icon.png"
                                  data-ng-show="!Child.ChildPhoto" 
@@ -210,7 +217,7 @@
                                  class="img-responsive" />
                             <div id="message">
                                 <span class="message"></span>
-                            </div>
+                            </div>*@
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -45,12 +45,14 @@ app.controller(
 	            $scope.disabled = false;
 	            if (angular.isDefined($scope.Contact)) {
 	                $scope.Contact.Photo = data.image_name;
-	                console.log('contact apply');
 	            }
 	            if (angular.isDefined($scope.Profile)) {
 	                $scope.Profile.Photo = data.image_name;
-	            }	            
-	            console.log(data);
+	            }
+	            if (angular.isDefined($scope.Child)) {
+	                $scope.Child.ChildPhoto = data.image_name;
+	            }
+	            //console.log(data);
 	        });
 
 	    };

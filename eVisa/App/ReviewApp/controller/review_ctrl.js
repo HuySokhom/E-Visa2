@@ -13,14 +13,14 @@ app.controller(
             //************* get user profile info *******************//
 		    Restful.get('/ContactInformation/Get/').success(function (data) {
 		        $scope.ContactsInformation = data;
-		        console.log(data);
+		        //console.log(data);
 		    });
 		    //************** get application info ***************//
 		    Restful.get(url).success(function (data) {
 		        $scope.applicationReviews = '';
 		        if (data.success) {
 		            $scope.applicationReviews = data.Data;
-		            console.log($scope.applicationReviews);
+		            //console.log($scope.applicationReviews);
 		        }
 		    });
 		};
@@ -204,7 +204,7 @@ app.controller(
 		    //$scope.Child.ChildSex = params.ChildSex;
 		    //$scope.Child.ChildPhoto = params.ChildPhoto;
 		    var dob = $scope.dateFormat(params.ChildDob);
-		    console.log(params);
+		    //console.log(params);
 		    $scope.year = dob.year;
 		    $scope.day = dob.day;
 		    $scope.month = dob.month;
