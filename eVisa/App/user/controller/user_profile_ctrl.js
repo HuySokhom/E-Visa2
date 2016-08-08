@@ -4,8 +4,8 @@ app.controller(
 	, 'Restful'
 	, '$stateParams'
 	, '$location'
-
-	, function ($scope, Restful, $stateParams, $location) {
+    , 'alertify'
+	, function ($scope, Restful, $stateParams, $location, $alertify) {
 
 		var url = '/User/Profile/';
 		$scope.init = function(params){
@@ -76,9 +76,9 @@ app.controller(
 		        $scope.process = false;
 		        if (data.success) {
 		            $location.path("#/");
-		            return Materialize.toast('Save success. Data has been change', 4000);
+		            return $alertify.success("<b>Save success.</b> Data has been change.");
 		        } else {
-		            return Materialize.toast('Something went wrong.', 4000);
+		            return $alertify.error("Something went wrong."); 
 		        }
 		    });
 		};
@@ -100,10 +100,10 @@ app.controller(
 		            data: data,
 		            success: function (response) {
 		                if (response.success) {
-		                    console.log(response);
+		                    //console.log(response);
 		                    $scope.Profile.Photo = '/Uploads/Users/' + response.image;
 		                    $(".img-profile").attr('src', $scope.Profile.Photo);
-		                    console.log($scope.Profile.Photo);
+		                    //console.log($scope.Profile.Photo);
 		                    $("#message span").text(response.message);
 		                } else {
 		                    $("#message span").text(response.message);

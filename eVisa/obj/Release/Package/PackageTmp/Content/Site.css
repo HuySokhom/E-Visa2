@@ -1367,11 +1367,11 @@ span.capitalize {
     text-decoration: none;
 }
 .login-side-menu{
-    float: right;
+    /*float: right;*/
     color:  #888888;
 }
 .login-side-menu{
-    padding: 15px;
+    padding: 7px;
 }
 nav {
     background-color: #ffffff;
@@ -1659,4 +1659,10 @@ label {
 .footer-apply{
     margin-top: 50px;
     margin-bottom: 20px;
+}
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width: 100%;
+    height:350px;
 }

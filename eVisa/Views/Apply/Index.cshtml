@@ -74,13 +74,13 @@
             <div>
             </div>
 
-            <label>Secondary Email <span class="require">*</span></label>
-            <input ng-model="SecondaryEmail" name="SecondaryEmail" class="form-control" required type="email">
+            <label>Secondary Email</label>
+            <input ng-model="SecondaryEmail" name="SecondaryEmail" class="form-control" type="email">
             <div>
             </div>
 
-            <label>Heard About Us From? <span class="require">*</span></label>
-            <select class="form-control" required data-ng-model="heardFrom" ng-options="item.name as item.name for item in apply_items">
+            <label>Heard About Us From?</label>
+            <select class="form-control" data-ng-model="heardFrom" ng-options="item.name as item.name for item in apply_items">
                 <option value="">--Select--</option>
             </select>
             <br />
@@ -88,11 +88,16 @@
             <label for="myCheckbox"></label>
             You must read and agreed to the Terms & Conditions and you must understand that you may be asked to provide additional
             information and documentation, prior receipt of which is needed before the e-Visa application can be accepted for processing.
-
-            <button class="btn btn-default" type="submit" data-ng-disabled="!check || disabled">
-                <i class="fa fa-check-circle-o" data-ng-show="!disabled"></i>
-                <i class="fa fa-circle-o-notch fa-spin fa-2x" data-ng-show="disabled"></i>
-                I Agree
+            <br /><br />
+            <button class="btn btn-success" type="submit" data-ng-disabled="!check || disabled">
+                <span data-ng-show="!check">
+                    Checkbox to continue
+                </span>
+                <span data-ng-show="check">
+                    <i class="fa fa-check-circle-o" data-ng-show="!disabled"></i>
+                    <i class="fa fa-circle-o-notch fa-spin fa-2x" data-ng-show="disabled"></i>
+                    I Agree
+                </span>
             </button>
             <br /><br />
         </form>

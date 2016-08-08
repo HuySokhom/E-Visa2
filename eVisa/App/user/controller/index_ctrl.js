@@ -4,7 +4,8 @@ app.controller(
     , 'Services'
 	, 'Restful'
 	, '$window'
-	, function ($scope, Services, Restful, $window) {
+    , 'alertify'
+	, function ($scope, Services, Restful, $window, $alertify) {
 	    $scope.service = new Services();
 	    $scope.sex = "male";
 	    var dob = '';
@@ -63,15 +64,12 @@ app.controller(
 	            $scope.disabled = false;
 	            if (data.success) {
 	                $('#apply_single_evisa').modal('hide');
-	                Materialize.toast("save success.", 4000);	                
+	                $alertify.success("<b>Save Success.</b>");               
 	                // redirect to review 
 	                $window.location.href = '/Application/Review';
 	            } else {
 	                $('#apply_single_evisa').modal('hide');
-	                Materialize.toast(
-                        "Your Application has reach to the maximum of rang. We allow you to apply application only 9 application.",
-                        4000
-                    );
+	                $alertify.error("<b>Your Application has reach to the maximum of rang. We allow you to apply application only 9 application.</b>.");	                
                     // redirect to review 
 	                $window.location.href = '/Application/Review';
 	            }

@@ -5,6 +5,7 @@
         , 'ui.router'
         , 'ngCookies'
         , 'ngAlertify'
+        , 'ngImgCrop'
 	]
 );
 

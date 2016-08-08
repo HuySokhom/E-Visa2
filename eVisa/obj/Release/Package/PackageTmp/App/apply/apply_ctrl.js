@@ -44,7 +44,7 @@ app.controller(
 	        }
 	        $scope.disabled = true;
 	        Restful.save("/Apply/SaveContact", data).success(function (data) {
-	            $scope.disabled = false;
+	            //$scope.disabled = false;
 	            if (data.success) {
 	                $alertify.success("<b>Complete: </b> Save Success.");
 	                // redirect to Application

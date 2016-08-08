@@ -2,20 +2,21 @@
     '$scope',
     '$window',
     '$http',
-    function ($scope, $window, $http) {
+    'alertify',
+    function ($scope, $window, $http, $alertify) {
 
         $scope.userFormat = /^[a-zA-Z\d\-\_]+$/;
         $scope.save = function () {
             if ($scope.password != $scope.confirmPassword) {
-                return Materialize.toast('Password not match.', 4000);
+                return $alertify.error("<b>Password not match</b>.");
             }
             var str = $("#UserId").val(); 
             var res = str.match($scope.userFormat);
             if ( !res ) {
-                return Materialize.toast('Invalid UserId.', 4000);
+                return $alertify.error("<b>Invalid UserId.</b>.");
             }
             if ($scope.password.length < 8) {
-                return Materialize.toast('Password should be 8 character.', 4000);
+                return $alertify.error("<b>Password should be 8 character.</b>.");
             }
             var Json = {
                 UserId: $scope.userId,
@@ -27,9 +28,10 @@
                 //console.log(data);
                 $scope.process = false;
                 if (data.success) {
+                    $alertify.success("Save Success.");
                     $window.location.href = '/User/#/Profile';
                 } else {
-                    Materialize.toast(data.message, 4000);
+                    $alertify.error(data.message);
                 }
                 
             });

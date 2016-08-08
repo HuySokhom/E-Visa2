@@ -2015,21 +2015,21 @@ ul.panel-controls > li > .dropdown-menu:before {
   border-color: #feb34c;
 }
 .btn-success {
-  background-color: #95b75d;
-  border-color: #95b75d;
+  background-color: #26a69a;
+  border-color: #26a69a;
 }
 .btn-success:hover,
 .btn-success:focus,
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
-  background-color: #89ad4d;
-  border-color: #89ad4d;
+  background-color: #26a69a;
+  border-color: #26a69a;
 }
 .btn-success[disabled],
 .btn-success.disabled {
-  background: #acc780;
-  border-color: #a7c479;
+  background: #26a69a;
+  border-color: #26a69a;
 }
 .btn-primary {
   background-color: #1b1e24;

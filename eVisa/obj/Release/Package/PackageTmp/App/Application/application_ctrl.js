@@ -3,21 +3,22 @@ app.controller(
 	'$scope'
 	, 'Restful'
 	, '$window'
-	, function ($scope, Restful, $window) {
+    , 'alertify'
+	, function ($scope, Restful, $window, $alertify) {
 	    $scope.sex = "male";
 	    var dob = '';
 	    var issueDate = '';
 	    $scope.delete = true;
 	    var expiryDate = '';
-	    $scope.init = function () {
-	        Restful.get("/Apply/GetContact").success(function (data) {
-	            $scope.Contact = data.Data[0];
-	            $scope.Contact.CountryOfBirth = data.Data[0].Country;
-	            $scope.Contact.Nationality = data.Data[0].Country;
-	            console.log(data);
-	        });
-	    };
-	    $scope.init();
+	    //$scope.init = function () {
+	    //    Restful.get("/Apply/GetContact").success(function (data) {
+	    //        $scope.Contact = data.Data[0];
+	    //        $scope.Contact.CountryOfBirth = data.Data[0].Country;
+	    //        $scope.Contact.Nationality = data.Data[0].Country;
+	    //        console.log(data);
+	    //    });
+	    //};
+	    //$scope.init();
 
 	    $scope.save = function () {
 	        var model = {
@@ -41,20 +42,16 @@ app.controller(
 	            ArrivalTime: $scope.Contact.ArrivalTime,
 	            VisitAddress: $scope.Contact.VisitAddress,
 	            VisitPerson: $scope.Contact.VisitPerson,
-
 	        };
 	        $scope.disabled = true;
 	        Restful.save("/Application/Save", model).success(function (data) {
 	            $scope.disabled = false;
 	            if (data.success) {
-	                Materialize.toast("save success.", 4000);	                
+	                $alertify.success("<b>Save Successful</b>.");           
 	                // redirect to review 
 	                $window.location.href = '/Application/Review';
 	            } else {
-	                Materialize.toast(
-                        "Your Application has reach to the maximum of rang. We allow you to apply application only 9 application.",
-                        4000
-                    );
+	                $alertify.error("Your Application has reach to the maximum of rang. We allow you to apply application only 9 application.");
                     // redirect to review 
 	                $window.location.href = '/Application/Review';
 	            }

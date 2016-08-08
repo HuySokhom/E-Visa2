@@ -25,67 +25,92 @@
     <div class="row" style="background-image: url('/images/bg.png'); margin-bottom: 0px;">
         <div class="col-md-12" style="border-bottom: 1px solid #ddd; background-color: #F8F8F8;">
             <div class="container">
-                <div class="login-side-menu">
-                    <img src="/Images/Logo/e-visa-home-iphone.png" style="margin-bottom: -7px;width:93px;" />
-                    <a href="/CheckStatus" style="padding: 10px;">
-                        <i class="fa fa-download"></i>
-                        @Menus[20]
-                    </a>
-                    <a href="/Apply" style="padding: 10px;">
-                        <i class="fa fa-check-square-o"></i>
-                        @Menus[21]
-                    </a>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Apply" style="font-weight: bold; color: red;">
+                            <i class="fa fa-check-square-o"></i>
+                            @Menus[21]
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/CheckStatus">
+                            <i class="fa fa-download"></i>
+                            @Menus[20]
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Application/SearchReferenceNumber">
+                            <i class="fa fa-search"></i>
+                            @Menus[24]
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Information/HowToApply">
+                            <i class="fa fa-question"></i>
+                            @Menus[25]
+                        </a>
+                    </li>
                     @if (Session["userId"] == null)
                     {
-                        <a href="/User/FQLogin" style="padding: 10px;">
-                            <i class="fa fa-user"></i>
-                            @Menus[22]
-                        </a>
+                        
+                        <li>
+                            <a href="/User/FQLogin">
+                                <i class="fa fa-user"></i>
+                                @Menus[22]
+                            </a>
+                        </li>
                     }
                     else
                     {
-                        <a style="padding: 10px;" href="/User/">
-                            <i class="fa fa-user"></i>
-                            My Account
-                        </a>
-                        <a data-ng-click="logoff();" style="padding: 10px;">
-                            <i class="fa fa-sign-out"></i>
-                            Logoff
-                        </a>
+                        <li>
+                            <a href="/User/">
+                                <i class="fa fa-user"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li>
+                            <a data-ng-click="logoff();">
+                                <i class="fa fa-sign-out"></i>
+                                Sign Out
+                            </a>
+                        </li>
                     }
-                    <button class='dropdown-button btn btn-default dropdown-button '
-                            data-beloworigin="true"
-                            data-activates='language' style="float: right;margin-bottom: 8px;">
-                        @if (Session["image"] != null)
-                        {
-                            <img src="@Session["image"]" />
-                            @Session["langname"]
-                        }
-                        else
-                        {
-                            <img src="/Images/Language/EN.png" />
-                            <span>EN</span>
-                        }
-                        <span class="caret"></span>
-                    </button>
+                    <li>
+                    </li>
+                </ul>
 
-                    <!-- Dropdown Structure -->
+                <button class='dropdown-button btn btn-default dropdown-button '
+                        data-beloworigin="true"
+                        data-activates='language' style="float: right; margin-top: 5px;">
+                    @if (Session["image"] != null)
+                    {
+                        <img src="@Session["image"]" />
+                        @Session["langname"]
+                    }
+                    else
+                    {
+                        <img src="/Images/Language/EN.png" />
+                        <span>EN</span>
+                    }
+                    <span class="caret"></span>
+                </button>
 
-                    <ul id="language" class='dropdown-content'>
-                        @if (LanugeItem != null)
+                <!-- Dropdown Structure -->
+
+                <ul id="language" class='dropdown-content'>
+                    @if (LanugeItem != null)
+                    {
+                        foreach (var item in LanugeItem)
                         {
-                            foreach (var item in LanugeItem)
-                            {
-                                <li data-ng-click="changeLanguage('@item.Name','@item.Url', '@item.Code');" style="text-align: center;">
-                                    <label for="@item.Name" id="change_language" style="font-size: 14px; cursor: pointer;">
-                                        <img src="@item.Url" />
-                                        @item.Name
-                                    </label>
-                                </li>
-                            }
+                            <li data-ng-click="changeLanguage('@item.Name','@item.Url', '@item.Code');" style="text-align: center;">
+                                <label for="@item.Name" id="change_language" style="font-size: 14px; cursor: pointer;">
+                                    <img src="@item.Url" />
+                                    @item.Name
+                                </label>
+                            </li>
                         }
-                    </ul>
-                </div>
+                    }
+                </ul>
             </div>
         </div>
         <div class="container">
@@ -109,7 +134,7 @@
         <div class="container">
         <br />
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <ul class="list-unstyled">
                             <li class="footer-title" style="text-transform:uppercase;">@Menus[2]</li>
@@ -216,15 +241,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="col-md-6 col-sm-6">
                         <a href="https://play.google.com/store/apps/details?id=com.e_visa" target="_blank">
-                            <img src="~/Images/googleplay.gif">
+                            <img src="~/Images/googleplay.gif" class="img-responsive">
                         </a>
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <a href="https://itunes.apple.com/us/app/cambodia-e-visa/id859901546?mt=8" target="_blank">
-                            <img src="~/Images/appstore.gif">
+                            <img src="~/Images/appstore.gif" class="img-responsive">
                         </a>
                     </div>
                     <div>

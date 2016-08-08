@@ -101,10 +101,8 @@ app.controller(
 		        $(".apply_popup").modal('hide');
 		        $scope.init();
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            return $alertify.success("<b>Complete: </b> Save success.");
 		        } else {
-		            $alertify.logPosition("top right");
 		            return $alertify.error("<b>Warning: </b> Sorry you can apply only 9 application.");
 		        }
 		    });
@@ -124,7 +122,6 @@ app.controller(
 						// it here.
 						ev.preventDefault();
 						Restful.save("/Application/Delete/" + id).success(function (data) {
-						    $alertify.logPosition("top right");
 						    $alertify.error("<b>Complete: </b> Delete Success.");
 						    $scope.applicationReviews.splice($index, 1);
 						});
@@ -230,10 +227,8 @@ app.controller(
 		        $("#addChild").modal('hide');
 		        $scope.init();
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            return $alertify.success("<b>Complete: </b> Save success.");
 		        } else {
-		            $alertify.logPosition("top right");
 		            return $alertify.error("<b>Warning: </b> Sorry you can apply your child only 3 application.");
 		        }
 		    });
@@ -254,12 +249,9 @@ app.controller(
 					        id: $scope.Child.id, 
 					        ReferenceNo: $scope.Child.ReferenceNo,
 					        Line1: $scope.Child.Line1
-					    };
-					    
-					    Restful.save("/Children/Delete/", model).success(function (data) {
-					        
+					    };					    
+					    Restful.save("/Children/Delete/", model).success(function (data) {					        
 					        $("#addChild").modal('hide');
-					        $alertify.logPosition("top right");
 					        $alertify.error("<b>Complete: </b> Delete Success.");
 					        $scope.init();
 					    });
@@ -354,7 +346,6 @@ app.controller(
         ***************************************/
 		$scope.saveAppPayment = function () {
 		    if($scope.applicationReviews.length === 0){
-		        $alertify.logPosition("top right");
 		        return $alertify.error("<b>Warning: </b> Please Add Application To Continue.");
 		    }
 		    var model = {
@@ -364,7 +355,6 @@ app.controller(
 		    Restful.save("/Payment/SaveAppPayment", model).success(function (data) {
 		        $scope.disabled = false;
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            $alertify.success("<b>Complete: </b> Save success.");
 		            // redirect to review 
 		            return $window.location.href = '/Payment';

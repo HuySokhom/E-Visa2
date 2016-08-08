@@ -13,14 +13,14 @@ app.controller(
             //************* get user profile info *******************//
 		    Restful.get('/ContactInformation/Get/').success(function (data) {
 		        $scope.ContactsInformation = data;
-		        console.log(data);
+		        //console.log(data);
 		    });
 		    //************** get application info ***************//
 		    Restful.get(url).success(function (data) {
 		        $scope.applicationReviews = '';
 		        if (data.success) {
 		            $scope.applicationReviews = data.Data;
-		            console.log($scope.applicationReviews);
+		            //console.log($scope.applicationReviews);
 		        }
 		    });
 		};
@@ -101,10 +101,8 @@ app.controller(
 		        $(".apply_popup").modal('hide');
 		        $scope.init();
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            return $alertify.success("<b>Complete: </b> Save success.");
 		        } else {
-		            $alertify.logPosition("top right");
 		            return $alertify.error("<b>Warning: </b> Sorry you can apply only 9 application.");
 		        }
 		    });
@@ -114,7 +112,7 @@ app.controller(
 	    //******Delete Application Funcationality ***********//
 	    //***************************************************//
 		$scope.remove = function ($index, id) {
-		    console.log(id);
+		    //console.log(id);
 		    $alertify.okBtn("Ok")
 				.cancelBtn("Cancel")
 				.confirm("<b>Waring: </b>" +
@@ -124,7 +122,6 @@ app.controller(
 						// it here.
 						ev.preventDefault();
 						Restful.save("/Application/Delete/" + id).success(function (data) {
-						    $alertify.logPosition("top right");
 						    $alertify.error("<b>Complete: </b> Delete Success.");
 						    $scope.applicationReviews.splice($index, 1);
 						});
@@ -141,7 +138,7 @@ app.controller(
 		    $scope.Contact = angular.copy(params);
 		    $scope.id = $scope.Contact.id;
 		    $(".apply_popup").modal('show');
-		    var dob = $scope.dateFormat(params.DOB); console.log(dob);
+		    var dob = $scope.dateFormat(params.DOB); 
 		    var entry_date = $scope.dateFormat(params.EntryDate);
 		    var issue_date = $scope.dateFormat(params.PassportIssueDate);
 		    var expire_date = $scope.dateFormat(params.PassportExpiryDate);
@@ -204,7 +201,7 @@ app.controller(
 		    //$scope.Child.ChildSex = params.ChildSex;
 		    //$scope.Child.ChildPhoto = params.ChildPhoto;
 		    var dob = $scope.dateFormat(params.ChildDob);
-		    console.log(params);
+		    //console.log(params);
 		    $scope.year = dob.year;
 		    $scope.day = dob.day;
 		    $scope.month = dob.month;
@@ -230,10 +227,8 @@ app.controller(
 		        $("#addChild").modal('hide');
 		        $scope.init();
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            return $alertify.success("<b>Complete: </b> Save success.");
 		        } else {
-		            $alertify.logPosition("top right");
 		            return $alertify.error("<b>Warning: </b> Sorry you can apply your child only 3 application.");
 		        }
 		    });
@@ -241,7 +236,7 @@ app.controller(
 	    
         // remove child ************************/
 		$scope.deleteChild = function () {
-		    console.log($scope.Child);
+		    //console.log($scope.Child);
 		    $alertify.okBtn("Ok")
 				.cancelBtn("Cancel")
 				.confirm("<b>Waring: </b>" +
@@ -254,12 +249,9 @@ app.controller(
 					        id: $scope.Child.id, 
 					        ReferenceNo: $scope.Child.ReferenceNo,
 					        Line1: $scope.Child.Line1
-					    };
-					    
-					    Restful.save("/Children/Delete/", model).success(function (data) {
-					        
+					    };					    
+					    Restful.save("/Children/Delete/", model).success(function (data) {					        
 					        $("#addChild").modal('hide');
-					        $alertify.logPosition("top right");
 					        $alertify.error("<b>Complete: </b> Delete Success.");
 					        $scope.init();
 					    });
@@ -354,7 +346,6 @@ app.controller(
         ***************************************/
 		$scope.saveAppPayment = function () {
 		    if($scope.applicationReviews.length === 0){
-		        $alertify.logPosition("top right");
 		        return $alertify.error("<b>Warning: </b> Please Add Application To Continue.");
 		    }
 		    var model = {
@@ -364,7 +355,6 @@ app.controller(
 		    Restful.save("/Payment/SaveAppPayment", model).success(function (data) {
 		        $scope.disabled = false;
 		        if (data.success) {
-		            $alertify.logPosition("top right");
 		            $alertify.success("<b>Complete: </b> Save success.");
 		            // redirect to review 
 		            return $window.location.href = '/Payment';

@@ -3,10 +3,14 @@ app.controller(
 	'$scope'
 	, 'Restful'
 	, '$location'
-	, function ($scope, Restful, $location){
+    , 'alertify'
+	, function ($scope, Restful, $location, $alertify) {
 	    $scope.save = function () {
 	        if ($scope.confirm_password != $scope.new_password) {
-	            return Materialize.toast('Confirmation Password Not Match!', 4000);
+	            return $alertify.error('Confirmation Password Not Match!');
+	        }
+	        if ($scope.new_password.length < 8) {
+	            return $alertify.error("New Password should be 8 character.");
 	        }
 	        var data = {
 	            oldPassword: $scope.old_password,
@@ -15,9 +19,9 @@ app.controller(
 	        Restful.save("/User/ChangePassword", data).success(function (data) {
 	            if (data.success) {
 	                $location.path("#/");
-	                return Materialize.toast('Save success. Password has been change', 4000);
+	                return $alertify.success("<b>Save success</b>. Password has been change."); 
 	            } else {
-	                return Materialize.toast('Invalid old password.', 4000);
+	                return $alertify.error('Invalid Old Password.');
 	            }
 	        });
 	    };

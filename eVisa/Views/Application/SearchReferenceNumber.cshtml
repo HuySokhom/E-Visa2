@@ -15,9 +15,12 @@
 
                 <label>Primary Email Address</label>
                 @Html.TextBox("PrimaryEmail", "", new { @class = "form-control", type = "email", required = "required", data_ng_model = "PrimaryEmail", })
-
+                <p class="message">
+                    <i class="fa fa-star-o"></i>
+                    Note: Please use primary email addresss only
+                </p>
                 <br />
-                <button class="btn btn-default" type="submit" data-ng-disabled="process">
+                <button class="btn btn-success" type="submit" data-ng-disabled="process">
                     <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
                     <i class="fa fa-search" data-ng-show="!process"></i>
                     Search

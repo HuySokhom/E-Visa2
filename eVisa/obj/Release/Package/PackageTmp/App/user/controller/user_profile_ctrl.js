@@ -119,5 +119,6 @@ app.controller(
 		$("#upload_image").change(function () {
 		    readURL(this);
 		});
+
 	}
 ]);

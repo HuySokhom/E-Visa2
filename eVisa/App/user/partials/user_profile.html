@@ -64,8 +64,8 @@
                 Not valid email.
             </div>
 
-            <label>Secondary E-mail <span class="require">*</span></label>
-            <input type="email" required class="form-control" name="SecondaryEmail" data-ng-model="Profile.SecondaryEmail" />
+            <label>Secondary E-mail</label>
+            <input type="email" class="form-control" name="SecondaryEmail" data-ng-model="Profile.SecondaryEmail" />
             <div class="message" ng-show="profile.SecondaryEmail.$error.email">
                 Not valid email.
             </div>
@@ -176,7 +176,7 @@
         <div class="clearfix"></div>
         <br />
         <div class="col-md-12">
-            <button class="btn aling-left btn-default" type="submit" data-ng-disabled="process">
+            <button class="btn aling-left btn-success" type="submit" data-ng-disabled="process">
                 <i class="fa fa-save" data-ng-show="!process"></i>
                 <i class="fa fa-refresh fa-spin" data-ng-show="process"></i>
                 Save

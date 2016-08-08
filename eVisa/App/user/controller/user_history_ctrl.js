@@ -8,7 +8,7 @@ app.controller(
 	    $scope.init = function () {
 	        Restful.get("/Application/History/").success(function (data) {
 	            $scope.history = data.data;
-	            console.log(data);
+	            //console.log(data);
 	        });
 	    };
 	    $scope.init();
