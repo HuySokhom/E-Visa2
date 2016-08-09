@@ -8,3 +8,6 @@ eVisa.v12.suo
 eVisa/bin/eVisa.dll
 eVisa/obj/*
 eVisa/obj/Debug/*
+*.dll
+eVisa/bin/eVisa.pdb
+*.pdb
